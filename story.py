@@ -321,6 +321,8 @@ def floor1(hero, game_menu):
         "éclairé seulement par quelques torches vacillantes. L’air est froid, chargé de l’odeur de pierre humide.[/italic]\n"
     )
     
+    console.print("Kael : 'Plus de retour en arrière possible hein ?'")
+    
     console.print(
         "[italic]Un silence pesant s’installe, comme si la tour elle-même retenait son souffle. "
         "Les bruits de pas résonnent à chaque mouvement, amplifiés par l’architecture de la salle. "
@@ -3644,7 +3646,7 @@ def floor7(hero, game_menu):
                     console.print("Aldric (croisant les bras) : 'Pourquoi cette salle… cette boîte ? Vous jouez avec nous.'"),
                     console.print("Archeon (gardant les yeux sur l'horizon) : 'Il faut parfois briser un guerrier pour voir ce qu'il vaut. "
                                   "Ce répit est une illusion. Ce que vous y verrez dépendra de vous.'"),
-                    console.print("[italic]Archeon semble mesurer chaque mot, comme s'il testait Aldric.[/italic]")
+                    console.print("[italic]Archeon semble mesurer chaque mot, comme s'il testait Aldric.[/italic]"),
                 ]
             },
             {
@@ -3653,13 +3655,12 @@ def floor7(hero, game_menu):
                     console.print("Aldric (fixant Archeon) : 'Vous cachez vos intentions. Qui êtes-vous réellement ?'"),
                     console.print("Archeon (un léger sourire aux lèvres) : 'Je suis le gardien de cette tour. Mais tu le sais déjà, n'est-ce pas ?'"),
                     console.print("Aldric (fronçant les sourcils) : 'Vous avez une drôle de façon de me parler…'"),
-                    console.print("Archeon (évasif) : 'Peut-être est-ce simplement la tour qui murmure en toi.'")
+                    console.print("Archeon (évasif) : 'Peut-être est-ce simplement la tour qui murmure en toi.'"),
                 ]
             },
             {
-                "text": "[bold yellow](Relation : Ami)[/bold yellow] Vous avez vu ces épreuves des centaines de fois… Que suis-je censé apprendre ?",
-                "condition": lambda h: h.get_relation("Archeon") and 
-                          h.get_relation("Archeon").score >= 20,
+                "text": "[bold yellow](Relation Archeon : Ami)[/bold yellow] Vous avez vu ces épreuves des centaines de fois… Que suis-je censé apprendre ?",
+                "condition": lambda h: h.get_relation("Archeon").score >= 20,
                 "consequence": lambda h: [
                     console.print("Archeon (baissant légèrement la tête) : 'Les épreuves sont des fenêtres sur vous-mêmes. "
                                   "Elles révèlent ce que vous refusez de reconnaître.'"),
@@ -3673,8 +3674,8 @@ def floor7(hero, game_menu):
                 ]
             },
             {
-                "text": "[bold red](Relation : Ennemi)[/bold red] Vous pensez que je ne mérite pas de continuer, n’est-ce pas ?",
-                "condition": lambda h: h.get_relation("Archeon") and h.get_relation("Archeon").score >= -20,
+                "text": "[bold red](Relation Archeon : Ennemi)[/bold red] Vous pensez que je ne mérite pas de continuer, n’est-ce pas ?",
+                "condition": lambda h: h.get_relation("Archeon").score <= -20,
                 "consequence": lambda h: [
                     console.print("Archeon (le regard froid) : 'Certains montent par nécessité, d'autres par erreur. "
                                   "Je ne suis pas sûr que la tour t'ait choisi pour les bonnes raisons.'"),
@@ -3739,7 +3740,7 @@ def floor7(hero, game_menu):
         "Comment répondez-vous à Garen ?",
     [
         {
-            "text": "[bold yellow](Relation + 50)[/bold yellow] 'Tu es plus fort que tu ne le penses, Garen.'",
+            "text": "[bold yellow](Relation Garen + 50)[/bold yellow] 'Tu es plus fort que tu ne le penses, Garen.'",
             "condition": lambda h: h.get_relation("Garen").score >= 50,
             "consequence": lambda h: [
                 console.print("Aldric (avec sincérité) : 'Tu as déjà fait tout ce chemin. C’est pas pour rien.'"),
@@ -3772,7 +3773,7 @@ def floor7(hero, game_menu):
             ]
         },
         {
-            "text": "[bold red](Relation ≤ -20)[/bold red] 'Tu devrais pas trop espérer. La tour prend tout.'",
+            "text": "[bold red](Relation Garen -20)[/bold red] 'Tu devrais pas trop espérer. La tour prend tout.'",
             "condition": lambda h: h.get_relation("Garen").score <= -20,
             "consequence": lambda h: [
                 console.print("[italic]Aldric reste immobile, perdu dans ses pensées. Son regard sombre embrasse la vallée lointaine, "
@@ -3837,8 +3838,8 @@ def floor7(hero, game_menu):
         "Que répondez-vous à Kael ?",
     [
         {
-            "text": "[bold yellow](Relation + 50)[/bold yellow] 'Ta famille a encore une chance, Kael. Et toi aussi.'",
-            "condition": lambda h: h.get_relation("Kael").score >= 50,
+            "text": "[bold yellow](Relation + 35)[/bold yellow] 'Ta famille a encore une chance, Kael. Et toi aussi.'",
+            "condition": lambda h: h.get_relation("Kael").score >= 35,
             "consequence": lambda h: [
                 console.print("Aldric (souriant doucement) : 'Tu portes plus que leur nom, Kael. Tu portes leur mémoire. "
                               "Si tu es encore debout, c’est parce que leur héritage est vivant en toi.'"),
@@ -3865,7 +3866,7 @@ def floor7(hero, game_menu):
             ]
         },
         {
-            "text": "[bold red](Relation ≤ -20)[/bold red] 'Garde tes illusions. L’honneur ne remplit pas les tombes.'",
+            "text": "[bold red](Relation -20)[/bold red] 'Garde tes illusions. L’honneur ne remplit pas les tombes.'",
             "condition": lambda h: h.get_relation("Kael").score <= -20,
             "consequence": lambda h: [
                 console.print("Aldric (sèchement) : 'Tu crois que l’honneur sauvera ta maison ? Ce n’est qu’un mirage.'"),
@@ -3881,10 +3882,869 @@ def floor7(hero, game_menu):
     ]
     )
     choix_kael.display(hero)
+    
+    console.print(
+    "\n[bold cyan]Alors qu'ils s'apprêtent à traverser la salle, Aldric et Kael s'arrêtent devant Zyn et Yohna. "
+    "Les deux jumeaux, adossés à une colonne, semblent les observer depuis un moment.[/bold cyan]"
+    )
+    console.print("Yohna (croisant les bras, fixant Aldric) : 'Dis-moi, Aldric… Comment tu fais pour arriver jusqu'ici avec juste une épée ?'")  
+    console.print("Zyn (reniflant) : 'Ouais. T'as même pas une égratignure. Tu triches, c'est ça ?'")  
+    console.print("[italic]Kael esquisse un léger sourire tandis qu’Aldric hausse les épaules.[/italic]")  
+    console.print("Aldric (amusé) : 'Va savoir. Peut-être que la tour m'aime bien.'")  
+    console.print("Yohna (ricanant doucement) : 'Hm, je doute que la tour aime qui que ce soit.'")  
+    console.print("Zyn (jetant un regard à sa sœur) : 'Pas même nous…'")  
+
+# 🎴 Background Invokeurs  
+    console.print(
+    "\n[bold yellow]Yohna détourne le regard vers le feu de la cheminée au centre de la pièce. "
+    "Sa voix s’adoucit, mais reste teintée d’amertume.[/bold yellow]"
+    )
+    console.print("Yohna : 'Nous venons d’Yzunfarl… Là-bas, les invokeurs étaient autrefois respectés. "
+              "Mais ça, c’était avant la chute. Avant la folie de Vilmar II.'")  
+    console.print("Kael (serrant les poings) : 'Encore ce foutu empereur…'")  
+    console.print("Zyn (d’une voix grave, fixant Aldric droit dans les yeux) : 'Quand les barbares du Nord ont attaqué l'Empire, "
+              "Vilmar II nous a tenus pour responsables. Il disait que nos pactes avec les esprits avaient attiré la malchance…'")  
+    console.print("[italic]Zyn serre les poings, la colère suintant dans sa voix.[/italic]")  
+    console.print("Zyn : 'L'Empereur a envoyé ses armées sur nous. Yzunfarl, la cité des nôtres, a été réduite en cendres. "
+              "Nos anciens ont été brûlés vifs, et ceux qui restaient ont fui dans les montagnes.'")  
+    console.print("Yohna (hoche la tête) : 'Nous étions des héros, et du jour au lendemain, nous sommes devenus des traîtres.'")  
+    console.print("Zyn : 'La tour est notre seule chance. On n’a pas de chez nous où retourner. On est ici pour nous endurcir.'")  
+    console.print("Kael (calmement, d’une voix emplie de compassion) : 'Je sais ce que c’est... de tout perdre à cause d'un souverain fou et sénile…'")  
+
+    console.print("[italic]Un silence lourd retombe. Zyn et Yohna observent Kael avec un mélange de curiosité et de méfiance.[/italic]")  
+    console.print("Zyn (voix basse) : 'Nous, on ne veut pas survivre. On veut voir l’Empire brûler comme Yzunfarl.'")  
 
 
 
+    choix_invokeurs = Dialogue(
+     "Que répondez-vous aux jumeaux ?",
+    [
+        {
+            "text": "C’est suicidaire. Vous devriez penser à vivre.",
+            "consequence": lambda h: [
+                console.print("Aldric (avec sincérité) : 'Je comprends votre colère. Mais mourir ne vous ramènera pas Yzunfarl. "
+                              "Vous êtes jeunes. Vous devriez penser à vivre, à reconstruire ailleurs.'"),
+                console.print("Yohna (baissant les yeux, un léger sourire triste aux lèvres) : 'Tu crois qu’on peut juste… abandonner tout ça ?'"),
+                console.print("[italic]Elle semble réfléchir, mais son regard brille encore d’une flamme vacillante.[/italic]"),
+                console.print("Zyn (froid, regard perçant) : 'Ce monde ne nous a laissé que la haine. "
+                              "Tant que Vilmar II respirera, aucune vie ne sera possible pour nous.' (Zyn -10 Yohna +20 )"),
+                h.get_relation("Yohna").adjust_score(+20),
+                h.get_relation("Zyn").adjust_score(-10)
+            ]
+        },
+        {
+            "text": "Personne n’aime l’Empereur… mais il est intouchable.",
+            "consequence": lambda h: [
+                console.print("Aldric (croisant les bras) : 'Même si je partage votre haine, Vilmar II n'est pas qu’un homme. "
+                              "Il est un symbole protégé par l’Empire. Si vous l’attaquez, vous signerez votre arrêt de mort.'"),
+                console.print("Yohna (secouant la tête, déçue) : 'Toujours la même rengaine…' (Yohna -10)"),
+                console.print("Zyn (plissant les yeux, plus déterminé que jamais) : 'Quelqu’un doit bien finir par essayer. "
+                              "On préfère mourir en défiant l’Empire que de vivre en mendiants et en amuseur de cirque.' (Zyn +10)"),
+                h.get_relation("Yohna").adjust_score(-10),
+                h.get_relation("Zyn").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Vous devriez vous venger. C’est votre droit.",
+            "consequence": lambda h: [
+                console.print("Aldric (posant sa main sur la garde de son épée) : 'Je ne vous dirai pas de renoncer. "
+                              "La vengeance est parfois la seule chose qui nous maintient debout.'"),
+                console.print("Yohna (souriant faiblement) : 'Tu es plus honnête que je pensais. Ça fait du bien d’entendre ça.' (Yohna +10)"),
+                console.print("Zyn (hoche la tête, un éclat sombre dans les yeux) : 'Tu comprends… mieux que beaucoup ici.' (Zyn +10)"),
+                h.get_relation("Yohna").adjust_score(+10),
+                h.get_relation("Zyn").adjust_score(+10)
+            ]
+        }
+    ]
+    )
 
+    choix_invokeurs.display(hero)
+
+
+    console.print("[italic]Alors que les jumeaux s'éloignent, Kael s'approche légèrement d'Aldric, le regard pensif.[/italic]")
+    console.print("Kael (murmure) : 'Ils ont de la hargne. Je leur reconnais ça. Mais ils finiront par se brûler.'")  
+    console.print("Aldric (calme, fixant la cheminée) : 'Peut-être. Mais parfois, il faut laisser brûler ce qui ne peut plus être éteint.'")  
+    console.print("[italic]Kael ne répond pas, et les deux hommes rejoignent le reste du groupe, laissant derrière eux la chaleur du feu et la froideur de la vengeance des invokeurs.[/italic]")  
+
+
+    console.print("\n[bold yellow]Aldric s’installe seul près d’une table basse, jouant distraitement avec une miche de pain tout en observant la flamme dans la cheminée. "
+              "Ses pensées dérivent vers Archeon. Ce regard... cette familiarité. Avait-il vraiment déjà vu cet homme ailleurs ? Ou était-ce une illusion savamment tissée par la tour ?[/bold yellow]")  
+    console.print("[italic]Chaque mot d'Archeon résonne encore dans son esprit, éveillant un malaise qu'il ne parvient pas à chasser.[/italic]")  
+
+    console.print("[bold cyan]Durnir[/bold cyan] (calme) : 'Les questions qui te rongent ne trouveront pas toutes de réponse ce soir.'")  
+    console.print("[italic]Aldric lève les yeux. Le vieux mage s’est approché en silence, s’installant en face de lui avec une tasse fumante dans la main.[/italic]")  
+
+    console.print("Aldric (curieux) : 'Je ne vous ai pas vu approcher…'")  
+    console.print("Durnir (souriant doucement) : 'Je marche avec le poids des ans, jeune homme. Il m’arrive d’être aussi léger qu’un souffle.'")  
+
+    console.print("[italic]Un silence confortable s'installe. Seul le crépitement du feu emplit l’espace, jusqu’à ce que Durnir rompe à nouveau le silence.[/italic]")  
+    console.print("Durnir : 'Je ne suis pas surpris que tu sois arrivé si haut dans la tour. Je t’ai observé, étage après étage. Tu as cet esprit…'")  
+    console.print("Aldric (fronçant les sourcils) : 'Quel esprit ?'")  
+    console.print("Durnir : 'Celui qui continue de grimper même quand tout s’effondre autour de lui. Ce genre d’âme finit toujours par se démarquer.'")  
+
+
+    choix_durnir = Dialogue(
+        "Que demandez-vous à Durnir ?",
+    [
+        {
+            "text": "Que savez-vous de cette tour ?",
+            "consequence": lambda h: [
+                console.print("Aldric (le regard fixé sur Durnir) : 'Vous semblez en savoir plus que vous ne le laissez entendre. "
+                              "Que savez-vous vraiment de cette tour ?'"),
+                console.print("Durnir (penchant la tête) : 'Pas plus que ce que les vieux livres racontent. La tour a toujours été là. "
+                              "Mais sa construction ne relève d’aucune ingénierie humaine.'"),
+                console.print("[italic]Son regard s'assombrit légèrement.[/italic]"),
+                console.print("Durnir : 'Même l'Empereur et les seigneurs de l’Empire redoutent cette tour. "
+                              "C'est là la preuve de sa longévité millénaire.'"),
+                console.print("Aldric (pensif) : 'Vous parlez comme si la tour avait sa propre volonté.'"),
+                console.print("Durnir (souriant faiblement) : 'Peut-être que c'est le cas… Peut-être pas. Les légendes laissent souvent de la place au doute.'(Durnir +15)"),
+                h.get_relation("Durnir").adjust_score(+15)
+            ]
+        },
+        {
+            "text": "Avez-vous encore ce livre qui parle de la tour ?",
+            "consequence": lambda h: [
+                console.print("Aldric (intéressé) : 'Vous aviez mentionné des livres. En avez-vous encore un sur la tour ?'"),
+                console.print("Durnir (secouant la tête) : 'Non, malheureusement. Les livres anciens ont été saisis… ou brûlés. "
+                              "La peur de ce que nous ne comprenons pas pousse souvent les puissants à détruire ce qui pourrait les éclairer.'"),
+                console.print("Aldric : 'Quel dommage…'"),
+                console.print("Durnir (d’une voix posée) : 'Les réponses sont peut-être ailleurs, Aldric. "
+                              "Ce n’est pas toujours dans les pages que nous trouvons ce que nous cherchons.'(Durnir +10)"),
+                h.get_relation("Durnir").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Êtes-vous déjà venu ici auparavant ?",
+            "consequence": lambda h: [
+                console.print("Aldric (observant Durnir avec insistance) : 'Vous semblez étrangement familier avec cet endroit. "
+                              "Est-ce la première fois que vous gravissez la tour ?'"),
+                console.print("Durnir (sourire énigmatique) : 'Le temps est un étrange compagnon, Aldric. "
+                              "Parfois, il semble nous ramener à des lieux que l’on croyait oubliés…'"),
+                console.print("[italic]Le vieux mage ne répond pas directement, laissant planer le doute. "
+                              "Aldric choisit de ne pas insister, sentant qu'il n'obtiendra rien de plus pour l'instant.[/italic]")
+                
+            ]
+        }
+    ]
+    )
+
+    choix_durnir.display(hero)
+    console.print("Aldric (se gratte la tête) : Durnir j'ai encore une question..")
+    console.print("Durnir : Dites moi !")
+    choix_motivation = Dialogue(
+        "Que voulez-vous savoir d’autre ?",
+    [
+        {
+            "text": "Pourquoi êtes-vous ici ? Que cherchez-vous vraiment ?",
+            "consequence": lambda h: [
+                console.print("Aldric : 'Vous semblez avoir vos propres raisons de grimper cette tour. "
+                              "Qu’espérez-vous y trouver, Durnir ?'"),
+                console.print("Durnir (posant sa tasse) : 'L’Académie d’Urdragen s’effondre. La magie perd du terrain. "
+                              "Les décrets anti-magie de l’Empire affaiblissent nos rangs. "
+                              "Je crains que bientôt, les mages ne soient plus que des reliques chassées.'"),
+                console.print("Aldric (froid) : 'Vous pensez que l’Empire vous traquera jusqu’au dernier ?'"),
+                console.print("Durnir (calme) : 'Ils ont peur de ce qu’ils ne contrôlent pas. La tour… pourrait cacher "
+                              "un artefact qui redonnera espoir. Ou du moins, une raison de croire.'")
+            ]
+        },
+        {
+            "text": "Vous croyez qu’il existe réellement quelque chose au sommet de cette tour ?",
+            "consequence": lambda h: [
+                console.print("Aldric (dubitatif) : 'Tout le monde monte ici dans l’espoir de trouver quelque chose. "
+                              "Mais peut-être qu’il n’y a rien.'"),
+                console.print("Durnir (souriant doucement) : 'L’existence même de cette tour est déjà un miracle. "
+                              "Elle défie les lois du monde, Aldric. Et parfois, c’est suffisant pour espérer.'")
+            ]
+        }
+    ]
+    )
+
+    choix_motivation.display(hero)
+    
+    console.print("Durnir (se levant avec son thé) : 'Sur ceux mon jeune ami, j'ai un bon vieux grimoir qui m'attend, vous m'en excuserais hehe !'")
+    console.print("Aldric : 'Bien sur !'")
+    
+    console.print("\n[bold red]Clotaire est assis seul près d’une colonne, le regard plongé dans la danse des flammes. "
+              "Son visage est marqué par l’ombre du deuil. Emphyr l’observe de loin un instant, puis s’approche silencieusement.[/bold red]")  
+    console.print("Emphyr (calme) : 'Ça te ressemble pas de rester silencieux aussi longtemps…'")  
+    console.print("[italic]Clotaire ne lève pas les yeux. Il se contente de hausser les épaules, un sourire amer étirant brièvement ses lèvres.[/italic]")  
+    console.print("Clotaire : 'C’est juste que… y’a plus personne pour parler à ma place, maintenant.'")  
+    console.print("Emphyr (s’installant à côté de lui) : 'Brandio et Velm, c’est ça ?'")  
+
+    console.print("[italic]Clotaire hoche lentement la tête. Il fixe ses mains calleuses, comme si elles portaient encore les traces du sang de ses compagnons perdus.[/italic]")  
+    console.print("Clotaire (d’un ton distant) : 'Je les ai rencontrés y’a longtemps. Des années, même. J’étais un môme des bas-fonds… "
+              "Un orphelin qui volait pour survivre. C’était ça, ou crever de faim.'")  
+
+#Flashback – Rencontre avec Velm et Brandio : 
+    console.print("\n[bold cyan]Clotaire (perdu dans ses souvenirs) : 'Je vivais dans un bordel. C’étaient les filles là-bas qui m’ont élevé… "
+              "Elles m’appelaient “leur petit voleur”.'[/bold cyan]")  
+    console.print("Clotaire (souriant tristement) : 'Elles disaient que j’avais des doigts de fée, parfaits pour détrousser les nobles distraits. "
+              "Elles m’ont appris à parler, à charmer, et à survivre.'")  
+    console.print("[italic]Il marque une pause, son regard se durcissant légèrement.[/italic]")  
+    console.print("Clotaire : 'Un jour, y’avait ce bateau qui accostait au port. J’vois Velm… enfermé dans une cage. "
+              "Ils allaient l’exécuter pour vol. Un simple môme qui essayait juste de bouffer.'")  
+    console.print("Emphyr (curieuse) : 'Tu l’as libéré, pas vrai ?'")  
+
+    console.print("[italic]Clotaire hoche la tête avec un éclat fugace dans les yeux.[/italic]")  
+    console.print("Clotaire : 'Ouais… Je m’suis infiltré dans le fort cette nuit-là. Mais pendant que j’ouvrais sa cage, "
+              "j’suis tombé sur un garde… Brandio.'")  
+
+    console.print("[italic]Un sourire nostalgique éclaire brièvement son visage.[/italic]")  
+    console.print("Clotaire : 'Brandio était pas comme les autres. Il m’a pas arrêté. Je crois qu’il s’est juste laissé emporter par mon baratin. "
+              "Ou alors, il avait besoin d’une excuse pour quitter cette foutue garde. Il était déjà corrompu jusqu’à l’os de toute façon.'")  
+
+    console.print("Emphyr (amusée) : 'Tu l’as convaincu de déserter sur-le-champ, c’est ça ?'")  
+    console.print("Clotaire : 'J’lui ai parlé d’un rêve. D’une terre au-delà des mers… Une femme du bordel m’avait raconté ça quand j’étais gosse. "
+              "Des contrées lointaines pleines de richesses, où les bêtes sont plus grandes que des chevaux, ou les batiments sont fait d'or ! "
+              "Je leur ai dit qu’on quitterait cet Empire desolant et en lambeaux et qu’on irait là-bas ensemble.'")  
+
+    console.print("[italic]Clotaire laisse échapper un rire sans joie.[/italic]")  
+    console.print("Clotaire : 'On y croyait. On a passé des années à amasser de quoi fuir. Sauf qu’on n’aura pas quitté cette tour tout les trois'"
+                "On devait recupéré l'artefact, si il existe...et partir loin...ni vu....ni connu...peu importe le moyen")
+
+
+
+#Retour au Présent – Emphyr Tente de Le Raisonner :**  
+
+    console.print("Emphyr (doucement) : 'Ce rêve… il vit encore en toi ?'")  
+    console.print("[italic]Clotaire ne répond pas immédiatement. Il fixe la flamme, l’ombre de Velm et Brandio flottant derrière ses yeux.[/italic]")  
+    console.print("Clotaire : 'Non. Il est mort avec eux. ici...dans cette tour...'")  
+
+    console.print("[italic]Emphyr pose une main légère sur son épaule.[/italic]")  
+    console.print("Emphyr (doucement) : 'Ils ne voudraient pas te voir abandonner, Clotaire.'")  
+    console.print("Clotaire (amèrement) : 'Peut-être. Mais ce monde, il n’a jamais eu de place pour nous. "
+              "On était juste trois reveurs qui essayaient de s’en sortir. 10 ans plus tard ils sont mort et moi je radote de vieux souvenirs'")  
+
+    console.print("[italic]Un silence s’installe à nouveau, mais cette fois, il semble plus léger, comme si Emphyr avait réussi à alléger "
+              "ne serait-ce qu’une partie du fardeau de Clotaire.[/italic]")  
+
+    console.print("\n[bold green]Gallius est adossé contre un pilier près de la fenêtre, jouant distraitement avec l’une de ses dagues. "
+              "Aldric s’approche, et sans lever les yeux, Gallius devine sa présence.[/bold green]")  
+    console.print("Gallius (sans détourner le regard) : 'T’as fini tes discours de héros avec tout le monde ? ?'")  
+    console.print("Aldric (souriant) : 'Je tue le temps. Et j'ecouter Clotaire et Emphyr, discretement.'")  
+    console.print("[italic]Gallius fait tourner sa dague entre ses doigts, un éclat d’amusement dans les yeux.[/italic]")  
+    console.print("Gallius : 'Ah… Il s’accroche encore. Je suppose qu’on doit tous porter nos fantômes d’une manière ou d’une autre.'")  
+
+#Gallius se Livre :**  
+    console.print("[italic]Un silence s’installe alors qu’ils regardent l’Empire à travers l'arche qui mene à la terasse' "
+              "Aldric s’appuie contre le même pilier, observant Gallius du coin de l’œil.[/italic]")  
+    console.print("Aldric (curieux) : 'Et toi ? Pourquoi tu es là ?'")  
+
+    console.print("[italic]Gallius ricane doucement, levant finalement les yeux vers Aldric.[/italic]")  
+    console.print("Gallius : 'Tu veux vraiment savoir ? Je suis un assassin. Rien de plus.'")  
+    console.print("Gallius (léger sourire) : 'Je viens du sud, de Qaziera. Là-bas, on dit que tant qu’il y a des hommes, il y aura toujours du travail.'")  
+    console.print("[italic]Il marque une pause, jouant distraitement avec la lame.[/italic]")  
+    console.print("Gallius : 'J’ai tué des généraux en pleine bataille. Des seigneurs dans leurs châteaux. Des prêtres devant leurs autels. "
+                "Certains m’appellent “l'ombre de Qaziera”. Mais pour moi… c’est juste un boulot.'")  
+
+    console.print("Aldric (fronçant les sourcils) : 'Et maintenant ?'")  
+    console.print("Gallius (en baillant): 'Hm… Maintenant, les contrats manquent. J’ai tellement “fait le ménage” que je suis à court de cibles.'")  
+    console.print("[italic]Il rit brièvement, un rire sec et sans joie.[/italic]")  
+    console.print("Gallius : 'Alors je suis venu ici. J’me suis dit que la tour, c’était comme des congés. Tu vois, un peu de repos… au sommet du chaos.'")  
+
+
+    choix_gallius = Dialogue(
+        "Que répondez-vous à Gallius ?",
+    [
+        {
+            "text": "Tu prends ça à la légère… Mais ça pourrait bien te tuer.",
+            "consequence": lambda h: [
+                console.print("Aldric (croisant les bras) : 'La tour n’est pas un terrain de jeu. "
+                              "Tu sais que tu risques ta vie à chaque étage.'"),
+                console.print("Gallius (haussement d’épaules) : 'Je risque ma vie chaque fois que je respire. "
+                              "Mais t’inquiète pas pour moi. J’ai survécu à pire.'"),
+                console.print("[italic]Gallius semble amusé, mais une lueur plus sérieuse traverse brièvement ses yeux.[/italic](Gallius +5)"),
+                h.get_relation("Gallius").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "Tu dois vraiment aimer ça… Le sang, la chasse.",
+            "consequence": lambda h: [
+                console.print("Aldric : 'On dirait que t’as pas besoin d’une raison pour tuer. "
+                              "C’est naturel, chez toi.'"),
+                console.print("Gallius (sourire en coin) : 'Peut-être bien. "
+                              "La chasse, c’est comme respirer. Facile. Mais tu sais ce qui est difficile ? Arrêter.'"),
+                console.print("[italic]Gallius s’appuie contre le pilier, l’air détendu, mais ses yeux restent perçants.[/italic](Gallius +10)"),
+                h.get_relation("Gallius").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Tu crois que la tour peut vraiment t’apporter quelque chose ?",
+            "consequence": lambda h: [
+                console.print("Aldric (calmement) : 'Tu parles comme si tout ça n’avait aucune importance. "
+                              "Mais au fond, pourquoi tu grimpes encore plus haut ?'"),
+                console.print("Gallius (baisse les yeux un instant) : 'Je me le demande moi-même. "
+                              "Peut-être qu’au sommet, y’aura plus rien à chasser. "
+                              "Ou peut-être que je trouverai enfin quelque chose d’assez fort pour m’arrêter.'"),
+                console.print("[italic]Un silence s’installe. Gallius garde un air impassible, mais Aldric sent un éclat de vérité dans ses mots.[/italic]"),
+                h.get_relation("Gallius").adjust_score(+15)
+            ]
+        }
+    ]
+    )
+
+    choix_gallius.display(hero)
+    
+    console.print("[italic]Gallius range finalement sa dague, se redressant lentement.[/italic]")  
+    console.print("Gallius : 'Allez, c’est assez de confidences pour aujourd’hui. "
+              "Je vais jeter un œil à cette fameuse boîte… Peut-être qu’elle a quelque chose à m’offrir.'")  
+    console.print("Aldric (en souriant) : 'Si elle cache un contrat, je te le laisse.'")  
+    console.print("[italic]Gallius éclate de rire en s’éloignant, laissant Aldric seul avec ses pensées.[/italic]")  
+
+    console.print("\n[bold magenta]Emphyr est assise près de la cheminée, les flammes projetant des ombres dansantes sur son visage. "
+              "Elle tend ses mains vers le feu, l’air pensif, tandis que la pluie martèle doucement les vitres.[/bold magenta]")  
+    console.print("[italic]Aldric s’approche lentement, cherchant à se réchauffer lui aussi. Emphyr lève brièvement les yeux vers lui, mais ne dit rien.[/italic]")  
+    console.print("Aldric : 'Clotaire va bien ?'")  
+    console.print("Emphyr (soupirant doucement) : 'Il s’en remettra. Mais tu sais que ce n’est pas à moi de dire ça.'")  
+    console.print("Aldric (baissant les yeux) : 'Je n’ai pas voulu tuer un de ses amis… Ça s’est imposé.'")  
+    console.print("Emphyr (légère amertume) : 'Je sais. La tour impose ses choix. Et toi, tu les exécutes.'")  
+
+#Les Secrets d'Emphyr :**  
+    console.print("[italic]Un silence s’installe, seulement brisé par le crépitement du feu. Aldric observe la femme, intrigué par cette aura raffinée et distante.[/italic]")  
+    console.print("Aldric (curieux) : 'Je me demande… Pourquoi une femme comme toi s’engagerait dans la tour ?'")  
+    console.print("[italic]Emphyr sourit légèrement, posant son menton sur sa main, son regard se perdant dans les flammes.[/italic]")  
+    console.print("Emphyr : 'J’ai mes petits secrets.'")  
+    console.print("Aldric : 'Oh, je n’en doute pas.'")  
+
+    console.print("[italic]Elle glisse son regard vers lui, l’ombre d’un amusement dans les yeux.[/italic]")  
+    console.print("Emphyr (doucement) : 'Mais si tu veux savoir… Je travaille pour l’Empereur.'")  
+    console.print("[italic]Aldric marque une pause, surpris. Il fronce les sourcils, cherchant à déceler si elle plaisante.[/italic]")  
+    console.print("Aldric : 'L’Empire a envoyé quelqu’un dans la tour. Ça ne me surprend pas. "
+              "Quand il s’agit de cupidité, Vilmar et ses courtisans savent y faire.'")  
+    console.print("Emphyr (amusée) : 'Tu parles comme si tu connaissais l’Empire mieux que moi.'")  
+
+    console.print("Aldric : 'Je l’ai vu s’effondrer, en même temps que l’état mental de Vilmar II. "
+              "Et toi, comment tu as survécu jusque-là ? Tu n’as rien montré de… remarquable.'")  
+    console.print("[italic]Emphyr se redresse, et du bout des doigts, elle caresse doucement la joue d’Aldric, "
+              "son sourire s’étirant mystérieusement.[/italic]")  
+    console.print("Emphyr (souriante) : 'C’est un autre de mes secrets.'")  
+
+
+
+#Dialogue – Approfondir ou Rompre la Distance :
+
+    choix_emphyr = Dialogue(
+        "Que répondez-vous à Emphyr ?",
+    [
+        {
+            "text": "[bold magenta] 'Tu es pleine de mystères… Mais ça me plaît.' (Flirt) [/bold magenta]",
+            "consequence": lambda h: [
+                console.print("Aldric (léger sourire) : 'J'aime garder le mystere autour de moi'"),
+                console.print("[italic]Emphyr arque un sourcil, un éclat joueur dans le regard.[/italic]"),
+                console.print("Emphyr (doucement) : 'Ce genre de garçons, avec un regard déterminé… Je les aime bien.' (Emphyr +20)"),
+                h.get_relation("Emphyr").adjust_score(+20)
+            ]
+        },
+        {
+            "text": "[bold yellow] 'Je doute que l’Empire cherche quoi que ce soit d’altruiste ici.' [/bold yellow]",
+            "consequence": lambda h: [
+                console.print("Aldric : 'L’Empire n’a jamais agi sans raison cachée. Toi non plus, j’imagine.'"),
+                console.print("[italic]Emphyr esquisse un sourire fin.[/italic]"),
+                console.print("Emphyr : 'Tu apprends vite. Mais parfois, la survie impose des alliances.'"),
+                h.get_relation("Emphyr").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "[bold red] 'Tu dois vraiment beaucoup à l’Empereur pour risquer ta vie ici.' [/bold red]",
+            "consequence": lambda h: [
+                console.print("Aldric (sérieusement) : 'Il t’a envoyé ici, mais qu’est-ce qu’il t’a donné en échange ?'"),
+                console.print("[italic]Emphyr détourne brièvement les yeux, jouant avec une mèche de ses cheveux.[/italic]"),
+                console.print("Emphyr (à voix basse) : 'Il m’a recueillie. Pas directement… mais un prince électeur l’a fait.'"),
+                h.get_relation("Emphyr").adjust_score(-5)
+            ]
+        }
+    ]
+    )   
+    choix_emphyr.display(hero)
+    
+    console.print("[italic]Aldric se redresse, mais il sent que la confidence d’Emphyr n’est pas passée inaperçue.[/italic]")  
+    console.print("Kael (restant dans l’ombre) : '[italic]Hm… Elle travaille pour l’Empire…[/italic]'")  
+    console.print("[italic]Kael ne dit rien de plus, mais Aldric devine que son ancien rival ne manquera pas de garder ça à l’esprit.[/italic]")  
+
+    console.print("[italic]Plus tard, Ayela s’approche d’Aldric, les bras croisés, une lueur de jalousie dans le regard.[/italic]")  
+    console.print("Ayela : 'Tu passes beaucoup de temps avec cette fille… Je devrais m’inquiéter ?'")  
+
+    choix_ayela = Dialogue(
+        "Comment répondez-vous à Ayela ?",
+    [
+        {
+            "text": "Ce n’est rien, juste une conversation.",
+            "consequence": lambda h: [
+                console.print("Aldric (souriant) : 'Tu sais que tu es la seule à m’inquiéter, Ayela.'"),
+                console.print("[italic]Ayela rougit légèrement mais détourne le regard.[/italic]"),
+                h.get_relation("Ayela").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "J’ai besoin de connaître tout le monde ici. Y compris Emphyr.",
+            "consequence": lambda h: [
+                console.print("Aldric (calmement) : 'On doit tous s’entendre. Je m’assure que personne ne nous poignarde dans le dos.'"),
+                console.print("Ayela (hochant la tête) : 'Hm… Ouais. Ça se tient.'"),
+                h.get_relation("Ayela").adjust_score(+0)
+            ]
+        }
+    ]
+    )
+    choix_ayela.display(hero)
+    
+    console.print("\n[bold green]Ayela attrape discrètement la main d’Aldric, l’entraînant à l’écart des autres. "
+              "Ils s’arrêtent dans un coin sombre de la salle, près d’une fenêtre donnant sur la pluie battante.[/bold green]")  
+    console.print("Ayela (à voix basse) : 'Je voulais te parler… sans qu’on soit dérangés.'")  
+    console.print("[italic]Aldric croise son regard. L’inquiétude se lit dans ses yeux verts, voilée par une ombre de mélancolie.[/italic]")  
+    console.print("Aldric (calme) : 'Qu’est-ce qui te tracasse ?'")  
+    console.print("Ayela (hésitante) : 'J’ai peur… Je ne veux pas mourir ici. Je sais que c’est stupide…'")  
+
+    console.print("[italic]Elle s’appuie contre le mur, jouant nerveusement avec une mèche de ses cheveux.[/italic]")  
+    console.print("Ayela : 'Je pensais que… fuir dans cette tour était la solution. J’espérais trouver un remède… "
+              "Mais je crois que j’étais juste une gamine effrayée qui voulait fuir la réalité.'")  
+    console.print("Aldric (doucement) : 'Tu es plus forte que tu ne le crois. Tu as survécu jusqu’ici.'")  
+    console.print("Ayela (léger sourire) : 'Peut-être… mais tu me connais. J’ai toujours été impulsive. "
+              "Petite, je rêvais de quitter la forêt. Je voulais chasser des créatures légendaires comme le cerf doré de Hurfal…'")  
+    console.print("[italic]Son regard s’illumine brièvement, mais s’assombrit presque aussitôt.[/italic]")  
+    console.print("Ayela : 'Mais maintenant… Je me demande si je verrai encore un matin.'")  
+
+
+##Dialogue – Romance ou Amitié :**  
+
+    choix_ayela_intime = Dialogue(
+        "Que répondez-vous à Ayela ?",
+    [
+        {
+            "text": "[bold magenta](Relation +80) 'Tu n’as pas à affronter ça seule…' (Romance) [/bold magenta]",
+            "condition": lambda h: h.get_relation("Ayela").score >= 80,
+            "consequence": lambda h: [
+                console.print("[italic]Aldric s’approche doucement, glissant ses doigts le long de la joue d’Ayela.[/italic]"),
+                console.print("Aldric (chuchotant) : 'Je suis là. On affrontera cette tour ensemble.'"),
+                console.print("[italic]Ayela s’appuie contre lui, fermant brièvement les yeux comme pour savourer ce moment éphémère.[/italic]"),
+                console.print("Ayela (souriant) : 'Tu devrais savoir… Je suis tombée amoureuse d’un idiot impulsif qui fonce toujours tête baissée.'"),
+                console.print("[italic]Aldric ne répond pas, se contentant de glisser une main autour d’elle, partageant la chaleur du moment.[/italic](Ayela +10)"),
+                h.get_relation("Ayela").set_relationship_type("Romance"),
+                h.get_relation("Ayela").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "[bold yellow](Relation +80) 'Je préfère qu’on reste amis. Mais je serai toujours là.' [/bold yellow]",
+            "condition": lambda h: h.get_relation("Ayela").score >= 80,
+            "consequence": lambda h: [
+                console.print("Aldric (doucement) : 'Je tiens à toi, Ayela. Mais pour l’instant, mieux vaut qu’on se concentre sur la tour.'"),
+                console.print("[italic]Ayela baisse les yeux un instant, puis hoche doucement la tête, compréhensive.[/italic]"),
+                console.print("Ayela (souriante mais résignée) : 'Je comprends… La tour ne nous laisse pas vraiment le temps pour autre chose.'"),
+                console.print("[italic]Malgré tout, Aldric sent qu’un lien profond s’est formé entre eux.[/italic](Ayela -5)"),
+                h.get_relation("Ayela").set_relationship_type("Ami"),
+                h.get_relation("Ayela").adjust_score(-5)
+            ]
+        },
+        {
+            "text": "[bold yellow] 'Tu n’es pas seule. Tu es plus forte que tu le crois.' [/bold yellow]",
+            "condition": lambda h: h.get_relation("Ayela").score < 80,
+            "consequence": lambda h: [
+                console.print("Aldric (souriant) : 'Je sais que tu n’aimes pas l’admettre, mais tu es bien plus forte que tu ne le crois.'"),
+                console.print("Ayela (légèrement émue) : 'C’est gentil… Je suis contente de t’avoir rencontré, Aldric.'"),
+                console.print("[italic]Aldric tape doucement sur l’épaule d’Ayela, ramenant une atmosphère plus légère entre eux.[/italic]"),
+                h.get_relation("Ayela").adjust_score(+0)
+            ]
+        }
+    ]
+    )
+    choix_ayela_intime.display(hero)
+    
+    console.print("[italic]Alors qu’ils retournent près du feu, Aldric remarque Kael appuyé contre une colonne, observant la scène sans un mot.[/italic]")  
+    console.print("Kael (calme) : '[italic]Hm… Elle s’attache trop facilement…[/italic]'")  
+    console.print("[italic]Kael détourne rapidement le regard lorsqu’Ayela s’approche.[/italic]")  
+
+    console.print("Ayela (bousculant légèrement Aldric) : 'Tu sais… Je commence à me demander ce que tu fais vraiment avec Emphyr. "
+              "Tu devrais peut-être faire attention.'")  
+
+    choix_jalousie = Dialogue(
+        "Que répondez-vous à Ayela ?",
+    [
+        {
+            "text": "Tu es la seule dont je me soucie vraiment.",
+            "consequence": lambda h: [
+                console.print("Aldric (amusé) : 'Emphyr, hein ? Tu n’as rien à craindre. "
+                              "Tu es la seule personne dont je me soucie vraiment ici.'"),
+                console.print("[italic]Ayela sourit malicieusement, clairement satisfaite de la réponse.[/italic]"),
+                h.get_relation("Ayela").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "Ne sois pas jalouse. On est tous du même côté.",
+            "consequence": lambda h: [
+                console.print("Aldric (léger sourire) : 'Tu n’as pas à t’inquiéter. "
+                              "On survit mieux quand on s’entend bien avec tout le monde.'"),
+                console.print("Ayela (levant un sourcil) : 'Hmph. J’espère que c’est vrai…'"),
+                h.get_relation("Ayela").adjust_score(+0)
+            ]
+        }
+    ]
+    )
+    choix_jalousie.display(hero)
+    
+    console.print("\n[bold cyan]Les heures passent lentement. Chacun des participants s’occupe comme il peut, savourant ce court répit offert par la tour.[/bold cyan]")
+
+    console.print("[italic]Assis près de l’âtre, Garen retire ses bottes usées, étendant ses pieds endoloris. "
+              "Les semelles abîmées témoignent du long périple qu’il a enduré jusqu’ici.[/italic]")
+
+    console.print("[bold]Kael[/bold] (souriant légèrement) : 'Des bottes pareilles… Tu devrais les laisser ici. Elles n'atteindront pas l'étage suivant.'")
+    console.print("[bold]Garen[/bold] (grognant) : 'Elles sont pas belles, mais elles tiennent. Ça me suffit.'")
+    console.print("[italic]Kael secoue la tête, amusé, mais il n’y a plus cette pointe de condescendance habituelle dans sa voix.[/italic]")
+    console.print("[bold]Kael[/bold] (d'un ton sincère) : 'Je plaisante, gamin. Respect pour être allé aussi loin. T’aurais pu abandonner depuis longtemps.'")
+    console.print("Garen (souriant timidement) : 'Tant qu’on avance…'")
+
+    console.print("[italic]Pendant ce temps, Durnir s’approche silencieusement de la boîte au centre de la salle. "
+              "Ses doigts glissent sur la surface froide et lisse, traçant les lignes gravées presque invisibles à l’œil nu.[/italic]")
+    console.print("[bold]Durnir[/bold] (murmurant) : 'Quel genre de magie êtes-vous… ?'")
+    
+    console.print("\n[italic]Tandis que les flammes crépitent doucement, Yohna se dirige discrètement vers Aldric, s’asseyant à ses côtés.[/italic]")
+    console.print("[bold]Yohna[/bold] (curieuse) : 'Tu n’as jamais dit pourquoi tu es venu ici. On parle tous de nos raisons… sauf toi.'")
+
+    console.print("[italic]Ayela, adossée contre un mur proche, lève la tête et acquiesce doucement.[/italic]")
+    console.print("[bold]Ayela[/bold] : 'C’est vrai… Même Garen s’est confié. Mais toi, Aldric, tu gardes tout pour toi.'")
+    console.print("[bold]Garen[/bold] (hochant la tête) : 'Ouais, c’est louche ça. T’as pas envie de parler ?'")
+
+    console.print("[italic]Aldric hésite un instant, observant les flammes comme s’il cherchait ses mots. "
+              "Il ouvre la bouche, mais avant qu’il ne puisse dire quoi que ce soit, une voix cynique s’élève derrière lui.[/italic]")
+
+    console.print("[bold]Clotaire[/bold] (sarcastique) : 'Laissez-moi deviner. Il est venu ici pour savourer son petit droit de vie ou de mort. "
+              "Ce genre de tour attire toujours les sadiques dans son genre.'")
+    
+    choix_tension = Dialogue(
+        "Que faites-vous face à la provocation de Clotaire ?",
+    [
+        {
+            "text": "Écouter Yohna, Ayela et Garen et apaiser la situation.",
+            "consequence": lambda h: [
+                console.print("[bold]Yohna[/bold] (se levant) : 'Ça suffit, Clotaire. Personne n’a besoin de ça maintenant.'"),
+                console.print("[bold]Ayela[/bold] (croisant les bras) : 'Tu n'es pas le seul à avoir perdu des proches ici. Laisse-le tranquille.'"),
+                console.print("[bold]Garen[/bold] (plus ferme) : 'On est dans la même galère. Inutile de chercher des ennemis supplémentaires.'"),
+                console.print("[italic]Le regard de Clotaire s’assombrit, mais il détourne finalement les yeux, murmurant pour lui-même.[/italic](Ayela, Yohna et Garen +10)"),
+                console.print("[bold]Emphyr[/bold] : 'Oh encore...Ca suffit Clotaire...tes provocations ne riment a rien désormais..'"),
+                h.get_relation("Yohna").adjust_score(+10),
+                h.get_relation("Ayela").adjust_score(+10),
+                h.get_relation("Garen").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Laisser Clotaire provoquer et se rapprocher de Kael et Gallius.",
+            "consequence": lambda h: [
+                console.print("[bold]Kael[/bold] (haussant les épaules) : 'Il n’a pas tort. Cette tour transforme tout le monde.'"),
+                console.print("[bold]Gallius[/bold] (calme, sans lever les yeux) : 'Le droit de vie ou de mort, c’est pas si mal comme distraction.'"),
+                console.print("[italic]Aldric garde le silence, se rapprochant instinctivement de Kael et Gallius, laissant Clotaire poursuivre.(Clotaire,Gallius et Kael +10)[/italic]"),
+                console.print("[bold]Zyn[/bold]: 'Oui entretuait vous ! je commencer a m'ennuyer !'"),
+                h.get_relation("Kael").adjust_score(+10),
+                h.get_relation("Gallius").adjust_score(+10),
+                h.get_relation("Clotaire").adjust_score(+10),
+                h.get_relation("Zyn").adjust_score(+10)
+            ]
+        }
+    ]
+    )
+
+    choix_tension.display(hero)
+
+
+    console.print("\n[italic]Avant que les tensions ne puissent s’envenimer davantage, une présence imposante s’élève derrière eux.[/italic]")
+    console.print("[bold red]Archeon[/bold red] (s’approchant lentement) : 'Hm… Juste à temps, n’est-ce pas ?'")
+
+    console.print("[italic]Il se tient derrière la boîte, posant ses mains dessus. "
+              "Le simple contact semble insuffler une énergie étrange à la salle.[/italic]")
+    console.print("[bold]Archeon[/bold] (calme) : 'Gardez vos forces pour ce qui vient. Vous en aurez besoin.'")
+    console.print("[italic]Clotaire lance un dernier regard à Aldric avant de se détourner en silence. "
+              "Les conversations s’estompent peu à peu alors que chacun retourne à sa place, prêt pour ce qui se profile à l’horizon.[/italic]")
+    
+    console.print("\n[italic]Le crépitement du feu est le seul bruit qui persiste alors qu'Archeon reste immobile, "
+              "les mains toujours posées sur la boîte, comme s'il écoutait ce que personne d'autre ne pouvait entendre.[/italic]")
+    console.print("[bold]Archeon[/bold] (sans se retourner) : 'Reposez-vous. À l’aube… tout changera.'")
+
+
+    console.print("\n[italic]La nuit s’épaissit autour de la salle, et la fatigue finit par peser sur chaque participant. "
+              "Certains s’étendent sur les tapis, d'autres s’assoupissent adossés aux colonnes ou près de la cheminée.[/italic]")
+
+    console.print("[bold]Ayela[/bold] (doucement) : 'Aldric… Tu comptes rester debout toute la nuit ?'")
+    console.print("[italic]Elle s’approche, posant une main légère sur l’épaule d’Aldric. "
+              "Son regard cherche quelque chose, une réponse silencieuse.[/italic]")
+
+    choix_repos = Dialogue(
+        "Que faites-vous pour la nuit ?",
+    [
+        {
+            "text": "[bold yellow](Relation +80) Passer la nuit avec Ayela.[/bold yellow]",
+            "condition": lambda h: h.get_relation("Ayela").score >= 80 and h.get_relation("Ayela").relationship_type == "Romance",
+            "consequence": lambda h: [
+                console.print("[italic]Aldric se tourne vers Ayela, croisant son regard sous la lueur du feu. "
+                              "Il hoche lentement la tête, et elle l’accompagne vers un coin plus isolé de la salle.[/italic]"),
+                console.print("[bold]Ayela[/bold] (souriant doucement) : 'Je n’ai jamais aimé dormir seule.'"),
+                console.print("[italic]Les deux s’installent côte à côte, partageant la chaleur et le réconfort de leur présence mutuelle.[/italic]"),
+                console.print("[italic]Pour un court instant, la tour n’existe plus.[/italic](Ayela +10)"),
+                h.get_relation("Ayela").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Dormir près de vos compagnons d’infortune (Garen, Gallius, Yohna, Zyn, Kael).",
+            "consequence": lambda h: [
+                console.print("[italic]Aldric s’approche du cercle formé près du feu où Garen, Yohna, Zyn et Kael sont déjà installés.[/italic]"),
+                console.print("[bold]Garen[/bold] (lui lançant une couverture) : 'Tiens. Ça te fera du bien aussi.'"),
+                console.print("[italic]Gallius s’appuie contre un pilier, un sourire discret au coin des lèvres.[/italic]"),
+                console.print("[bold]Gallius[/bold] : 'On dirait une bande de survivants. Pas mal, hein ?'"),
+                console.print("[bold]Kael[/bold] (moqueur) : 'On finira peut-être par apprécier ce répit, pour une fois.'"),
+                console.print("[italic]Les derniers mots échappent à Yohna, sa voix s’éteignant alors qu’elle s’endort paisiblement, "
+                              "tandis que Zyn veille silencieusement, comme toujours.[/italic]"),
+                console.print("[italic]Dans ce cercle fragile, Aldric trouve une paix inattendue, même si ce n'est que pour quelques heures.[/italic](Gallius, Kael, Garen, Zyn et Yohna +10)"),
+                h.get_relation("Garen").adjust_score(+10),
+                h.get_relation("Kael").adjust_score(+10),
+                h.get_relation("Gallius").adjust_score(+10),
+                h.get_relation("Yohna").adjust_score(+10),
+                h.get_relation("Zyn").adjust_score(+10)
+            ]
+        }
+    ]
+    )
+
+    choix_repos.display(hero)
+    
+    console.print("\n[italic]Tandis que chacun trouve enfin le sommeil, Archeon reste éveillé. "
+              "Seul, face à la boîte mystérieuse, il semble murmurer quelque chose que personne d’autre n’entend.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] (murmurant) : 'L’aube approche. Certains resteront… d'autres non.'")
+    console.print("[italic]Et lentement, la salle s’enfonce dans un silence profond, seulement troublé par le crépitement des braises mourantes.[/italic]")
+    
+    console.print("\n[bold cyan]=== L'Aube Silencieuse ===[/bold cyan]")
+    console.print(
+        "[italic]Les premiers rayons du soleil, voilés par des nuages gris, filtrent à travers les hautes fenêtres. "
+        "La fine pluie tapote doucement contre les vitres, créant une atmosphère paisible mais lourde.[/italic]"
+    )
+    console.print("[bold]Archeon[/bold] (assis près de la boîte, un livre entre les mains) : 'Lève-toi… Le jour commence.'")
+
+    console.print("[italic]Un à un, les participants émergent lentement de leur sommeil. "
+              "Certains s'étirent, d'autres restent silencieux, l'esprit encore embué par la fatigue.[/italic]")
+    console.print("[bold]Kael[/bold] (regardant Garen enlever ses bottes trouées) : 'Heh… Tu pourrais faire fortune en vendant ces trucs comme antiquités.'")
+    console.print("[bold]Garen[/bold] (soupirant) : 'Elles ont fait du chemin… Mais je ne suis pas sûr qu’elles iront beaucoup plus loin.'")
+    console.print("[italic]Kael sourit, mais il n'y a pas la même arrogance qu'avant. "
+              "Un respect discret s’installe entre eux, forgé par les épreuves passées.[/italic]")
+    
+    console.print(
+    "[italic]Les participants se rassemblent progressivement autour de la boîte noire. "
+    "Archeon referme calmement son livre, levant les yeux vers eux.[/italic]"
+    )   
+    console.print("[bold]Archeon[/bold] : 'Vous viendrez chacun votre tour dans la salle d’à côté. '")
+    console.print("Archeon (posant une main sur la boîte) : 'Une fois cela fait, vous pourrez prendre quelque chose ici, "
+              "et continuer vers la salle suivante.'")
+    console.print("Archeon (regardant la porte) : 'L’étage suivant… est une charnière. Vous serez préparés.'")
+
+    console.print("[italic]Un silence pesant accompagne ses mots. "
+              "La boîte semble vibrer doucement sous ses mains, comme si elle attendait ce moment depuis longtemps.[/italic]")
+    
+    console.print("[bold]Archeon[/bold] (calmement) : 'Durnir. À toi.'")
+    console.print("[italic]L'archimage Durnir s'avance, sa robe froissée par la nuit, mais son regard reste vif. "
+              "Il entre dans la salle sans un mot.[/italic]")
+
+    console.print("Archeon : 'Zyn. Yohna.'")
+    console.print("[italic]Les jumeaux s’échangent un regard, puis disparaissent à leur tour derrière la porte.[/italic]")
+
+    console.print("Archeon : 'Kael.'")
+    console.print("[italic]Kael avance lentement, jetant un regard vers Aldric, comme pour dire 'à plus tard'.[/italic]")
+
+    console.print("Archeon : 'Emphyr.'")
+    console.print("[italic]Emphyr passe à son tour, laissant derrière elle une légère fragrance de parfum ancien.[/italic]")
+
+    console.print("Archeon : 'Ayela. Gallius. Clotaire.'")
+    console.print("[italic]Un à un, les autres participants passent, jusqu'à ce qu'il ne reste plus qu'Aldric et Garen dans la salle principale.[/italic]")
+    console.print("[bold]Garen[/bold] (inquiet, pieds nus) : 'Tu crois… qu’il va se passer quoi là-dedans ?'")
+
+    choix_garen = Dialogue(
+        "Que dites-vous à Garen ?",
+    [
+        {
+            "text": "L'encourager. 'Tu peux le faire, Garen. T’es allé trop loin pour reculer maintenant.'",
+            "consequence": lambda h: [
+                console.print("[bold]Aldric[/bold] (tapotant l’épaule de Garen) : 'Fais-moi confiance. Ça ira.'"),
+                console.print("[italic]Garen inspire profondément, puis hoche la tête avec un faible sourire.[/italic]"),
+                console.print("[bold]Garen[/bold] (faiblement) : 'Merci… T’es le seul qui croit encore en moi.'"),
+                h.get_relation("Garen").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Se montrer distant. 'Si tu n’y vas pas, quelqu’un d’autre prendra ta place.'",
+            "consequence": lambda h: [
+                console.print("[italic]Garen baisse les yeux, secouant doucement la tête.[/italic]"),
+                console.print("[bold]Garen[/bold] (murmure) : 'Ouais… Adieu, Aldric. Juste au cas où.'"),
+                h.get_relation("Garen").adjust_score(-10)
+            ]
+        }
+    ]
+    )
+
+    choix_garen.display(hero)
+    
+    console.print("[italic]Aldric entend son il rentre dans la piece voisine, une salle de marbre elcairée a la torce, Archeon se tient devant lui avec la boite[/italic]")
+    console.print("Archeon : 'Le meilleur pour la fin n'est ce pas ? Aldric...vas y c'est a ton tour de piocher dans la boite'")
+    
+    console.print("[italic]Garen franchit lentement la porte, disparaissant à son tour. "
+              "Son adieu résonne encore dans l'esprit d'Aldric alors qu'il reste seul dans la salle.[/italic]")
+
+    console.print("[bold]Archeon[/bold] (légèrement amusé) : 'Le meilleur pour la fin… n'est-ce pas, Aldric ?'")
+
+    console.print("[italic]Aldric s'approche lentement, l'air méfiant. "
+              "Les flammes vacillantes des torches projettent l’ombre d’Archeon sur les murs de pierre. "
+              "La boîte noire trône devant eux, comme un vestige oublié.[/italic]")
+
+    console.print("[bold]Archeon[/bold] : 'Tu sens cette aura, n'est-ce pas ? Cette boîte ne t'est pas étrangère.'")
+    console.print("[bold]Aldric[/bold] (fronçant les sourcils) : 'Pourquoi dites-vous ça ?'")
+
+    console.print("[bold]Archeon[/bold] (regardant fixement Aldric) : 'Parce que tu es déjà venu ici… "
+              "Il y a longtemps. Avec ton père.'")
+
+    console.print("[italic]Le cœur d’Aldric manque un battement. "
+              "Des fragments de mémoire éclatent dans son esprit : un homme aux cheveux bruns et un sourire franc, "
+              "portant une épée trop grande pour un simple voyageur… et un autre homme, plus sombre, toujours à ses côtés.[/italic]")
+
+    console.print("[bold]Aldric[/bold] (voix basse) : 'Je… je ne me souviens que d'ombres. Vous insinuez que mon père a atteint cet étage ?'")
+    console.print("[bold]Archeon[/bold] (calme) : 'Oui. Lui… et son compagnon.'")
+
+    console.print("[italic]Aldric observe Archeon, scrutant ses moindres gestes. "
+              "Il sent qu'il y a plus dans ces paroles qu'Archeon ne laisse paraître.[/italic]")
+
+    choix_pere = Dialogue(
+        "Que demandez-vous à Archeon ?",
+    [
+        {
+            "text": "Que s’est-il passé lors de leur ascension ?",
+            "consequence": lambda h: [
+                console.print("Aldric (fixant Archeon) : 'Ils sont allés plus loin que cet étage, n'est-ce pas ?'"),
+                console.print("Archeon (avec un sourire énigmatique) : 'Ils ont gravé leur nom et même leur sang dans la pierre de cette tour… "
+                              "Mais seuls les véritables survivants en parlent encore.'"),
+                console.print("Aldric : 'Vous les avez connus. Je le vois dans vos yeux.'"),
+                console.print("Archeon (se tournant légèrement) : 'Je connais beaucoup d'histoires… "
+                              "Mais celle-là est la tienne désormais.'"),
+                h.get_relation("Archeon").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Pourquoi ne pas me dire la vérité ?",
+            "consequence": lambda h: [
+                console.print("Aldric (plus froidement) : 'Vous savez ce qui est arrivé à mon père. "
+                              "Pourquoi tourner autour du pot ?'"),
+                console.print("Archeon (croisant les bras) : 'La vérité n’est pas un don gratuit, Aldric. "
+                              "Elle se mérite… comme tout dans cette tour.'"),
+                console.print("Aldric (le regard perçant) : 'Je finirai par la découvrir. Même si vous refusez de me la donner.'"),
+                console.print("Archeon (avec un rictus) : 'Je n’en doute pas.'"),
+                h.get_relation("Archeon").adjust_score(-5)
+            ]
+        },
+        {
+            "text": "Je ne veux pas savoir. Le passé est mort.",
+            "consequence": lambda h: [
+                console.print("Aldric (détournant le regard) : 'Ce qui est arrivé avant n’a plus d’importance.'"),
+                console.print("Archeon (calme) : 'Tu dis cela maintenant… Mais la tour a une façon bien à elle de réveiller les fantômes.'"),
+                console.print("[italic]Archeon observe Aldric un moment, puis désigne la boîte du menton.[/italic]"),
+                console.print("[bold]Archeon[/bold] : 'Va. Pioche ton destin. Comme ton père l’a fait avant toi.'")
+            ]
+        }
+    ]
+    )
+    choix_pere.display(hero)
+    
+    console.print("[italic]Aldric plonge la main dans la boîte. Lorsqu'il la retire, un frisson glacial parcourt son bras. "
+              "Sa vision vacille un instant, comme si le monde autour de lui ralentissait, les bruits devenant lointains.[/italic]")
+
+    console.print("[bold cyan]Vous obtenez le Margith'r de Blink.[/bold cyan]")
+
+    console.print("[italic]Une lueur bleutée danse brièvement autour des doigts d'Aldric. "
+              "Il ressent une étrange légèreté dans ses muscles, comme si son corps était en décalage avec l’espace qui l’entoure.[/italic]")
+
+    console.print("[bold]Archeon[/bold] (observant calmement) : 'Blink… Un don rare. Celui de franchir l'instant, de traverser l'espace comme si le temps lui-même se contractait.'")
+
+    console.print("Aldric (testant la sensation) : 'C’est… déroutant. Je sens que je peux me déplacer en un clin d’œil. Mais ce pouvoir me paraît… limité.'")
+
+    console.print("[bold]Archeon[/bold] (hochement de tête) : 'Il l’est. Blink ne te permettra pas de traverser des murs ou de fuir un destin inévitable…' "
+              "[italic](Son regard s'assombrit un bref instant.)[/italic] "
+              "'Mais utilisé au bon moment, il peut changer l’issue d’un combat. Un souffle, une fraction de seconde peut suffire pour survivre.'")
+
+    console.print("[italic]Aldric serre le poing, ressentant cette pulsation nouvelle parcourir ses veines. "
+              "Il comprend que Blink n’est pas simplement une capacité… c’est une arme qui, entre de bonnes mains, peut déjouer la mort.[/italic]")
+
+    console.print("[bold]Archeon[/bold] (pointant du doigt une porte latérale) : 'Avant de poursuivre, équipe-toi. L’étage suivant… n’aura aucune pitié pour ceux qui sont mal préparés.'")
+
+    console.print("[italic]Aldric suit la direction indiquée et aperçoit une large salle de pierre, éclairée par des lanternes magiques. "
+              "Des étagères s'étendent le long des murs, remplies de lames affûtées, d’armures légères et lourdes, ainsi que divers artefacts scintillants. "
+              "Des mannequins de cuir portent des équipements marqués de symboles oubliés.[/italic]")
+
+    console.print("Aldric (en observant la salle) : 'Est-ce là une autre épreuve ?'")
+
+    console.print("[bold]Archeon[/bold] (léger sourire) : 'Non. Ici, tu peux prendre ce dont tu as besoin. "
+              "Considère cela comme une offrande de la tour… pour ceux qui sont dignes d'atteindre cet étage.'")
+
+    console.print("[italic]Aldric s’avance lentement, effleurant du bout des doigts une épée d'obisienne d'une conception inconnue et d'une forme unique "
+              "Il se souvient des paroles d’Archeon… et de cette étrange sensation de déjà-vu.[/italic]")
+
+    console.print("[italic]Aldric prend le pantalon noir de combat ainsi qu'un haut de corps moulant noir avec des bettelles en cuir"
+                  "Il pris aussi un bandeau a motif qu'il attache sur ses cheveux blond mi-long, il pris l'epée d'obisienne et la rangea"
+                  "c'etait une épée legere rapide qui se tenait devant soi et horizontalement, parfait pour le blink"
+                  "Il pris aussi des couteaux de lancer et enfila des bottes noir de combat renformcé et des gants en cuir laissant passer ses doigts [/italic]")
+
+    console.print("[italic]Aldric s’équipe en silence. Il ressent le poids des décisions qu'il prend, "
+              "chaque vetements et armes semblant lier son avenir à la tour. "
+              "Derrière lui, Archeon observe sans mot dire.[/italic]")
+
+    console.print("[bold]Archeon[/bold] (calmement) : 'Tu poursuis l’ascension, Aldric…'")
+
+    console.print("Aldric (relevant la tête) : 'Pourquoi cette tour m’appelle-t-elle ? Je n’ai jamais compris pourquoi j’ai mis les pieds ici.'")
+
+    console.print("[bold]Archeon[/bold] (voix basse) : 'Parce que tu connaissais déjà ton but, même avant de poser un pied sur le premier étage. "
+              "Ton père t’a laissé des questions sans réponses. Tu cherches des vérités enfouies. La tour a vu cet écho dans ton cœur…'")
+
+    console.print("[italic]Aldric sent une pression invisible autour de lui. "
+              "Les paroles d'Archeon résonnent, éveillant un sentiment étrange qu'il peine à identifier.[/italic]")
+
+    console.print("[bold]Archeon[/bold] (le regard perçant) : 'Tu es exactement là où tu dois être.'")
+
+    console.print("[italic]Aldric ne répond pas immédiatement. Il ajuste son équipement, prêt à affronter l’étage suivant. "
+              "Le regard d’Archeon ne le quitte pas, comme s’il évaluait quelque chose de plus profond… quelque chose qu’Aldric ignore encore lui-même.[/italic]")
+    
+    console.print("\n[bold cyan]=== Fin de l'Étage 7 : Le Silence Avant l'Orage ===[/bold cyan]")  
+
+    console.print("[italic]Aldric franchit la porte menant à l’étage suivant, laissant derrière lui la chaleur du feu et la sérénité éphémère de la salle de repos. "
+              "Devant lui s’étend un long corridor menant à une salle ouverte où l’escalier vers l’étage 8 se dresse, imposant et silencieux.[/italic]")  
+
+    console.print("[italic]Il retrouve les autres participants, rassemblés devant l’escalier. "
+              "Certains ajustent leurs nouvelles armes, d’autres contemplent leur reflet dans l’acier poli de leurs lames. "
+              "L’atmosphère légère de la veille s’est dissipée, laissant place à une tension palpable.[/italic]")  
+
+    console.print("[bold]Kael[/bold] (examinant une dague finement ouvragée) : 'Hmph… Ça devrait suffire. "
+              "Les vrais guerriers n’ont pas besoin de s’en vanter.'")  
+    console.print("[italic]Zyn fait tourner une sphère en cristal dans sa main, murmurant quelques incantations discrètes tandis que Yohna serre la garde de son bâton, "
+              "observant les autres avec prudence. Même Garen, fraîchement équipé d’une armure legere neuve, semble différent. "
+              "Ses bottes, cette fois à sa taille, ne grincent plus sous son poids.[/italic]")  
+
+    console.print("Garen (ajustant ses brassards) : 'C’est la première fois que j’ai un équipement neuf… Ça change tout.'")  
+    console.print("Aldric (lui donnant une tape sur l’épaule) : 'Il était temps. Peut-être que tu ressembleras enfin à un vrai combattant.'")  
+    console.print("Garen (riant doucement) : 'J’espère. Merci, Aldric.'")  
+
+    console.print("[italic]Pourtant, malgré les sourires discrets, chacun garde pour lui la nature exacte de ce qu’il a reçu dans la salle de la boîte. "
+              "Le Margith’r est un pouvoir personnel, et dans cette tour, tout secret peut être une arme précieuse.[/italic]")  
+
+    console.print("[bold]Archeon[/bold] (s’avançant devant l’escalier) : 'Ceux qui se tiennent ici ont été choisis. "
+              "Mais vous n’êtes pas les seuls à avoir foulé ces marches.'")  
+    console.print("[italic]Il marque une pause, laissant ses mots s'imprimer dans l'esprit des survivants.[/italic]")  
+
+    console.print("[bold]Archeon[/bold] (voix grave) : 'Priez pour les 87 âmes tombées avant vous durant votre ascension"
+              "Ils ont été brisés par la tour, mais leur sacrifice vous a mené jusqu’ici. "
+              "Remerciez la chance qui vous a permis de survivre. Chaque pas de plus est un privilège que beaucoup n’auront jamais.'")  
+
+    console.print("[italic]Les participants restent silencieux, certains baissant la tête, d’autres fixant l’escalier en réfléchissant aux camarades perdus en chemin.[/italic]")  
+    console.print("[bold]Clotaire[/bold] (murmurant) : 'Brandio… Velm…'")  
+    console.print("Yohna (fermant brièvement les yeux) : 'Les morts ne reviennent pas. Ne les oublions pas, mais avançons.'")  
+
+    console.print("[italic]Durnir incline légèrement la tête, murmurant une prière en ancien dialecte, tandis qu’Ayela serre son arc contre sa poitrine.[/italic]")  
+
+    console.print("[bold]Archeon[/bold] (calme, mais ferme) : 'Vous êtes dix. C’est ce nombre qui gravira l’étage 8.'")  
+    console.print("[italic]D’un geste lent, il s’écarte de l’entrée, posant une main sur la rambarde de l’escalier.[/italic]")  
+    console.print("[bold]Archeon[/bold] : 'Je vous retrouverai là-haut. Continuez d’avancer… car c’est exactement là où vous devez être.'")  
+
+    console.print("[italic]Un frisson parcourt Aldric. Ces mots semblent l’atteindre d’une manière qu’il ne peut expliquer. "
+              "Il croise le regard perçant d’Archeon une dernière fois avant de se détourner, posant un pied sur la première marche.[/italic]")  
+
+    console.print("[bold]Il reste 10 participants.[/bold]")
 
     game_menu.display()
 

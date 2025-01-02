@@ -72,6 +72,10 @@ class Relation:
         self.score += amount
         self.score = max(-100, min(100, self.score))
         self.update_relationship_type()
+    
+    def set_relationship_type(self, new_type):
+        self.relationship_type = new_type
+        print(f"[Relation] La relation avec {self.character.name} est maintenant '{new_type}'.")
 
     def update_relationship_type(self):
         if self.score <= -20:
@@ -157,13 +161,12 @@ class Event:
 
 
 class Tower:
-    MAX_FLOORS = 7  # Limite explicite pour le nombre d'étages
+    MAX_FLOORS = 99  # Limite explicite pour le nombre d'étages
 
-    def __init__(self, lore_keeper=None):
+    def __init__(self):
         self.floors = []  # Chaque étage contient une liste d'événements ou défis
         self.current_floor = 0
-        self.lore_keeper_floors = [7, 13, 18, 21, 28, 30, 36, 42, 50, 53, 54, 60, 63, 67, 70, 75]  # Étages fixes pour le LoreKeeper
-        self.lore_keeper = lore_keeper
+       
 
     def add_floor(self, floor_events):
         """Ajoute une liste d'événements à un étage."""
@@ -217,7 +220,7 @@ class GameMenu:
             console.print("1. Continuer l'aventure")
             console.print("2. Afficher les relations")
             console.print("3. Voir la santé du héros")
-            console.print("4. Sauvegarder la partie (Non implémenté)")
+            console.print("4. Sauvegarder la partie")
             console.print("5. Quitter le jeu")
 
             choix = input("\nQue voulez-vous faire ? : ")
@@ -248,8 +251,8 @@ class GameMenu:
                 console.print(f"{relation.character.name} : {relation.relationship_type} ({relation.score})")
         input("\n[italic]Appuyez sur Entrée pour revenir au menu...[/italic]")
     
-    def show_health(self):  # Retiré l'argument hero
-        from rich.console import Console  # Correction de l'import
+    def show_health(self):  
+        from rich.console import Console  
         
         console = Console()
         
@@ -258,20 +261,30 @@ class GameMenu:
     
     
     def save_game(self):
-        from rich.console import Console  # Correction de l'import
-        
+        import json
+        from rich.console import Console
+        save_data = {
+            "name": self.hero.name,
+            "health": self.hero.health,
+            "floor_reached": self.hero.floor_reached,
+            "relations": [
+                {"name": relation.character.name, "score": relation.score, "type": relation.relationship_type}
+                for relation in self.hero.relations
+            ]
+        }
+        with open("savegame.json", "w") as file:
+            json.dump(save_data, file)
         console = Console()
-        
-        console.print("[italic]Fonction de sauvegarde non encore implémentée.[/italic]")
+        console.print("[bold green]Partie sauvegardée avec succès ![/bold green]")
         input("\n[italic]Appuyez sur Entrée pour revenir au menu...[/italic]")
     
-    def exit_game(self):  # Ajout de cette méthode manquante
+    def exit_game(self):
         from rich.console import Console
-        
+        from main import main_menu  # Import du menu principal
+    
         console = Console()
-        
-        console.print("[bold red]Fin du jeu. Au revoir ![/bold red]")
-        exit()
+        console.print("[bold yellow]Retour au menu principal...[/bold yellow]")
+        main_menu()  # Retour au menu principal au lieu de quitter
         
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
