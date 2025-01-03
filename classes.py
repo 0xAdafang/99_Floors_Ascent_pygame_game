@@ -15,6 +15,7 @@ class Heros:
         self.floor_reached = 0
         
         
+        
     def adjust_health(self, amount):
         self.health += amount
         if self.health <= 0:
@@ -99,6 +100,27 @@ class Character:
         self.description = description
         self.gender = gender  # "fille" ou "garçon"
         self.role = role
+
+class Enemy(Character):
+    def __init__(self, name, description, health=100, attack_power=15):
+        super().__init__(name, description, "Monstre")
+        self.health = health
+        self.attack_power = attack_power
+    
+    def attack(self, target):
+        print(f"{self.name} attaque sauvagement {target.name} et inflige {self.attack_power} dégâts.")
+        target.take_damage(self.attack_power)
+        
+class Boss(Enemy):
+    def __init__(self, name, description, health=300):
+        super().__init__(name, description, health)
+        self.phase = 1
+    
+    def phase_shift(self):
+        if self.health < 150 and self.phase == 1:
+            self.phase = 2
+            print(f"{self.name} passe en Phase 2 et devient plus agressif !")
+            self.attack_power += 10
         
            
         
@@ -285,7 +307,12 @@ class GameMenu:
         console = Console()
         console.print("[bold yellow]Retour au menu principal...[/bold yellow]")
         main_menu()  # Retour au menu principal au lieu de quitter
-        
+
+
+            
+           
+              
+              
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

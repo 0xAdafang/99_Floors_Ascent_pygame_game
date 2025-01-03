@@ -4712,7 +4712,7 @@ def floor7(hero, game_menu):
 
     console.print("[bold]Kael[/bold] (examinant une dague finement ouvragée) : 'Hmph… Ça devrait suffire. "
               "Les vrais guerriers n’ont pas besoin de s’en vanter.'")  
-    console.print("[italic]Zyn fait tourner une sphère en cristal dans sa main, murmurant quelques incantations discrètes tandis que Yohna serre la garde de son bâton, "
+    console.print("[italic]Zyn fait tourner une sphère en cristal dans sa main, murmurant quelques incantations discrètes tandis que Yohna reajuste ses brassieres, "
               "observant les autres avec prudence. Même Garen, fraîchement équipé d’une armure legere neuve, semble différent. "
               "Ses bottes, cette fois à sa taille, ne grincent plus sous son poids.[/italic]")  
 
@@ -4747,6 +4747,994 @@ def floor7(hero, game_menu):
     console.print("[bold]Il reste 10 participants.[/bold]")
 
     game_menu.display()
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#chapitre 8 Le Tournoi 
+
+def floor8_tournament(hero):
+    from rich.console import Console
+    console = Console()
+
+    console.print("\n[bold cyan]=== Étape 8 : L'Arène du Jugement ===[/bold cyan]")
+    
+    # Entrée dans la salle
+    console.print(
+        "[italic]Les lourdes portes de l'étage 8 s'ouvrent lentement, laissant échapper un courant d’air glacial. "
+        "Derrière, l’obscurité règne. Les dix survivants avancent à pas mesurés dans la pièce silencieuse.[/italic]"
+    )
+
+    console.print("Kael (regardant autour) : 'Pourquoi est-ce toujours aussi sinistre…?'")
+    console.print("Ayela (voix basse) : 'C'est fait exprès. Ça nous met sous pression avant même de commencer.'")
+    console.print("Garen (frémissant légèrement) : 'On vient de passer une nuit à peine reposante et maintenant… ça recommence déjà.'")
+
+    # Archeon fait son entrée
+    console.print(
+        "[bold red]Archeon[/bold red] (sa voix résonne) : 'Bienvenue... dans l'épreuve du duel. "
+        "Vous êtes montés haut… mais jusqu’où irez-vous vraiment ?'"
+    )
+    console.print("[italic]Sa silhouette surgit lentement des ombres, drapée dans son manteau rouge. "
+                  "Son regard acéré balaye chacun des participants, s'arrêtant brièvement sur Aldric.[/italic]")
+
+    # Les torches s'allument
+    console.print(
+        "[italic]D’un claquement de doigts, Archeon fait s’illuminer une à une des torches fixées aux murs. "
+        "Elles dévoilent progressivement une vaste arène de pierre suspendue au-dessus d’un gouffre insondable. "
+        "Deux ponts étroits relient la plateforme à la salle principale.[/italic]"
+    )
+    
+    console.print("Garen (fixant l'arène) : 'Une… arène ?'")
+    console.print("Durnir (fronçant les sourcils) : 'Un terrain de duel… Voilà une épreuve archaïque, mais efficace.'")
+    console.print("Zyn (croisant les bras) : 'Ça va être intéressant.'")
+
+    # Présence des deux portes
+    console.print(
+        "[italic]Deux portes massives se dressent au fond de la pièce, gardant leur mystère. "
+        "Elles restent scellées, mais l’intuition des participants sent qu’elles joueront un rôle crucial.[/italic]"
+    )
+    console.print("Kael (désignant les portes) : 'Et ça ?'")
+
+    # Explication du tournoi
+    console.print("[bold red]Archeon[/bold red] (calme) : 'Ces portes s’ouvriront… quand vous aurez prouvé votre valeur. "
+                  "Cette épreuve est simple : un tournoi.'")
+    console.print(
+        "[bold red]Archeon[/bold red] : 'Chacun d'entre vous devra affronter un autre participant. "
+        "Le but n'est pas nécessairement de tuer, mais de vaincre. Si votre adversaire abandonne, concède sa défaite "
+        "ou est jugé hors de combat par moi… alors le combat prend fin.'"
+    )
+    
+    console.print("Archeon (laissant un silence planer) : 'Cependant…' [italic]Il marque une pause, laissant le silence s'épaissir.[/italic]")
+    console.print(
+        "Archeon (lentement) : 'La mort n'est pas interdite. Si vous tuez votre adversaire avant la fin du duel, cela ne sera pas puni. "
+        "Mais… après la fin du combat, tout acte de meurtre entraînera votre propre élimination.'"
+    )
+
+    # Réactions des participants
+    console.print("[italic]Le groupe échange des regards lourds. Le poids de cette règle est clair : ce tournoi est une démonstration de force et de maîtrise… pas de massacre.[/italic]")
+    console.print("Ayela (calme mais sérieuse) : 'Il va falloir se retenir…'")
+    console.print("Garen (toussotant nerveusement) : 'Et si on ne tient pas ? Je veux dire… j’ai jamais fait ça. Pas contre vous tous…'")
+    console.print("Kael (moqueur) : 'Relax, Garen. Je suis sûr que tu survivras… peut-être un tour ou deux.'")
+    console.print("Garen (baissant la tête) : 'C’est pas drôle.'")
+
+    # Clotaire se montre provocateur
+    console.print("Clotaire (sourire en coin) : 'Oh, c’est très drôle. J’ai hâte de voir certains tomber. Ça fait longtemps que j’attends ça…'")
+    console.print("Emphyr (croisant les bras) : 'Arrête, Clotaire. Ce genre de provocation est inutile maintenant.'")
+    console.print("Clotaire (sec) : 'Ce n’est pas une provocation. Juste une observation. Certains ici sont là par accident. Il est temps de faire du tri.'")
+
+    # Tension montante
+    console.print("[italic]L’atmosphère devient plus pesante. Garen baisse la tête, mais serre les poings. "
+                  "Zyn jette un regard amusé à Clotaire, tandis qu’Ayela se rapproche d’Aldric en silence.[/italic]")
+
+    # Archeon calme la situation
+    console.print(
+        "[bold red]Archeon[/bold red] (froidement) : 'Gardez votre colère pour l’arène. Ce soir, vous devrez prouver ce que vous valez.'"
+    )
+    
+    console.print(
+        "[italic]Les participants s’éloignent lentement du bord de l’arène. Certains murmurent entre eux, tandis que d'autres s’isolent, se préparant mentalement.[/italic]"
+    )
+    
+    # Ajout après l'explication d'Archeon
+    console.print("[italic]Alors que les participants se dispersent lentement, Ayela et Garen s’approchent d’Aldric. "
+              "Le regard de Garen est anxieux, tandis qu'Ayela semble plus pensive.[/italic]")
+
+    console.print("Ayela (doucement) : 'Aldric… Tu penses quoi de tout ça ? Ce tournoi… C’est absurde non ?'")
+    console.print("Garen (fronçant les sourcils) : 'Ouais… Et si on perd, mais qu’on reste en vie… Qu’est-ce qui va se passer ?'")
+
+# Choix de dialogue
+    choix_tournoi = Dialogue(
+        "Que répondez-vous à Ayela et Garen ?",
+    [
+        {
+            "text": "Rassurer Garen : 'Tant qu’on ne meurt pas, on peut encore avancer.'",
+            "consequence": lambda h: [
+                console.print("Aldric (souriant légèrement) : 'Ne t’inquiète pas, Garen. Tant qu’on est debout, on avance. "
+                              "Perdre un duel ici n’est sans doute pas la fin du chemin.'"),
+                console.print("Garen (soulagé) : 'Ouais… T’as peut-être raison. Merci Aldric.' (Garen +10)"),
+                h.get_relation("Garen").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Honnêteté : 'Ce tournoi va nous séparer… Certains n’iront pas plus loin.'",
+            "consequence": lambda h: [
+                console.print("Aldric (voix basse) : 'Soyons réalistes… Tout le monde n’ira pas jusqu’au bout. "
+                              "Ce tournoi est une sélection. Ceux qui perdent resteront derrière.'"),
+                console.print("Ayela (inquiète) : 'Je m’en doutais… Ça fait peur.'"),
+                console.print("Garen (baissant la tête) : 'J’aurais aimé ne pas l’entendre…' (Ayela -5, Garen -5)"),
+                h.get_relation("Ayela").adjust_score(-5),
+                h.get_relation("Garen").adjust_score(-5)
+            ]
+        },
+        {
+            "text": "Déterminé : 'On ne perdra pas. Peu importe qui se dresse sur mon chemin.'",
+            "consequence": lambda h: [
+                console.print("Aldric (avec détermination) : 'Peu importe qui je dois affronter. Je gagnerai.'"),
+                console.print("Ayela (sourire en coin) : 'T’as l’air sûr de toi… Je compte bien voir ça.' (Ayela +10)"),
+                console.print("Garen (timidement) : 'C’est… rassurant de t’entendre dire ça.' (Garen +5)"),
+                h.get_relation("Ayela").adjust_score(+10),
+                h.get_relation("Garen").adjust_score(+5)
+            ]
+        }
+    ]
+    )
+
+    choix_tournoi.display(hero)
+    
+    # 🎴 Tirage au sort des participants
+    console.print("\n[bold cyan]Archeon claque des doigts. Un vase de cristal orné de runes anciennes apparaît au centre de la salle, "
+              "posé sur un piédestal de pierre noire. À l'intérieur, des boules gravées tournent lentement, "
+              "comme si elles réagissaient à la présence de chacun des participants.[/bold cyan]")
+
+    console.print("[bold]Archeon[/bold] (d’une voix grave) : 'La tour observe… Elle juge. Ce tournoi est plus qu’une simple épreuve. "
+              "Il vous confronte à vous-même, à vos désirs et à vos faiblesses. Ce n’est pas le plus fort qui l’emporte toujours, "
+              "mais celui qui sait lire au-delà des lames.'")
+
+    console.print("[italic]Un silence pesant s’installe. Les participants échangent des regards furtifs, pesant chaque mot. "
+              "Clotaire, en retrait, fixe le vase comme s’il connaissait déjà l’issue du tirage. "
+              "Ayela serre son arc avec une légère nervosité, tandis que Garen détourne les yeux, cherchant réconfort auprès d’Aldric.[/italic]")
+
+    console.print("[bold]Archeon[/bold] : 'L’issue du combat vous appartient. Les règles sont simples :"
+              "\n- Vaincre ou se rendre."
+              "\n- Un duel ne se termine que par l’abandon, la mise hors de combat… ou la mort.'")
+    console.print("[italic]Il laisse sa dernière phrase flotter un instant, s’assurant que tous comprennent les implications de cet affrontement.[/italic]")
+
+    console.print("[bold]Archeon[/bold] : 'Je n’interviendrai qu’en cas de victoire claire. Ceux qui attaquent après la défaite de leur adversaire… "
+              "se condamneront eux-mêmes.'")
+
+    console.print("[italic]D’un geste fluide, Archeon fait tournoyer les boules dans le vase. "
+              "Elles s’élèvent une à une, dans une danse silencieuse, avant que l’une d’elles ne s’immobilise.[/italic]")
+
+    console.print("[bold yellow]La première boule s’ouvre lentement… et révèle le nom d’Ayela.[/bold yellow]")
+    console.print("[bold]Archeon[/bold] : 'Ayela.'")
+
+    console.print("[italic]Ayela prend une profonde inspiration et s’avance vers l’arène. "
+              "Son regard balaie la salle, s’arrêtant brièvement sur Aldric avant de se poser sur l’arène vide.[/italic]")
+
+    console.print("[bold yellow]La deuxième boule s’élève doucement, lévitant devant les yeux de tous… Clotaire.[/bold yellow]")
+    console.print("[bold]Archeon[/bold] : 'Clotaire.'")
+
+# 🎴 Réactions de Clotaire et Emphyr
+    console.print("[italic]Clotaire se redresse, un sourire en coin. Il échange un regard discret avec Emphyr.[/italic]")
+    console.print("Emphyr (chuchotant) : 'Je pensais que tu espérais affronter Aldric.'")
+    console.print("Clotaire (voix basse) : 'Pourquoi gâcher ce plaisir tout de suite ? Ayela suffira. Je n’ai pas besoin d’y aller fort.'")
+    console.print("Emphyr (fronçant les sourcils) : 'Tu prends ça trop à cœur.'")
+    console.print("Clotaire : 'Allons allons ce n'est qu'un duel ! J'aimerais ne pas trop m'épuiser pour la suite.'")
+
+# 🎴 Dialogue avec Ayela avant le combat
+    console.print("[italic]Avant qu'elle ne descende dans l'arène, Ayela s'approche discrètement d'Aldric. "
+              "Ses yeux trahissent une certaine inquiétude, mais elle masque cela sous un sourire léger.[/italic]")
+
+    choix_ayela_duel = Dialogue(
+    "Que dites-vous à Ayela avant son duel contre Clotaire ?",
+    [
+        {
+            "text": "[bold yellow](Relation +50)[/bold yellow] 'Ne sous-estime pas Clotaire. Garde tes distances et sois rapide.'",
+            "condition": lambda h: h.get_relation("Ayela").score >= 50,
+            "consequence": lambda h: [
+                console.print("Aldric (calme) : 'Clotaire a changé. Ce duel ne sera pas simple.'"),
+                console.print("Ayela (hochement de tête) : 'Je sais… mais je peux le battre. Je ne me laisserai pas avoir.' (Ayela +10)"),
+                h.get_relation("Ayela").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "'Tu n’as aucune chance. Abandonne.'",
+            "consequence": lambda h: [
+                console.print("Aldric (croisant les bras) : 'Ne fais pas l’idiote. Tu sais que Clotaire ne te fera aucun cadeau.'"),
+                console.print("Ayela (fixant Aldric) : 'Je croyais que tu avais plus de foi en moi…' (Ayela -20)"),
+                h.get_relation("Ayela").adjust_score(-20)
+            ]
+        },
+        {
+            "text": "[bold yellow](Romance)[/bold yellow] 'Ne prends aucun risque. Reviens vers moi après ce duel.'",
+            "condition": lambda h: h.get_relation("Ayela").relationship_type == "Romance",
+            "consequence": lambda h: [
+                console.print("Aldric (glissant sa main dans la sienne) : 'Je t’attendrai. Ne fais pas de folies.'"),
+                console.print("Ayela (souriant tendrement) : 'Tu pourrais me donner envie de survivre, tu sais…' (Ayela +15)"),
+                h.get_relation("Ayela").adjust_score(+15)
+            ]
+        },
+        {
+            "text": "[bold yellow](Romance)[/bold yellow] 'Si tu te sens en danger… abandonne. Je préfère te savoir en vie.'",
+            "condition": lambda h: h.get_relation("Ayela").relationship_type == "Romance",
+            "consequence": lambda h: [
+                console.print("Aldric (d’une voix plus douce) : 'Promets-moi que si ça tourne mal, tu n’hésiteras pas à abandonner.'"),
+                console.print("Ayela (le regard brillant) : 'Je… je ne veux pas te décevoir. Mais si c’est ce que tu veux…'"),
+                console.print("[italic]Elle presse doucement la main d’Aldric avant de s’éloigner, sans se retourner.[/italic] (Ayela +20)"),
+                h.get_relation("Ayela").adjust_score(+20)
+            ]
+        }
+    ]
+)
+
+    choix_ayela_duel.display(hero)
+
+# 🎴 Tension croissante
+   # Début du Duel - Arène de l'Étage 8
+    console.print("\n[bold red]Archeon[/bold red] (d’une voix forte, levant le bras) : 'Le duel commence… maintenant !'")
+
+    console.print(
+    "[italic]Les torches s'embrasent une à une autour de l’arène. "
+    "Ayela avance calmement, mais la tension dans ses épaules trahit sa nervosité. "
+    "Clotaire, de l'autre côté, ajuste son épée à sa ceinture sans se presser, ses yeux rivés sur elle avec une intensité glaciale.[/italic]"
+    )
+
+    console.print("Clotaire (sourire en coin) : 'On va bien s’amuser, Ayela… Je vais te faire danser comme Brandio et Velm n’ont jamais pu le faire.'")
+    console.print("[italic]Ayela ne répond pas, mais sa prise sur son arc se raffermit.[/italic]")
+
+    console.print("Garen (inquiet) : 'Tu crois qu'elle peut gagner ?'")
+    console.print("Kael (croisant les bras) : 'Elle n'a pas le choix, Clotaire est surement le plus mauvais choix pour elle...'")
+
+    console.print("[bold cyan]Ayela[/bold cyan] (sans quitter Clotaire des yeux) : 'Je suis prête. Il ne me fera pas tomber aussi facilement.'")
+
+# Première Salve
+    console.print(
+    "[italic]Ayela lève son arc dans un éclair doré et décoche trois flèches de lumière d'un tir précis. "
+    "Les projectiles illuminent l’arène, filant à une vitesse vertigineuse vers Clotaire.[/italic]"
+        )
+
+    console.print(
+    "[italic]Mais Clotaire bondit à gauche, ses mouvements fluides comme une ombre, laissant les flèches frapper dans le vide.[/italic]"
+    )
+    console.print("Clotaire (ricanant) : 'Vraiment ? C'est tout ce que tu as ?'")
+    console.print("[italic]Il s’élance vers Ayela et, en un battement de cils, se dédouble. "
+              "Ses illusions frappent sans relâche.[/italic]")
+
+    console.print("[bold red]Clotaire[/bold red] : 'Trop lente !'")
+
+    console.print("[italic]Ayela vacille sous l’impact. Du sang coule de sa lèvre, mais elle garde son arc levé.[/italic]")
+    console.print("Garen (inquiet) : 'AYELA !!'")
+
+# Illusions et Pression
+    console.print("[italic]Clotaire se multiplie à nouveau. Vingt silhouettes de lui encerclent Ayela, "
+              "se moquant dans une cacophonie déstabilisante.[/italic]")
+
+    console.print("Clotaire (provoquant) : 'Allez, tire encore. Peut-être que tu toucheras quelque chose cette fois.'")
+    console.print("[italic]Ayela n’écoute pas. Ses yeux balayent les illusions, cherchant la faille.[/italic]")
+
+    console.print("Durnir (à voix basse) : 'Ses illusions… ce n’est pas qu’un tour de passe-passe. "
+              "Elles sont réelles… mais il y a une faiblesse.'")
+
+# Choix de Dialogue - Analyser Clotaire
+    choix_analyse_clotaire = Dialogue(
+        "Garen (désespéré) : 'Aldric… tu vois quelque chose ? Il doit bien avoir une faille !'",
+    [
+        {
+            "text": "C'est une question de chance. (Kael hoche la tête)",
+            "consequence": lambda h: [
+                console.print("Aldric (haussant les épaules) : 'Il suffit d’un bon tir… Si Ayela est rapide, elle pourra le toucher.'"),
+                console.print("Kael (soufflant) : 'Ouais… mais contre Clotaire, ça relèverait du miracle.'"),
+            ]
+        },
+        {
+            "text": "Il faut le frapper partout en même temps. (Zyn et Gallius approuvent)",
+            "consequence": lambda h: [
+                console.print("Aldric : 'S’il se multiplie, frappons chaque illusion. Il n’est qu’un parmi les autres.'"),
+                console.print("Zyn : 'Exact. Une solution brutale… mais efficace.'"),
+                console.print("Gallius (hochement de tête) : 'Simple, mais ça pourrait marcher.'"),
+            ]
+        },
+        {
+            "text": "Il y a un tressaillement quand il échange sa place… (Durnir approuve)",
+            "consequence": lambda h: [
+                console.print("Aldric (focalisé) : 'Quand il se transpose dans l'une de ses illusions… il y a un bref flottement. Une faille.'"),
+                console.print("Durnir (hochant la tête) : 'Hm… belle observation. Voyons si Ayela pourra l'exploiter." 
+                              "ses illusions ne font pas de degats mais sa materialisation oui..c'est la tout le secret"
+                              "il se transpose rapidement, un pouvoir fourbe mais puisant si bien utilisé'"),
+                h.get_relation("Durnir").adjust_score(+10)
+            ]
+        }
+    ]
+    )
+    choix_analyse_clotaire.display(hero)
+
+# Ayela Contre-Attaque
+    # Contre-Attaque d'Ayela – Frappe Ciblée
+    console.print("[italic]Ayela, respirant lourdement, frotte violemment l’extrémité de sa flèche contre la pierre de l’arène. "
+              "Des étincelles s’élèvent alors qu’elle traîne la pointe lumineuse au sol, traçant un cercle incandescent.[/italic]")
+
+    console.print("Kael (fronçant les sourcils) : 'Qu’est-ce qu’elle fait… ?'")
+
+    console.print("[italic]Ayela s’agenouille, adoptant une posture stable, la corde de son arc tendue au maximum. "
+              "Clotaire la fixe, intrigué, mais amusé par ce geste inattendu.[/italic]")
+
+    console.print("Clotaire (ricanant) : 'Quoi, tu pries maintenant ? Ce ne sont pas des dieux qui vont te sauver, Ayela.'")
+
+    console.print("[italic]Mais Ayela ne répond pas. Ses yeux sont rivés sur Clotaire et ses illusions. "
+              "Lorsque la flèche quitte la corde, une salve de projectiles éclatants jaillit à sa suite, "
+              "se divisant en une pluie de lumière. Les flèches se dispersent, traquant chaque illusion dans leur sillage.[/italic]")
+
+    console.print("Garen (ébloui) : 'Regarde ça… Elle détruit toutes les illusions d’un seul coup !'")
+
+    console.print("[italic]Les doubles de Clotaire explosent un à un, réduits en fragments de lumière. "
+              "Une des flèches effleure l’épaule de Clotaire, lui laissant une entaille fine et fumante.[/italic]")
+
+    console.print("Kael (soupirant, avec un léger sourire) : 'C’est fini… Elle l’a eu. Clotaire ne peut plus se cacher derrière ses illusions.'")
+
+    console.print("Clotaire (grimaçant, serrant les dents) : 'Tch… Pas mal, mais pas suffisant.'")
+
+    console.print("[italic]Clotaire s’immobilise, mais une fraction de seconde plus tard, il disparaît de la trajectoire. "
+              "Ayela reste concentrée sur ce qu’il reste des illusions devant elle, ignorant un détail crucial…[/italic]")
+
+    console.print("[bold red]Clotaire[/bold red] (d’une voix calme derrière elle) : 'Je suis là… Ayela.'")
+
+
+    console.print("[italic]Avant qu’elle ne puisse réagir, Clotaire, apparu derrière elle, enfonce sa lame dans son dos. "
+              "La flèche qu’elle tenait glisse de ses doigts alors qu’elle vacille lentement, la douleur se lisant dans ses yeux.[/italic]")
+    
+    Console.print("Aylea : 'Arrrg...aahh'")
+
+    console.print("Kael (hurlant) : 'Merde !!!'")
+
+    console.print("Garen (effondré) : 'AAAAAAAAAAAAAAAAAAAAAAH AYELAAAAAAAAA !!!!!")
+
+    console.print("[italic]Clotaire relâche lentement Ayela qui tombe à genoux, puis s’effondre sur les dalles froides. "
+              "Il la regarde silencieusement, une ombre de regret passant brièvement dans son regard.[/italic]")
+
+    console.print("[bold red]Clotaire[/bold red] (murmurant) : 'Tu étais trop dangereuse.'")
+
+# Réactions du Groupe
+    console.print("[italic]Kael détourne le regard, les poings serrés, tandis que Garen tombe à genoux, le regard vide. "
+              "Aldric reste figé, incapable de détourner les yeux du corps sans vie d’Ayela.[/italic]")
+
+    console.print("Durnir (voix grave) : 'Elle a failli l’avoir… Une guerrière jusqu’au bout.'")
+
+    console.print("Clotaire (s’adressant au groupe, d’un ton neutre) : 'C’est la tour qui décide. Et elle ne fait jamais de cadeaux.'")
+
+    console.print("[italic]Clotaire recule lentement, laissant la dépouille d’Ayela derrière lui. "
+              "La flamme des torches semble vaciller sous le poids du silence. "
+              "Archeon, impassible, lève simplement la main pour annoncer la fin du duel.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] : 'Clotaire est vainqueur. Le duel est terminé.'")
+    
+    # Après la mort d’Ayela – Atmosphère pesante
+    console.print("[italic]Un silence pesant enveloppe l’arène. Même les flammes des torches semblent vaciller faiblement, comme si elles respectaient ce moment de deuil.[/italic]")
+
+    console.print("Garen (la voix brisée et a genoux) : 'Non… Ayela…'")
+
+    console.print("Kael (froid, fixant Clotaire) : 'Il n’y avait… aucune raison d’aller aussi loin.'")
+
+    console.print("[italic]Clotaire n’adresse aucun regard à ses compagnons d'infortune,  Il s’éloigne de l’arène, allant s’asseoir dans l’ombre, loin des autres. "
+              "Ses mains tremblent légèrement, mais il les serre pour masquer ce trouble. Loin d’un sourire arrogant, son expression semble figée, impassible.[/italic]")
+
+    console.print("[bold red]Clotaire[/bold red] (murmurant pour lui-même) : 'Je… je l’ai fait. C’est ce qu’il fallait...Je crois..'")
+
+    console.print("[italic]Pourtant, au fond de lui, une vague de malaise grandit. "
+              "C’était la première fois qu’il ôtait une vie. Malgré ses paroles tranchantes, la victoire n’avait rien d’agréable.[/italic]")
+    
+    console.print("Emphyr (s'approchant de Clotaire): Premiere fois que tu tue hein ? Tu jouer les gros dur finalement...")
+    
+    console.print("Clotaire : 'Hm..'")
+    
+    console.print("Emphyr : 'Ca te passera, faut une premiere fois a tout même si elle meritait pas ça la pauvre..'")
+    
+    console.print("Clotaire : Je...je ne voulait pas...je crois...je ne sais plus Emphyr...")
+
+# Aldric s’approche du corps d’Ayela
+    console.print("[italic]Aldric avance lentement, les poings serrés. Il s’agenouille près du corps inerte d’Ayela, posant une main sur son épaule froide. "
+              "Son cœur est lourd, et pour la première fois depuis longtemps, il sent la colère monter, brûlante mais maîtrisée.[/italic]")
+
+    console.print("Aldric (à voix basse) : 'Je suis désolé… Je t’avais promis…'")
+
+    console.print("[italic]Sans un mot de plus, il soulève doucement Ayela, l’éloignant de l’arène pour l’allonger avec soin à l’écart. "
+              "Kael et Garen le rejoignent silencieusement, baissant la tête en guise de respect.[/italic]")
+
+    console.print("Garen (poings tremblants) : 'Je… je vais le tuer…'")
+
+    console.print("Kael (posant une main sur son épaule) : 'Ce n’est pas le moment… Je sais ce que tu ressens, mais on doit rester en vie.'")
+
+    console.print("[italic]Garen détourne les yeux, mais il n’ajoute rien. L’atmosphère est pesante, chaque souffle semble un fardeau.[/italic]")
+
+# Archeon observe discrètement
+    console.print("[italic]Archeon, jusqu’alors spectateur impassible, détourne légèrement le regard. "
+              "Si ses traits restent figés, un observateur attentif pourrait y déceler une lueur fugace d’inconfort. "
+              "Un sentiment qu’il enterre rapidement.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] (après un instant de silence) : 'Le tournoi doit continuer…'")
+
+    console.print("[italic]Avec un geste mesuré, il tend la main vers le vase de cristal. "
+              "Les boules recommencent à flotter lentement en cercle, attirant l’attention des participants encore sous le choc.[/italic]")
+
+# Prochain tirage – Durnir contre Yohna
+    console.print("[italic]La première boule s’élève lentement, baignée dans une faible lumière bleue. "
+              "Les participants lèvent les yeux vers elle, alors qu’une voix résonne.[/italic]")
+
+    console.print("[bold cyan]Archeon[/bold cyan] : 'Durnir…'")
+
+    console.print("[italic]Durnir avance calmement, sans afficher la moindre émotion. "
+              "Le vieil archimage ajuste sa cape d’un geste lent, ses yeux s’attardant brièvement sur Aldric, comme s’il évaluait sa réaction.[/italic]")
+
+    console.print("[italic]La seconde boule s’élève aussitôt, se teintant cette fois d’un éclat vert doux.[/italic]")
+
+    console.print("[bold cyan]Archeon[/bold cyan] : 'Yohna…'")
+
+    console.print("Zyn (fronçant les sourcils) : 'Fais attention… Ne le sous-estime pas, Yohna. Si tu sens que ça chauffe abandonne'")
+
+    console.print("Yohna (lui jetant un regard en coin) : 'Je sais. Je ne suis pas aussi tête brûlée que toi.'")
+
+    console.print("[italic]Les deux adversaires avancent vers l’arène, se positionnant face à face. "
+              "Durnir observe calmement Yohna, tandis que la jeune invocatrice frappe dans ses mains face a face, concentrée.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] : 'Que ce duel commence.'")
+    
+    console.print("[italic]Les deux adversaires avancent vers l’arène, se positionnant face à face. "
+              "Durnir ajuste calmement les plis de sa robe, tandis que Yohna frappe doucement dans ses mains, "
+              "comme pour s’échauffer. L’éclat du sceptre qu’elle tient miroite légèrement sous les torches.[/italic]")
+
+    console.print("Durnir (avec un sourire bienveillant) : 'Je te promets, jeune fille, que je ne te tuerai pas. "
+              "Je n’aime pas utiliser la magie pour ôter des vies inutilement.'")
+
+    console.print("Yohna (roulant des yeux) : 'Pas besoin de me ménager, le vieux. Je suis pas là pour jouer à papi-gateau.'")
+
+    console.print("[italic]Un éclat malicieux traverse les yeux de Yohna. Sans attendre, elle lève son bras "
+              "et une bourrasque d’air vert prend la forme d’un faucon, fondant droit sur Durnir.[/italic]")
+
+    console.print("Zyn (souriant) : 'Bien envoyé, Yohna ! Montre-lui ce que tu sais faire !'")
+
+    console.print("[italic]Durnir lève simplement la main, traçant un cercle dans l’air. Une barrière translucide se forme, "
+              "dissipant l’attaque du faucon en une pluie d’étincelles d’air.[/italic]")
+
+    console.print("Durnir (ricanant) : 'Ah, tu commences fort ! Hah… la jeunesse et son insouciance.'")
+
+    console.print("Emphyr (bras croisés) : 'C’est trop simple… Ce vieux bougre ne va pas s’avouer vaincu si facilement.'")
+
+# Yohna riposte immédiatement
+    console.print("[italic]Yohna recule d’un bond et, sans perdre de temps, invoque un dragon-serpent d’eau. "
+              "La créature serpente rapidement à travers l’arène, se jetant sous les pieds de Durnir avant "
+              "de refermer ses mâchoires gigantesques dans un fracas d’eau rugissant.[/italic]")
+
+    console.print("[bold cyan]Zyn[/bold cyan] (fier) : 'Bien joué, Yohna ! Ça devrait le ralentir !'")
+
+    console.print("[italic]Les spectateurs retiennent leur souffle, s’attendant à ce que l’archimage soit immobilisé… "
+              "Mais au même moment, une lumière bleue éclate à travers les crocs du serpent aqueux.[/italic]")
+
+# Durnir contre-attaque
+    console.print("[italic]Durnir récite lentement une incantation dans une langue ancienne, "
+              "sa voix devient progressivement plus forte et assourdissante. "
+              "Tous se bouchent les oreilles face à cette vibration magique, même Yohna grimace de douleur.[/italic]")
+
+    console.print("[bold]Durnir[/bold] (voix tonitruante) : '[bold yellow]Lour gan di vouuuuuuuuuuuur ![/bold yellow]'")
+
+    console.print("[italic]Une tête gigantesque, réplique magique de Durnir lui-même, surgit dans les airs "
+              "au-dessus de Yohna. La créature hurlante projette des ondes de choc, balayant le sol de l’arène.[/italic]")
+
+    console.print("Kael (fronçant les sourcils) : 'Ce n’est pas normal… Il maîtrise la magie avec une précision chirurgicale.'")
+    
+    console.print("Aldric (encore sous tension suite a la mort de l'archère) : Hm..")
+
+# Yohna esquive
+    console.print("[italic]Yohna glisse sous la projection magique, évitant de justesse les ondes destructrices. "
+              "Elle roule sur le côté, mais à peine redressée, une rivière de flammes jaillit du sol, "
+              "lancées par Durnir d’un geste fluide. Des braises tourbillonnent dangereusement autour d’elle.[/italic]")
+
+    console.print("Durnir (calme) : 'Ne baisse jamais ta garde. La magie, c’est comme une danse. "
+              "Une seconde de distraction suffit pour t’embraser.'")
+
+    console.print("[italic]Les flammes courent vers Yohna, l’entourant lentement. "
+              "Son regard devient plus sérieux, et elle commence à invoquer un nouvel esprit d'eau pour contrer l’assaut.[/italic]")
+
+# Réactions des spectateurs
+    console.print("Garen (inquiet) : 'Elle va s’en sortir, non… ?'")
+
+    console.print("Zyn (confident) : 'Ne t’en fais pas. Ma sœur a plus d’un tour dans son sac.'")
+
+    console.print("Emphyr (regardant Durnir) : 'Peut-être… Mais ce vieil homme est un archimage. "
+              "S’il le voulait, il pourrait la réduire en cendres. Il s'amuse, crois moi il a deja gagné...(dit elle en s'eloignant...)'")
+
+    console.print("[italic]Le duel continue, mais la tension dans la salle est palpable. "
+              "Yohna semble repoussée dans ses retranchements, tandis que Durnir reste stoïque, "
+              "prêt à enchaîner ses sorts comme s’il s’agissait d’un simple exercice.[/italic]")
+    console.print("[italic]Durnir, un sourire joueur aux lèvres, tend la main vers l'avant. "
+              "Dans un claquement de doigts, une rafale de flammes s'élève devant lui, tourbillonnant "
+              "en un serpent incandescent. Durnir, comme porté par un vent invisible, glisse sur cette "
+              "vague de feu, s’approchant dangereusement de Yohna.[/italic]")
+
+    console.print("Durnir (souriant) : 'Toi, ton frère et moi… Nous sommes différents des autres. "
+              "La boîte ne nous a rien donné parce que la nature elle-même s'en était déjà chargée. "
+              "Je respecte votre clan, Yohna. Ce que vous représentez.'")
+
+    console.print("Yohna (crispée, plissant les yeux) : 'N'essaie même pas de m’amadouer, vieux croûton.'")
+
+    console.print("[italic]D’un geste vif, Yohna lève les bras et frappe le sol avec sa main. "
+              "L’air se charge de magie et une silhouette massive prend forme derrière elle. "
+              "Un immense esprit en forme de baleine, éthérée et scintillante, s’élève majestueusement. "
+              "Elle ouvre grand sa gueule, projetant un torrent d’eau en direction de Durnir, éteignant "
+              "instantanément sa flamme.[/italic]")
+
+    console.print("[bold cyan]Zyn[/bold cyan] (poing levé) : 'Ouais, Yohna ! Éteins-le pour de bon !'")
+
+    console.print("[italic]Durnir trébuche légèrement, glissant sur le sol trempé. "
+              "Il s’arrête en riant doucement, secouant la tête.[/italic]")
+
+    console.print("Durnir (amusé) : 'Malin… ahah ! Pas mal, jeune fille. Pas mal du tout.'")
+
+    console.print("[italic]Mais son sourire s’efface lentement, laissant place à une expression plus sérieuse.[/italic]")
+
+    console.print("Durnir (baissant légèrement la tête) : '…Mais c'est déjà trop tard.'")
+
+    console.print("Yohna (fronçant les sourcils) : 'Quoi… ?'")
+
+# Durnir retourne la situation
+    console.print("[italic]Soudain, l’eau invoquée par Yohna semble frémir. "
+              "Sous les yeux écarquillés de l’invocatrice, la silhouette de la baleine disparaît progressivement, "
+              "alors que l’eau s’élève lentement, prenant la forme d’une bulle géante. "
+              "Durnir, les deux mains ouvertes, manipule aisément ce globe liquide, le faisant léviter au-dessus de Yohna.[/italic]")
+
+    console.print("Durnir (calme, concentré) : 'C’est une belle invocation… mais l’eau, c’est aussi mon domaine.'")
+
+    console.print("[italic]D’un mouvement sec, il projette la bulle vers le sol. "
+              "Yohna se retrouve piégée à l’intérieur, incapable de briser cette prison aqueuse. "
+              "Le globe s'élève puis s’écrase lourdement contre la pierre, laissant Yohna inconsciente au centre de l’arène.[/italic]")
+
+    console.print("[bold cyan]Zyn[/bold cyan] (hurlant) : 'YOHNA !!!'")
+
+    console.print("Emphyr (croisant les bras, regard méprisant) : 'Pathétique… Je l’avais bien dit. "
+              "Les invocateurs sont d’une stupidité sans nom.'")
+
+    console.print("[italic]Zyn serre les poings, mais Durnir lève calmement la main pour désamorcer la tension.[/italic]")
+
+    console.print("Durnir (clin d’œil malicieux) : 'Du calme, gamin. Elle va juste roupiller un peu. "
+              "T’en fais pas pour elle.'")
+
+    console.print("[italic]Durnir fait quelques pas vers Yohna, traçant un petit symbole dans l’air. "
+              "La bulle éclate doucement en laissant l’invocatrice roulée sur le sol, inconsciente mais indemne.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] (d’une voix forte) : 'Durnir remporte ce duel.'")
+
+    console.print("[italic]Le silence retombe brièvement dans la salle. Zyn rejoint sa sœur, la relevant doucement, "
+              "tandis que Durnir retourne vers le côté de l’arène, bras croisés, observant les torches "
+              "avec un regard pensif.[/italic]")
+
+    console.print("Kael (calmement) : 'Il s’est retenu… Mais il aurait pu la tuer à tout moment.'")
+
+    console.print("Garen (soulagé mais tendu) : 'Je préfère qu’il se soit retenu… Ce vieil homme me fait peur.'")
+    
+    console.print("Gallius : 'Hmm.. Fortiche le vieux, je lui aurait deja trancher la gorge (dit-il en mimant le geste)'")
+    
+    # Garen s'interroge sur son futur adversaire
+    console.print("[italic]Garen détourne le regard vers Aldric, l'air inquiet et incertain.[/italic]")
+
+    console.print("Garen (nerveux) : 'Aldric… Tu crois que je vais devoir affronter qui ?'")
+
+    choix_adversaire_garen = Dialogue(
+    "Que répondez-vous à Garen ?",
+    [
+        {
+            "text": "Zyn",
+            "consequence": lambda h: [
+                console.print("Aldric (calmement) : 'Si c'est Zyn, tu vas devoir rester sur tes gardes. "
+                              "Il invoque des créatures rapides et puissantes. Mais il est impulsif, tu pourrais en tirer avantage.'"),
+                console.print("Garen (baissant les yeux) : 'Ouais… Impulsif ou pas, il a plus d’expérience que moi.'(Zyn +5)"),
+                h.get_relation("Zyn").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "Gallius",
+            "consequence": lambda h: [
+                console.print("Aldric (léger sourire) : 'Si c’est Gallius… Ne laisse pas sa nonchalance te tromper. "
+                              "C'est un assassin. Il frappe vite et sans prévenir.'"),
+                console.print("Gallius (amusé, à voix basse en jouant avec sa dague avec un sourire) : 'Je te briserai comme du verre, mon pote..'"),
+                console.print("Garen (pâle) : 'Euh… Je préférerais éviter Gallius.'(Gallius +5)"),
+                h.get_relation("Gallius").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "Emphyr",
+            "consequence": lambda h: [
+                console.print("Aldric (réfléchissant) : 'Emphyr est rapide, méthodique. Elle ne te laissera pas respirer.'"),
+                console.print("Emphyr (croisant les bras, avec un sourire en coin) : 'Oh, ne t’en fais pas. "
+                              "Je ferai en sorte que ça soit rapide…'"),
+                console.print("Garen (grimace) : 'Super… Vraiment rassurant.'(Emphyr + 5)"),
+                h.get_relation("Emphyr").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "Kael",
+            "consequence": lambda h: [
+                console.print("Aldric (léger rire) : 'Si tu tombes contre Kael… prépare-toi à souffrir. Il ne plaisante pas en duel.'"),
+                console.print("Kael (arrogant) : 'Je t’apprendrai quelques leçons, Garen. Ne t’inquiète pas.'"),
+                console.print("Garen (déglutit) : 'C’est bien ce qui me fait peur.'(Kael +5)"),
+                h.get_relation("Kael").adjust_score(+5)
+            ]
+        },
+        {
+            "text": "Moi-même",
+            "consequence": lambda h: [
+                console.print("Aldric (souriant) : 'Si c’est moi… Je te ménagerai peut-être. Ou pas.'"),
+                console.print("Garen (riant nerveusement) : 'Tu plaisantes j’espère ?'"),
+                console.print("Aldric (clin d’œil) : 'Va savoir…'(Garen +5)"),
+                h.get_relation("Garen").adjust_score(+5)
+            ]
+        }
+    ]
+    )
+
+    choix_adversaire_garen.display(hero)
+
+    console.print("[italic]Garen se frotte nerveusement les mains, observant l’arène encore marquée par le duel précédent.[/italic]")
+    console.print("Garen (murmurant) : 'J'espère juste que je vais survivre à ce foutu tournoi…'")
+    
+    console.print("[italic]L’atmosphère est pesante alors que le vase de cristal brille sous la lueur des torches. "
+              "Chaque dueliste restant observe le récipient, guettant le tirage, incertain de leur prochain adversaire.[/italic]")
+
+    console.print("Garen (murmurant à lui-même) : 'C’est bien ma veine… Peu importe contre qui je tombe, je suis fichu…'")
+
+    console.print(
+    "[italic]Tous les regards se posent sur Garen, qui se tient légèrement en retrait, "
+    "serrant nerveusement la lanière de son épée. Il n’a pas encore utilisé son Margith’r, "
+    "et cela le hante. Il sait que d’autres, comme Kael ou Emphyr, cachent aussi des capacités inconnues.[/italic]")
+
+    console.print("[italic]Mais aucun d’eux n’égale Gallius, dont la simple présence semble peser sur la salle. "
+              "Ce tueur professionnel reste appuyé nonchalamment contre un pilier, l’air détaché, "
+              "mais son ombre s’étire, menaçante.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] (voix forte) : 'Le prochain combat va commencer.'")
+
+    console.print("[italic]Archeon plonge une main ouverte au-dessus du vase, et par magie, une sphère s’élève lentement. "
+              "Elle brille d’une douce lueur, révélant un nom que tous attendaient avec appréhension.[/italic]")
+
+    console.print("[bold yellow]Archeon[/bold yellow] : 'Garen.'")
+
+    console.print("[italic]Le cœur de Garen manque un battement. Ses jambes faiblissent un instant tandis qu’il avance vers l’arène, "
+              "comme si son destin venait d’être scellé.[/italic]")
+
+    console.print("Garen (frissonnant) : 'Non… Pourquoi moi ?'")
+
+    console.print("[italic]Ses yeux parcourent la pièce. Il y a encore un espoir. Peut-être tombera-t-il contre quelqu’un… de plus clément ?"
+              "Mais ce n’est qu’un maigre mensonge qu’il se raconte pour apaiser sa peur.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] (reprenant avec amusement) : 'Face à… Kael.'")
+
+    console.print(
+    "[italic]Un silence s’installe. Kael s’avance sans précipitation, l’ombre d’un sourire aux lèvres. "
+    "Il se place devant Garen, observant son vieil adversaire de haut.[/italic]")
+
+    console.print("Kael (doucement) : 'Eh bien… le destin nous a réunis, paysan.'")
+    console.print("Garen (nerveux): 'Hm...c'etait ecrit...'")
+
+    console.print("[italic]Les deux se toisent un instant. C’est plus qu’un duel de tournoi. "
+              "C’est une rivalité qui remonte à l’extérieur de cette tour, a tout début – "
+              "la noblesse contre le peuple, l'éxcellence contre l’endurance.[/italic]")
+
+    console.print("Garen (tentant de masquer sa nervosité) : 'Tu vas voir… je suis plus coriace que tu le penses.'")
+    console.print("Kael : 'Ne t'en fait Garen je ne ferai pas l'erreur de te sous estimé, même si ma victoire est deja assuré..'")
+
+    console.print("[italic]Mais malgré ses paroles, ses mains tremblent. Kael le remarque, mais ne dit rien. "
+              "Il se contente de dégainer lentement sa rapière, l’acier reflétant la lumière des torches.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] (levant la main) : 'Que le combat commence !'")
+    
+    console.print("[italic]Le duel va bientôt commencer. Zyn s’approche d’Aldric, les bras croisés, fixant les deux combattants qui prennent position.[/italic]")
+
+    console.print("Zyn (curieux) : 'Alors, Aldric ? Qui tu vois gagner ce combat ? Le bourge ou le bouseux ?'")
+
+# Choix de dialogue
+    choix_duel_garen_kael = Dialogue(
+    "Que répondez-vous à Zyn ?",
+    [
+        {
+            "text": "Kael est clairement le favori. Garen a peu de chances.",
+            "consequence": lambda h: [
+                console.print("Aldric (calme) : 'Kael est redoutable, c’est évident. Garen… a du courage, mais ça ne suffira peut-être pas.'"),
+                console.print("Zyn (hochant la tête) : 'Je suis d’accord. Kael est méthodique. Garen va devoir se surpasser.' (Zyn +10, Kael +10, Garen -10)"),
+                h.get_relation("Zyn").adjust_score(+10),
+                h.get_relation("Kael").adjust_score(+10),
+                h.get_relation("Garen").adjust_score(-10)
+            ]
+        },
+        {
+            "text": "Je crois en Garen. Il a plus de ressources qu’on ne le pense.",
+            "consequence": lambda h: [
+                console.print("Aldric (convaincu) : 'Garen a un cœur solide. Je pense qu’il peut surprendre Kael.'"),
+                console.print("Zyn (sceptique) : 'Hm… On verra. Mais s’il gagne, ça sera de justesse.' (Garen +10, Kael -10)"),
+                h.get_relation("Garen").adjust_score(+10),
+                h.get_relation("Kael").adjust_score(-10)
+            ]
+        }
+    ]
+    )
+
+    choix_duel_garen_kael.display(hero)
+
+    console.print("\n[bold red]Archeon[/bold red] (d’un ton grave) : 'En place.'")
+
+    console.print("[italic]Kael ajuste sa rapière, effectuant quelques mouvements fluides. La lame brille légèrement d’une aura bleutée, signe du Margith’r qui pulse en lui.[/italic]")
+
+    console.print("Kael (à Garen) : 'Je vais rendre ça rapide. Tu devrais abandonner.'")
+
+    console.print("Garen (serrant les poings) : 'On verra ça… Je ne suis pas venu ici pour fuir.'")
+
+    console.print("[italic]Archeon lève lentement le bras, puis l’abaisse brusquement.[/italic]")
+
+    console.print("[bold red]Archeon[/bold red] : 'Que le combat commence !'")
+
+# Début du duel
+    console.print("[italic]Kael bondit immédiatement en arrière, balançant sa rapière dans le vide. "
+              "Des pointes invisibles de force jaillissent devant lui, projetant des impacts rapides en direction de Garen.[/italic]")
+
+    console.print("Kael (criant) : 'Distance, toujours la distance !'")
+
+    console.print("[italic]Garen lève ses bras en croix, mais les projectiles le frappent sans relâche. "
+              "Il glisse en arrière, peinant à trouver une ouverture.[/italic]")
+
+    console.print("Garen (frustré) : 'Je ne peux même pas m’approcher !'")
+
+    console.print("[italic]Mais alors que Kael continue son mitraillage, Garen serre les dents. "
+              "Un bouclier de bois apparaît soudain devant lui, absorbant partiellement les coups.[/italic]")
+
+    console.print("Kael (haussant un sourcil) : 'Oh ? Tu caches quelque chose, après tout…'")
+
+    console.print("Garen (grimaçant) : 'Je ne comprends pas encore ce pouvoir… mais ça fera l’affaire !'")
+
+    console.print("[italic]Kael éclate de rire et projette un nouvel assaut. "
+              "Le bouclier de Garen se fend sous l’impact, mais il tient bon.[/italic]")
+
+    console.print("[bold cyan]Zyn[/bold cyan] (croisant les bras) : 'Pas trop mal pour un début… Mais ça ne suffira pas face à Kael.'")
+
+    console.print("[bold cyan]Gallius[/bold cyan] (calmement) : 'Il doit encaisser et frapper au bon moment… S’il peut s’approcher, Kael n’aura aucune chance.'")
+
+    console.print("[italic]Durnir observe silencieusement, un léger sourire en coin, intrigué par la ténacité de Garen.[/italic]")
+    
+    console.print("[italic]Kael fait glisser sa rapière dans l’air, déclenchant une nouvelle série de pointes invisibles. "
+              "Garen invoque un rempart de bois fragile, mais chaque impact fait trembler la structure jusqu’à ce qu’elle s’effrite et cède entièrement.[/italic]")
+
+    console.print("Kael (sèchement) : 'C’est déjà fini ? Je vais pas te ménager sous prétexte qu’on a fait un bout de chemin ensemble. "
+              "Tu restes le plus faible ici, Garen. Le meilleur tirage pour moi.'")
+
+    console.print("[italic]Garen baisse légèrement son bouclier, la tête baissée. Ses poings tremblent.[/italic]")
+
+    console.print("Garen (murmurant) : '…hm…'")
+
+    console.print("[italic]Kael ne lui laisse aucun répit et bondit en arrière pour augmenter la distance, déclenchant une nouvelle salve de projectiles tranchants. "
+              "Garen, paniqué, matérialise un autre rempart, mais il est encore plus fragile que le précédent. "
+              "Les coups fusent et brisent le bouclier en éclats, comme si la confiance de Garen se décomposait peu à peu.[/italic]")
+
+# Choix de dialogue - Influence d'Aldric
+    choix_duel_kael_garen = Dialogue(
+    "Aldric comprend quelque chose… Que lui dites-vous ?",
+    [
+        {
+            "text": "Kael, finis-en. Il n’a même pas envie de se battre.",
+            "consequence": lambda h: [
+                console.print("Aldric (croisant les bras) : 'Termine-le, Kael. Il n’a pas l’envie de se battre.'"),
+                console.print("Kael (souriant froidement) : 'Je vois ça. Tu as raison, Aldric.' (Garen -20)"),
+                console.print("[italic]Garen baisse encore plus les yeux, les mots d’Aldric résonnant lourdement dans son esprit.[/italic]"),
+                console.print("Kael (à Garen) : 'Tu aurais dû rester à traire les vaches. Ton frère aurait eu plus de chance ici que toi.'"),
+                h.get_relation("Garen").adjust_score(-20)
+            ]
+        },
+        {
+            "text": "Garen, tu dois te rapprocher ! Tu n’as pas le choix. Ses coups deviennent plus puissants à distance !",
+            "consequence": lambda h: [
+                console.print("Aldric (avec intensité) : 'Garen ! La distance le rend plus fort. Tu dois te rapprocher, maintenant !'"),
+                console.print("Kael (jetant un regard vers Aldric) : 'Bien vu, Aldric. Observateur, mais…'"),
+                console.print("Kael (plissant les yeux) : 'C’est trop tard pour lui.' (Kael +10)"),
+                console.print("[italic]Kael s’avance, rapière prête à fondre sur Garen pour finir le combat.[/italic]"),
+                h.get_relation("Kael").adjust_score(+10)
+            ]
+        }
+    ]
+    )
+
+    choix_duel_kael_garen.display(hero)
+
+# Transition - Réveil de Garen
+    console.print("[italic]Kael s’apprête à lancer une nouvelle rafale. Son regard est impassible tandis qu’il fait un pas en avant, la pointe de sa rapière scintillant sous la lueur des torches.[/italic]")
+
+    console.print("Kael : 'Tu aurais dû laisser ta place à ton frère…tu ne sera jamais comme lui...(Garen lui avait raconté son, histoire)'")
+
+    console.print("[italic]Ces mots déclenchent quelque chose en Garen. Il serre les poings jusqu’à ce que ses articulations blanchissent, puis il hurle.[/italic]")
+
+    console.print("[bold yellow]Garen (hurlant) : 'Ne parle jamais de mon frère ! Jamais !'[/bold yellow]")
+
+    console.print("[italic]Un éclat doré jaillit de ses mains, et un immense écu de chêne massif apparaît, arrêtant net la prochaine salve de Kael. "
+              "Les projectiles se dispersent comme s’ils rebondissaient sur une muraille impénétrable.[/italic]")
+
+    console.print("Kael (étonné) : 'Oh ? Je crois que j’ai touché une corde sensible.'")
+
+    console.print("[italic]Garen avance, lentement mais sûrement. À chaque pas, il repousse les assauts répétés de Kael, les projectiles perdant en force. "
+              "Kael recule instinctivement, mais l’avancée de Garen est inexorable.[/italic]")
+
+    console.print("Garen (voix grave) : 'Tu n’as pas le droit de parler de lui. Pas toi.'")
+
+    console.print("Kael (avec un sourire nerveux) : 'Hah… Ça devient intéressant.'")
+
+    console.print("[italic]La dynamique du combat s’inverse progressivement. Garen, protégé par son bouclier, gagne du terrain tandis que Kael, d’habitude implacable, semble chercher une nouvelle stratégie.[/italic]")
+
+    console.print("[italic]Garen, le souffle court, maintient son bouclier de chêne fermement, repoussant les assauts répétés de Kael. "
+              "Mais quelque chose change. Le bois du bouclier semble vibrer, scintillant légèrement sous la lumière des torches. "
+              "Une lueur dorée l’enveloppe, se teignant lentement d’orange à chaque coup absorbé.[/italic]")
+
+    console.print("[bold yellow]Durnir[/bold yellow] (le regard perçant) : 'Gamin… Ton Margith'r est sûrement l’un des plus beaux que j’ai vus. "
+              "Plus ton cœur est fort et vaillant, plus ton rempart deviendra indestructible.'")
+
+    console.print("[italic]Il plisse les yeux, une larme presque imperceptible au coin de l’œil. "
+              "L’émotion qu’il ressent est sincère, comme s’il assistait à la naissance d’un prodige. "
+              "Mais son attention se détourne rapidement vers l’aura qui s’intensifie autour de Garen.[/italic]")
+
+    console.print("Emphyr (croisant les bras, intriguée) : 'Hmmm… Intéressant.'")
+    console.print("Gallius (grinçant des dents avec un sourire) : 'Ooooh ? Le bouseux rigole plus ! "
+              "Allez, défends-toi, écrase ce coincé de noble ! Hahaha !'")
+
+    console.print("Aldric (murmurant, observant attentivement) : '…Garen…'")
+    console.print("Zyn (fixant la lueur autour de Garen) : 'Aldric… cette lumière… C’est quoi, ça ?'")
+
+# Choix de dialogue - Révélation du pouvoir de Garen
+    choix_margithr_garen = Dialogue(
+    "Que répondez-vous à Zyn ?",
+    [
+        {
+            "text": "J’ai l’impression que ça absorbe les coups. Étrange…",
+            "consequence": lambda h: [
+                console.print("Aldric (calme) : 'On dirait que chaque coup que Garen reçoit renforce ce bouclier… comme s’il stockait cette force.'"),
+                console.print("Durnir (souriant doucement) : 'C’est exact. Le Margith'r de ce gamin repose sur un principe simple : "
+                              "plus il endure, plus il pourrait riposter fort. Fascinant…ce pouvoir est a son image"
+                              "'Il a dit encaissé beaucoup de choses dans sa vie...'"),
+            ]
+        },
+        {
+            "text": "C’est une manifestation de sa volonté.",
+            "consequence": lambda h: [
+                console.print("Aldric (les yeux rivés sur Garen) : 'Ce n’est pas qu’une capacité. "
+                              "Son pouvoir est une extension de sa volonté. Plus il croit en sa victoire, plus il devient fort.'"),
+                console.print("Durnir (riant doucement, levant un doigt) : 'Pas seulement… C’est encore plus intéressant que ça, jeune homme.'"),
+            ]
+        }
+    ]
+    )
+
+    choix_margithr_garen.display(hero)
+
+# Kael intensifie son offensive
+    console.print("[italic]Kael, remarquant le changement dans l’attitude de Garen, plisse les yeux. "
+              "Sa rapière fend l’air avec encore plus de vitesse, déclenchant des rafales de coups à distance. "
+              "Mais Garen ne faiblit pas. Il avance lentement, bloquant chaque salve avec son bouclier renforcé.[/italic]")
+
+    console.print("Kael (agacé, haussant la voix) : 'Ce n’est pas suffisant. Je vais te briser.'")
+
+    console.print("[italic]D’un bond rapide, Kael s’élève dans les airs, abattant sa rapière en direction du sol. "
+              "Un arc d’énergie jaillit, créant une onde de choc sous Garen, cherchant à le déséquilibrer. "
+              "Mais Garen, impassible, frappe le sol de son bouclier avec force.[/italic]")
+
+    console.print("[bold cyan]Garen[/bold cyan] (hurlant) : 'Tu ne me feras pas tomber !'")
+
+    console.print("[italic]L’impact de son coup crée une onde inverse, propulsant Garen dans les airs pour rejoindre Kael. "
+              "Les deux combattants échangent alors des coups dans une pluie d’étincelles, "
+              "Garen repoussant chaque attaque avec une précision nouvelle. "
+              "L’aura autour de son bouclier passe du doré à l’orange, puis au rouge vif, bouillonnant d’énergie.[/italic]")
+
+    console.print("Kael (tentant de masquer sa surprise) : 'Hmph… Je vois. Tu es plus coriace que prévu. Mais ça ne suffira pas.'")
+
+    console.print("Garen (d’une voix ferme, les yeux brillants de détermination) : 'Ne me prend plus jamais de haut Kael. Jamais !!'")
+    
+    console.print("Aldric (se rememore sa recontre avec Garen au pied de la tour...): Garen....ahahah...Tu as changé ! bravo mon pote !")
+
+    console.print("[italic]Kael enchaîne rapidement, mais ses coups, bien que rapides, semblent moins efficaces. "
+              "Chaque impact contre le bouclier de Garen est absorbé, et la tension grimpe. "
+              "Kael recule instinctivement, tandis que Garen continue d’avancer, implacable.[/italic]")
+
+    console.print("Durnir (dans un souffle, observant) : 'Quel pouvoir fascinant… Ce gamin pourrait aller loin.'")
+    
+    console.print("[italic]Garen baisse légèrement son bouclier, laissant apparaître son regard déterminé sous la lueur rougeâtre de son Margith'r.[/italic]")  
+    console.print("Kael (criant, avec frénésie) : 'N'essaie même pas ! YAYAYAYAYAYAYA !'")  
+
+    console.print("[italic]Kael enchaîne des coups rapides, projetant des rafales de lames de vent. Garen ne recule pas. "
+              "Son bouclier absorbe les attaques, faisant trembler l’arène sous leurs échanges intenses.[/italic]")  
+    console.print("Garen (hurlant avec rage) : 'Ça suffit ! Crève !!!'")  
+
+    console.print("[italic]Dans une explosion de force, Garen bondit en avant. "
+              "Il abat son bouclier avec une puissance colossale contre Kael, qui ne peut qu’écarquiller les yeux.[/italic]")  
+    console.print("Kael (surpris) : 'Meeeeerde… !'")  
+
+    console.print("[italic]Kael est projeté violemment vers le sol, son corps rebondissant lourdement sur les dalles de pierre.[/italic]")  
+    console.print("Garen (retombant, haletant) : 'Kael… ? Je…Je...suis désolé…'")  
+
+    console.print("[italic]Mais alors que Garen s’approche, son bouclier perd peu à peu son éclat, s’adoucissant comme si sa volonté s’était calmée. "
+              "Il s’inquiète pour Kael… oubliant l’enjeu du combat.[/italic]")  
+    console.print("Kael (grimaçant, se redressant légèrement et bléssé) : '[bold]Erreur fatale.[/bold] Regle numéro 1… ne jamais baisser sa garde.'")  
+
+    console.print("[italic]Dans un éclair, Kael frappe d’un coup vif avec sa rapière. La lame fend l’air et brise le bouclier affaibli de Garen, "
+              "le projetant à terre. Kael chancelle mais parvient à se redresser, la lame pointée vers son ami, encore sonné.[/italic]")  
+
+    console.print("[bold red]Archeon[/bold red] (d’une voix forte et impassible) : 'Kael est vainqueur.'")  
+
+    console.print("[italic]Kael reste silencieux, son regard fixé sur Garen, réalisant à peine la fin du duel. "
+              "Il semble presque aussi choqué que son adversaire.[/italic]")  
+
+    console.print("Garen (à voix basse, tremblant) : 'J’ai… j’ai perdu…'")  
+    console.print("[italic]Il se retourne lentement, s’effondrant sur le sol face contre terre. Des sanglots éclatent, brisant le silence pesant de l’arène.[/italic]")  
+    console.print("Garen (murmurant, brisé) : 'Snif...Kael…! tue-moi…! Je suis une honte. Je… Je ne mérite pas de vivre. Mon frère aurait dû être là, "
+                  "pas moi… Je suis incapable de protéger quoi que ce soit, ni même ma satané ferme...'")  
+
+    console.print("[italic]Kael baisse la tête pour masquer l’émotion qui traverse son visage. "
+              "Sa main tremble légèrement autour de la garde de sa rapière.[/italic]")  
+    console.print("Kael (d’une voix calme et douce) : 'Arrête… Tu es bien plus fort que tu ne le crois. Ce combat n’a rien changé à ça.'")  
+
+    console.print("[italic]Kael tend la main à Garen pour l’aider à se relever, mais ce dernier reste prostré, incapable de lever les yeux.[/italic]")  
+    console.print("Kael (soupirant, en murmurant) : 'Ton frère aurait été fier de toi. Je l’aurais été aussi…'")  
+
+    console.print("[italic]Archeon observe la scène sans un mot, les mains jointes dans son dos. "
+              "Son regard perçant s’attarde un instant sur Garen, avant de détourner les yeux vers la suite du tournoi.[/italic]")  
+    console.print("Archeon (calme) : 'Relevez-le. Les épreuves ne sont pas terminées.'")  
+    
+    console.print("[italic]Le silence qui suit le duel est lourd, presque oppressant. Garen reste à terre, le front appuyé sur la pierre froide, tandis que Kael s’éloigne lentement, le regard bas. "
+              "Archeon observe sans dire un mot, laissant cette tension imprégner l’arène.[/italic]")  
+
+    console.print("Durnir (hochant la tête, bras croisés) : 'Hm… Je suis déçu de cette fin. Mais pas surpris.'")  
+    console.print("Durnir (souriant en coin) : 'Garen… Tu es un bon gars. Et surtout, t’es encore vivant.'")  
+
+    console.print("Emphyr (froide, adossée contre un pilier) : 'Les faibles finissent toujours par tomber. C’était couru d’avance.'")  
+
+    console.print("[italic]Kael regagne lentement son siège du côté des vainqueurs, sans adresser un regard à personne. "
+              "Clotaire, assis dans l’ombre, lève brièvement la tête et affiche un léger signe de respect en direction des deux combattants.[/italic]")  
+
+    console.print("Clotaire (calme) : 'Ils se sont bien battus. Même un combat déséquilibré mérite d’être salué.'")  
+
+    console.print("[italic]Gallius ricane en s'étirant, passant une main dans ses cheveux.[/italic]")  
+    console.print("Gallius (moqueur) : 'Dommage… Le fermier aurait dû l’achever. Ça aurait fait du spectacle. "
+              "Quant à toi, noble… ta victoire est loin d’être méritée. Sache-le.'")  
+
+# Yohna se réveille
+    console.print("[italic]De l’autre côté de l’arène, Yohna, qui avait été laissée sous la surveillance de Zyn après son duel contre Durnir, ouvre lentement les yeux.[/italic]")  
+    console.print("Yohna (faiblement) : 'Zyn… Je…'")  
+
+    console.print("[italic]Zyn se précipite à ses côtés, le visage tendu mais soulagé de la voir consciente.[/italic]")  
+    console.print("Zyn (soufflant, inquiet) : 'Repose-toi. T’es encore là, c’est l’essentiel.'")  
+
+# Garen s’isole
+    console.print("[italic]Pendant ce temps, Garen s’assoit à l’écart, dans l’ombre d’une colonne. "
+              "Il s’enfonce dans ses pensées, honteux et abattu. Il évite le regard des autres participants.[/italic]")  
+
+    console.print("[bold]Durnir[/bold] (lui lançant un regard chaleureux) : 'Bravo, gamin. Sois fier de toi. De tous ici, "
+              "tu es celui qui a le plus grand cœur.'")  
+    console.print("[italic]Durnir frappe sa poitrine d’un poing ferme, signe de respect sincère, avant d’ajouter dans un sourire franc.[/italic]")  
+    console.print("Durnir : 'Et crois-moi… ça vaut plus qu’une victoire.'")  
+
+    console.print("Aldric (calme mais sincère) : 'Il a raison. Je suis fier de t’avoir rencontré… et encore plus d’être ton ami.'")  
+
+    console.print("[italic]Garen lève à peine les yeux, mais un léger tremblement trahit l’émotion qui l’envahit.[/italic]")  
+    console.print("Garen (murmurant) : 'Merci… Aldric…Durnir..'")  
+
+# Kael affiche de l’émotion
+    console.print("[italic]Kael, toujours assis du côté des vainqueurs, serre les poings un instant, avant de relâcher la pression. "
+              "Il détourne le regard, peinant à cacher la légère culpabilité qui le traverse.[/italic]")  
+    console.print("Kael (à voix basse) : 'Garen…'")  
+
+    console.print("[italic]Mais Kael se tait, sachant que ses mots n’apporteraient rien de plus pour le moment et se contente de soigner ses blessures.[/italic]")  
+
+
+    
+
+
+
+
+
+
+
+    
+    
+
+
+
+
 
 
 
