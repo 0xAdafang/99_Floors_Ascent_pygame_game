@@ -8,25 +8,10 @@ console = Console()
 
 
 def load_game():
-    try:
-        with open("savegame.json", "r") as file:
-            save_data = json.load(file)
-            hero = Heros()
-            hero.name = save_data["name"]
-            hero.health = save_data["health"]
-            hero.floor_reached = save_data["floor_reached"]
-            
-            # Restaurer les relations
-            for relation_data in save_data.get("relations", []):
-                char = Character(relation_data["name"], "Ancien compagnon", "inconnu")
-                hero.add_relation(char, relation_data["type"])
-                hero.get_relation(char.name).adjust_score(relation_data["score"])
-            
-            console.print("[bold green]Partie chargée avec succès ![/bold green]")
-            return hero
-    except FileNotFoundError:
-        console.print("[bold red]Aucune sauvegarde trouvée.[/bold red]")
+    hero = Heros()
+    if not load_existing_game(hero):
         return None
+    return hero
 
 
 def new_game():
@@ -74,9 +59,11 @@ game_menu = GameMenu(hero, tower)
 
 # Continuer l'aventure à partir de l'étage atteint
 if hero.floor_reached > 0:
-    console.print(f"\n[bold green]Vous êtes à l'étage {hero.floor_reached}.[/bold green]")
+    tower.current_floor = hero.floor_reached  # Synchronisation de la tour
+    console.print(f"\n[bold green]Vous reprenez à l'étage {hero.floor_reached}.[/bold green]")
 else:
     console.print("\n[bold yellow]Bienvenue dans la Tour Divine. L'aventure commence ![/bold yellow]")
+
 
 while hero.is_alive and tower.current_floor <= hero.floor_reached:
     game_menu.display()
@@ -96,6 +83,9 @@ while hero.is_alive and tower.current_floor <= hero.floor_reached:
         floor6(hero, game_menu)
     elif tower.current_floor == 7:
         floor7(hero, game_menu)
+    elif tower.current_floor == 8:
+        floor8(hero, game_menu)
+
 
     # Sauvegarde automatique après chaque étage
     save_game(hero)

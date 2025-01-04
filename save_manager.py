@@ -39,13 +39,12 @@ def list_saves():
     return saves
 
 
-def load_game(hero):
+def load_game(hero=None):
     saves = list_saves()
 
     if not saves:
         print("[bold red]Aucune sauvegarde disponible.[/bold red]")
-        input("\n[italic]Appuyez sur Entrée pour revenir au menu...[/italic]")
-        return False
+        return None
 
     print("\n[bold cyan]Sauvegardes disponibles :[/bold cyan]")
     for i, save in enumerate(saves, 1):
@@ -54,23 +53,27 @@ def load_game(hero):
     choix = input("\nChoisissez une sauvegarde (entrez le numéro) : ")
     if not choix.isdigit() or int(choix) < 1 or int(choix) > len(saves):
         print("[bold red]Choix invalide.[/bold red]")
-        return False
+        return None
 
     save_path = os.path.join(SAVE_DIR, saves[int(choix) - 1])
 
     with open(save_path, "r") as file:
         save_data = json.load(file)
+        if hero is None:
+            hero = Heros()
         hero.name = save_data["name"]
         hero.health = save_data["health"]
         hero.floor_reached = save_data["floor_reached"]
 
-        # Reconstruction des relations
         hero.relations = []
         for rel in save_data["relations"]:
-            character = Character(rel["name"], "Ancienne relation", "inconnu")
-            relation = Relation(character, rel["type"])
+            char = Character(rel["name"], "Ancienne relation", "inconnu")
+            relation = Relation(char, rel["type"])
             relation.score = rel["score"]
             hero.relations.append(relation)
 
         print(f"[bold cyan]Partie '{saves[int(choix) - 1].replace('.json', '')}' chargée avec succès ![/bold cyan]")
-        return True
+        return hero
+    
+def load_existing_game(hero):
+    return load_game(hero)
