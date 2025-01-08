@@ -3,8 +3,11 @@ import sys
 from classes import *
 from pygame.locals import *
 from graphics import *
+from save_manager import *
 
+menu_stack = []
 
+WIDTH, HEIGHT = 800, 600
 
 
 def display_text(screen, text, pos, font, max_width=700, delay=25):
@@ -20,8 +23,28 @@ def display_text(screen, text, pos, font, max_width=700, delay=25):
         pygame.time.wait(delay)
 
 
+def afficher_dialogues(screen, font, clock, dialogues):
+    dialogue_index = 0
+    in_dialogue = True
 
+    while in_dialogue:
+        clear_screen(screen)
+        display_dialogue_box(screen, dialogues[dialogue_index], font, clock)
 
+        waiting = True
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.KEYDOWN and event.key in [pygame.K_RETURN, pygame.K_SPACE]:
+                    dialogue_index += 1
+                    if dialogue_index >= len(dialogues):
+                        in_dialogue = False
+                    waiting = False
+                
+                
 def display_delay(screen, font, text, clock, speed=30, max_width=700):
     screen.fill((0, 0, 0))
     lines = wrap_text(text, font, max_width)
@@ -199,6 +222,37 @@ def clear_screen(screen):
     pygame.display.flip()
 
 
+def display_save_confirmation(screen, font, message):
+    width, height = screen.get_size()
+    box_width, box_height = 800, 250
+
+    screen.fill((0, 0, 0))
+    pygame.draw.rect(screen, (30, 30, 30), (width // 2 - box_width // 2,
+                                            height // 2 - box_height // 2,
+                                            box_width, box_height))
+    pygame.draw.rect(screen, (255, 255, 255), (width // 2 - box_width // 2,
+                                               height // 2 - box_height // 2,
+                                               box_width, box_height), 3)
+
+    text_surface = font.render(message, True, (255, 255, 255))
+    screen.blit(text_surface, (width // 2 - text_surface.get_width() // 2,
+                               height // 2 - box_height // 2 + 30))
+
+    return_text = font.render("Appuyez sur Entrée pour continuer", True, (255, 255, 0))
+    screen.blit(return_text, (width // 2 - return_text.get_width() // 2,
+                              height // 2 + box_height // 2 - 30))
+
+    pygame.display.flip()
+
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                waiting = False
+                clear_screen(screen)  # Nettoyage après retour au menu
 
 
 def wait_for_keypress(beep_sound=None, volume=0.2):
@@ -217,14 +271,7 @@ def wait_for_keypress(beep_sound=None, volume=0.2):
                 beep_sound.play()  # Joue le son lorsque "Entrée" est pressé
                 waiting = False
 
-
-
-def afficher_dialogues(screen, font, clock, dialogues):
-    for dialogue in dialogues:
-        clear_screen(screen)
-        display_dialogue_box(screen, dialogue, font, clock)
         
-
 
 
 
@@ -539,21 +586,23 @@ def display_game_menu(screen, font, clock, options):
         
         clock.tick(30)
   
+  
         
 def start_next_chapter(hero, screen, font, clock):
-    hero.advance_chapter()  # Incrémente le chapitre
-    width, height = screen.get_size()  # Récupère la taille de l'écran
+    if hero.chapter_reached <= chapitre_max_implémenté():  # Vérifie si le chapitre est implémenté
+        hero.advance_chapter()  # Passe au chapitre suivant uniquement si implémenté
+        save_game(hero)  # Sauvegarde immédiatement
+        print(f"Début du Chapitre {hero.chapter_reached}")
+        
+        fade_in_text(screen, f"Chapitre {hero.chapter_reached} : L'aventure continue", font, (400, 300), 3000)
+        fade_out_text(screen, 3000)
+    else:
+        print("Chapitre non implémenté. Rester au chapitre actuel.")
 
-    fade_in_text(screen, 
-        f"Chapitre {hero.chapter_reached} : L'aventure continue", 
-        font, 
-        (width // 2, height // 2),  # Utilisation dynamique de la taille
-        duration=3000)
-    
-    fade_out_text(screen, 3000)
-    pygame.time.wait(1000)
-    print(f"Début du Chapitre {hero.chapter_reached}")
 
+def chapitre_max_implémenté():
+    chapters = [func for func in globals() if func.startswith("chapitre_")]
+    return len(chapters)
 
 
 def display_relations(screen, font, hero):
@@ -564,8 +613,9 @@ def display_relations(screen, font, hero):
     display_text(screen, "\n".join(relations_text), (width // 2 - 300, height // 2 - 100), font)
 
 
+def game_menu(screen, font, clock, width, height, hero):
+    global menu_stack
 
-def game_menu(screen, font, clock, width, height):
     background = pygame.image.load("graphics/resources/backgrounds/tour3.webp")
     background = pygame.transform.scale(background, (width, height))
     title_font = pygame.font.Font("graphics/resources/font/CinzelDecorative-Bold.otf", 70)
@@ -573,28 +623,158 @@ def game_menu(screen, font, clock, width, height):
     select_sound = pygame.mixer.Sound("graphics/resources/music/menuselection.mp3")
     click_sound = pygame.mixer.Sound("graphics/resources/music/menuclick.mp3")
 
-    options = ["Continuer", "Afficher Relation", "Santé : 100 HP", "Sauvegarder", "Quitter"]
-
+    options = ["Continuer", "Afficher Relation", "Sauvegarder", "Quitter"]
     selected = 0
-    width, height = screen.get_size()
     box_width = 450
-    box_height = 100 + len(options) * 60
+    box_height = 400
+    line_height = font.get_linesize() + 20
+    padding_top = 40
 
-    while True:
+    # Empiler ce menu dans la pile
+    menu_stack.append("game_menu")
+
+    while menu_stack and menu_stack[-1] == "game_menu":
         screen.blit(background, (0, 0))
-        title_surface = title_font.render("Fin de chapitre", True, (255, 255, 255))
+        title_surface = title_font.render("Menu de Jeu", True, (255, 255, 255))
         title_rect = title_surface.get_rect(center=(width // 2, height // 6))
         screen.blit(title_surface, title_rect)
 
         menu_surface = pygame.Surface((box_width, box_height), pygame.SRCALPHA)
-        menu_surface.fill((0, 0, 0, 150))
-        screen.blit(menu_surface, (width // 2 - box_width // 2, height // 2 - box_height // 2 + 100))
-        pygame.draw.rect(screen, (255, 255, 255), (width // 2 - box_width // 2, height // 2 - box_height // 2 + 100, box_width, box_height), 3)
+        menu_surface.fill((0, 0, 0, 180))
+        pygame.draw.rect(menu_surface, (255, 255, 255, 150), (0, 0, box_width, box_height), 3)
 
+        y = padding_top
         for i, option in enumerate(options):
             color = (255, 255, 0) if i == selected else (255, 255, 255)
             text_surface = font.render(option, True, color)
-            text_rect = text_surface.get_rect(center=(width // 2, height // 2 + 50 + i * 50))
+            menu_surface.blit(text_surface, (60, y))
+            y += line_height
+
+        screen.blit(menu_surface, (width // 2 - box_width // 2, height // 2 - box_height // 2 + 50))
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    selected = (selected + 1) % len(options)
+                    select_sound.play()
+                if event.key == pygame.K_UP:
+                    selected = (selected - 1) % len(options)
+                    select_sound.play()
+                if event.key == pygame.K_RETURN:
+                    click_sound.play()
+                    pygame.time.wait(300)
+
+                    if selected == 0:  # Continuer
+                        start_next_chapter(hero, screen, font, clock)
+                        menu_stack.pop()  # Enlève ce menu après action
+                    elif selected == 1:  # Afficher Relations
+                        display_relations_screen(screen, font, clock, hero)
+                    elif selected == 2:  # Sauvegarder
+                        save_game(hero)
+                        display_save_confirmation(screen, font, "Partie sauvegardée avec succès")
+                    elif selected == 3:  # Retour au menu principal
+                        menu_stack.clear()  # Vide la pile pour s'assurer de revenir au main_menu
+                        main_menu(screen, font, clock)  # Relance le menu principal
+
+def display_relations_screen(screen, font, clock, hero):
+    global menu_stack
+
+    relations_text = [f"{rel.character.name} - {rel.relationship_type} ({rel.score})"
+                      for rel in hero.relations]
+
+    width, height = screen.get_size()
+    box_width, box_height = 700, 400
+
+    while True:
+        screen.fill((0, 0, 0))  # Efface tout l'écran avant d'afficher
+        pygame.draw.rect(screen, (30, 30, 30), (width // 2 - box_width // 2,
+                                                height // 2 - box_height // 2,
+                                                box_width, box_height))
+        pygame.draw.rect(screen, (255, 255, 255), (width // 2 - box_width // 2,
+                                                   height // 2 - box_height // 2,
+                                                   box_width, box_height), 3)
+
+        y = height // 2 - box_height // 2 + 50
+        for relation_text in relations_text:
+            text_surface = font.render(relation_text, True, (255, 255, 255))
+            screen.blit(text_surface, (width // 2 - text_surface.get_width() // 2, y))
+            y += font.get_linesize() + 10
+
+        return_text = font.render("Appuyez sur Entrée pour revenir", True, (255, 255, 0))
+        screen.blit(return_text, (width // 2 - return_text.get_width() // 2, height - 100))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    if menu_stack:  # Vérification avant de faire pop
+                        menu_stack.pop()
+                    clear_screen(screen)  # Efface l'écran après retour
+                    return
+                
+                
+
+def return_to_main_menu(screen, font, clock):
+    fade_out(screen, WIDTH, HEIGHT)
+    main_menu(screen, font, clock)
+    
+    
+    
+    
+
+def main_menu(screen, font, clock):
+    # Chargement des ressources
+    background = pygame.image.load("graphics/resources/backgrounds/tour3.webp")
+    background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # L'image prend tout l'écran
+    
+    # Utilisation de la nouvelle police CinzelDecorative-Bold avec une taille plus petite
+    title_font = pygame.font.Font("graphics/resources/font/CinzelDecorative-Bold.otf", 70)
+    select_sound = pygame.mixer.Sound("graphics/resources/music/menuselection.mp3")
+    click_sound = pygame.mixer.Sound("graphics/resources/music/menuclick.mp3")
+    pygame.mixer.music.load("graphics/resources/music/mystical.mp3")
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(-1)  # Boucle infinie de la musique
+
+    options = ["Nouvelle Partie", "Charger Partie", "Quitter"]
+    selected = 0
+    width, height = screen.get_size()
+    box_width = 450  # Réduction de la largeur du menu
+    box_height = 250  # Réduction de la hauteur du menu
+
+    while True:
+        # Affichage de l'arrière-plan pleine taille
+        screen.blit(background, (0, 0))
+        
+        # Affiche le titre avec une taille plus petite pour éviter le dépassement
+        title_surface = title_font.render("99 FLOORS : ASCENT", True, (255, 255, 255))
+        title_rect = title_surface.get_rect(center=(width // 2, height // 6))  # Titre placé légèrement plus haut
+        screen.blit(title_surface, title_rect)
+
+        # Crée une surface semi-transparente pour le menu
+        menu_surface = pygame.Surface((box_width, box_height), pygame.SRCALPHA)
+        menu_surface.fill((0, 0, 0, 150))  # Fond noir avec 150 de transparence
+
+        # Dessine la boîte semi-transparente
+        screen.blit(menu_surface, (width // 2 - box_width // 2, height // 2 - box_height // 2 + 100))
+        pygame.draw.rect(screen, (255, 255, 255), 
+                         (width // 2 - box_width // 2, height // 2 - box_height // 2 + 100, 
+                          box_width, box_height), 3)
+        
+        # Affiche les options du menu
+        for i, option in enumerate(options):
+            color = (255, 255, 0) if i == selected else (255, 255, 255)
+            text_surface = font.render(option, True, color)
+            
+            text_rect = text_surface.get_rect(center=(width // 2, height // 2 + 50 + i * 50))  # Réduction de l'espace entre les options
             screen.blit(text_surface, text_rect.topleft)
 
         pygame.display.flip()
@@ -616,50 +796,5 @@ def game_menu(screen, font, clock, width, height):
                     return selected
 
 
-def display_relations_menu(screen, font, hero, clock, width, height):
-    selected = 0
-    options = ["Retour"]
-    relations_text = [f"{rel.character.name}: {rel.relationship_type} ({rel.score})" for rel in hero.relations]
-    
-    width, height = screen.get_size()  # Récupère la taille dynamique de l'écran
-    box_width = 700
-    box_height = 400 if len(relations_text) < 5 else 400 + (len(relations_text) - 5) * 30
-    line_height = font.get_linesize() + 10
-    padding = 20
-    
-    select_sound = pygame.mixer.Sound("graphics/resources/music/menuselection.mp3")
-    click_sound = pygame.mixer.Sound("graphics/resources/music/menuclick.mp3")
 
-    while True:
-        screen.fill((0, 0, 0))  # Efface l'écran
-        pygame.draw.rect(screen, (30, 30, 30), ((width - box_width) // 2, (height - box_height) // 2, box_width, box_height), border_radius=10)
-        pygame.draw.rect(screen, (255, 255, 255), ((width - box_width) // 2, (height - box_height) // 2, box_width, box_height), 3, border_radius=10)
-        
-        y = (height - box_height) // 2 + padding
-        
-        for line in relations_text:
-            rendered_text = font.render(line, True, (255, 255, 255))
-            screen.blit(rendered_text, ((width - box_width) // 2 + padding, y))
-            y += line_height
-
-        for i, option in enumerate(options):
-            color = (255, 255, 0) if i == selected else (255, 255, 255)
-            option_text = font.render(f"> {option}" if i == selected else option, True, color)
-            screen.blit(option_text, ((width - box_width) // 2 + padding, y + 40))
-        
-        pygame.display.flip()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN or event.key == pygame.K_UP:
-                    selected = (selected + 1) % len(options)
-                    select_sound.play()
-                if event.key == pygame.K_RETURN:
-                    click_sound.play()
-                    return  # Retour au menu précédent
-
-        clock.tick(30)
 
