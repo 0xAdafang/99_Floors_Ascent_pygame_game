@@ -94,7 +94,7 @@ def wrap_text(text, font, max_width):
 
 def display_choices_box(screen, font, options, clock, box_width=700, box_height=150, width=800, height=600, alpha=200):
     selected = 0
-    dialogue_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 15)
+    dialogue_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 12)
     line_height = dialogue_font.get_linesize() + 10
     padding = 20
 
@@ -224,7 +224,7 @@ def clear_screen(screen):
 
 def display_save_confirmation(screen, font, message):
     width, height = screen.get_size()
-    box_width, box_height = 800, 250
+    box_width, box_height = 800, 450
 
     screen.fill((0, 0, 0))
     pygame.draw.rect(screen, (30, 30, 30), (width // 2 - box_width // 2,
@@ -361,7 +361,7 @@ def display_dialogue_box(screen, text, font, clock, box_width=700, box_height=15
     pygame.draw.rect(box_surface, (30, 30, 30, alpha), (0, 0, box_width, box_height))
     pygame.draw.rect(box_surface, (255, 255, 255, 120), (0, 0, box_width, box_height), 3)
 
-    dialogue_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 15)
+    dialogue_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 14)
     lines = wrap_text(text, dialogue_font, box_width - 40)
     x, y = 20, 20
     line_height = dialogue_font.get_linesize() + 5
@@ -447,6 +447,9 @@ def load_sprites():
         "Velm": "Velm.webp",
         "Yohna": "Yohna.webp",
         "Zyn": "Zyn.webp",
+        "Participant" : "sprite_random_participant.webp",
+        "Creature" : "Creature.webp",
+        "Archeon" : "Archeon.webp"
     }
 
     # Parcours et chargement des sprites
@@ -567,6 +570,7 @@ def display_game_menu(screen, font, clock, options):
             y += line_height
 
         screen.blit(box_surface, ((width - box_width) // 2, (height - box_height) // 2))
+        
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -613,12 +617,14 @@ def display_relations(screen, font, hero):
     display_text(screen, "\n".join(relations_text), (width // 2 - 300, height // 2 - 100), font)
 
 
+
 def game_menu(screen, font, clock, width, height, hero):
     global menu_stack
 
     background = pygame.image.load("graphics/resources/backgrounds/tour3.webp")
     background = pygame.transform.scale(background, (width, height))
     title_font = pygame.font.Font("graphics/resources/font/CinzelDecorative-Bold.otf", 70)
+    health_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 30)  # Police pour la santé
 
     select_sound = pygame.mixer.Sound("graphics/resources/music/menuselection.mp3")
     click_sound = pygame.mixer.Sound("graphics/resources/music/menuclick.mp3")
@@ -639,6 +645,11 @@ def game_menu(screen, font, clock, width, height, hero):
         title_rect = title_surface.get_rect(center=(width // 2, height // 6))
         screen.blit(title_surface, title_rect)
 
+        # Affiche la santé du héros
+        health_text = health_font.render(f"Santé : {hero.health}/100", True, (255, 100, 100))
+        screen.blit(health_text, (width - health_text.get_width() - 20, 20))  # En haut à droite
+
+        # Menu principal
         menu_surface = pygame.Surface((box_width, box_height), pygame.SRCALPHA)
         menu_surface.fill((0, 0, 0, 180))
         pygame.draw.rect(menu_surface, (255, 255, 255, 150), (0, 0, box_width, box_height), 3)
@@ -681,17 +692,33 @@ def game_menu(screen, font, clock, width, height, hero):
                         menu_stack.clear()  # Vide la pile pour s'assurer de revenir au main_menu
                         main_menu(screen, font, clock)  # Relance le menu principal
 
+
+
 def display_relations_screen(screen, font, clock, hero):
     global menu_stack
 
+    # Créer une police plus petite pour les relations
+    smaller_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 20)  # Taille réduite
+
+    # Liste des relations formatées
     relations_text = [f"{rel.character.name} - {rel.relationship_type} ({rel.score})"
                       for rel in hero.relations]
 
     width, height = screen.get_size()
-    box_width, box_height = 700, 400
+    box_width = 700
+    line_height = smaller_font.get_linesize() + 10  # Ligne ajustée pour la nouvelle police
+    box_height = len(relations_text) * line_height + 100  # Ajuste la hauteur en fonction des lignes
+
+    # Limite la hauteur de la boîte pour éviter qu'elle dépasse l'écran
+    max_box_height = height - 100
+    if box_height > max_box_height:
+        box_height = max_box_height
 
     while True:
-        screen.fill((0, 0, 0))  # Efface tout l'écran avant d'afficher
+        # Efface l'écran
+        screen.fill((0, 0, 0))
+
+        # Dessine la boîte de relations
         pygame.draw.rect(screen, (30, 30, 30), (width // 2 - box_width // 2,
                                                 height // 2 - box_height // 2,
                                                 box_width, box_height))
@@ -699,29 +726,80 @@ def display_relations_screen(screen, font, clock, hero):
                                                    height // 2 - box_height // 2,
                                                    box_width, box_height), 3)
 
-        y = height // 2 - box_height // 2 + 50
+        # Affiche les relations
+        y = height // 2 - box_height // 2 + 30  # Position de départ pour le texte
         for relation_text in relations_text:
-            text_surface = font.render(relation_text, True, (255, 255, 255))
+            text_surface = smaller_font.render(relation_text, True, (255, 255, 255))
             screen.blit(text_surface, (width // 2 - text_surface.get_width() // 2, y))
-            y += font.get_linesize() + 10
+            y += line_height
 
-        return_text = font.render("Appuyez sur Entrée pour revenir", True, (255, 255, 0))
-        screen.blit(return_text, (width // 2 - return_text.get_width() // 2, height - 100))
+        # Affiche le texte "Retour" avec une police réduite
+        return_text = smaller_font.render("Retour", True, (255, 255, 0))
+        screen.blit(return_text, (width // 2 - return_text.get_width() // 2, height // 2 + box_height // 2 - 30))
 
+        # Met à jour l'écran
         pygame.display.flip()
 
+        # Gère les événements
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    if menu_stack:  # Vérification avant de faire pop
+                    if menu_stack:  # Vérifie avant de retirer le dernier menu
                         menu_stack.pop()
-                    clear_screen(screen)  # Efface l'écran après retour
+                    clear_screen(screen)  # Nettoie l'écran
                     return
+
+
                 
-                
+
+
+def display_save_confirmation(screen, font, message):
+    width, height = screen.get_size()
+    
+    # Taille de base de la boîte de confirmation
+    box_width, box_height = 700, 250
+    padding = 50
+    
+    # Réduire la taille de la police si nécessaire
+    if len(message) > 40:
+        font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 15)
+
+    # Ajustement dynamique de la boîte si le message est trop long
+    text_surface = font.render(message, True, (255, 255, 255))
+    line_height = font.get_linesize() + 20
+    max_text_width = text_surface.get_width()
+    lines = max_text_width // (box_width - 100) + 1
+    adjusted_height = box_height + (lines - 1) * line_height
+
+    # Création de la boîte de sauvegarde
+    screen.fill((0, 0, 0))
+    pygame.draw.rect(screen, (30, 30, 30), (width // 2 - box_width // 2,
+                                            height // 2 - adjusted_height // 2,
+                                            box_width, adjusted_height))
+    pygame.draw.rect(screen, (255, 255, 255), (width // 2 - box_width // 2,
+                                               height // 2 - adjusted_height // 2,
+                                               box_width, adjusted_height), 3)
+
+    # Affiche le message de confirmation
+    y_offset = height // 2 - adjusted_height // 2 + padding
+    for i in range(lines):
+        line_text = message[i * 40:(i + 1) * 40]  # Divise le texte si nécessaire
+        text_surface = font.render(line_text, True, (255, 255, 255))
+        screen.blit(text_surface, (width // 2 - text_surface.get_width() // 2,
+                                   y_offset + i * line_height))
+
+    # Message d'instruction pour continuer
+    return_text = font.render("Retour", True, (255, 255, 0))
+    screen.blit(return_text, (width // 2 - return_text.get_width() // 2,
+                              height // 2 + adjusted_height // 2 - padding))
+
+    pygame.display.flip()
+
+    # Attente de la touche pour continuer
+    wait_for_keypress()
 
 def return_to_main_menu(screen, font, clock):
     fade_out(screen, WIDTH, HEIGHT)
