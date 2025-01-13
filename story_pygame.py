@@ -42,11 +42,13 @@ def chapitre_1(hero, screen, font, clock, sprites):
     sprite_velm = sprites["Velm"]
     sprite_yohna = sprites["Yohna"]
     sprite_zyn = sprites["Zyn"]
+    sprite_marin = sprites["Sakl"]
+    sprite_vieux = sprites["Vieux"]
      
     
     # Fade to black initial
     fade_out(screen, WIDTH, HEIGHT)
-    fade_in_music("graphics/resources/music/Erebor.mp3", max_volume=0.2, fade_duration=4000)
+    fade_in_music("graphics/resources/music/Erebor.mp3", max_volume=0.3, fade_duration=4000)
     
     clear_screen(screen)
     fade_in_text(screen, 
@@ -60,7 +62,7 @@ def chapitre_1(hero, screen, font, clock, sprites):
     
     clear_screen(screen)
     fade_in_text(screen, 
-             "Si je ne reviens pas, que les dieux te protegent...mon fils..", 
+             "Si je ne reviens pas, que les dieux te protegent...frangin..", 
              font, 
              (WIDTH // 2, HEIGHT // 2), 
              duration=4000,  # Plus long
@@ -86,122 +88,126 @@ def chapitre_1(hero, screen, font, clock, sprites):
     
 
     fade_out_text(screen, 5000, fade_speed=2)
-    fade_out_music(fade_duration=4000)
-    pygame.time.wait(1000)
     
+    pygame.time.wait(1000)
+    play_ambient_sound("graphics/resources/sounds/ship.mp3", volume=0.2, loop=-1)
     # Suite du prologue
     clear_screen(screen)
     fade_in_text(screen, 
-             "Chapitre 1 : Au pied de l'ascension", 
+             "Chapitre 1 : La tour d'obsidienne", 
              font, 
              (WIDTH // 2, HEIGHT // 2),  # Centré sur l'écran
              duration=3000)
     fade_out_text(screen, 3000, fade_speed=2)
     pygame.time.wait(1000)
     
-    fade_in_music("graphics/resources/music/Meditating.mp3", max_volume=0.2, fade_duration=4000)
-    
-    background = fade_in_background(screen,"graphics/resources/backgrounds/Village1.webp", WIDTH, HEIGHT)
+    background = fade_in_background(screen,"graphics/resources/backgrounds/navire.webp", WIDTH, HEIGHT)
     screen.blit(background, (0, 0))
     pygame.display.flip()
 
-    # Définition de dialogues avant de les utiliser
-    dialogues = [
-        
-        "Je marche encore et encore, village après village, route après route... Chaque sentier m'éloigne "
-        "du monde que je connaissais, me rapprochant d'un destin incertain.",
-        
-        "Certains prétendent qu'elle juge l'ambition... d'autres y voient un défi divin. "
-        "Mais ce qui se trouve sommet...et bien, les legendes sont nombreuses, suffisament pour laisser les plus fous s'y aventurer.",
+    display_dialogue_with_sprite(screen, 
+    "Sakl : Hé Aldric ! Tu es sûr que c'est par là ? Les cartes maritimes n'indiquent pas cette voie !",
+    font, clock, sprite_marin)
 
-        "La crepuscule tombe lentement sur l’horizon, déchirée par des teintes de pourpre et de bleu. "
-        "Une brume épaisse danse au pied de la tour, comme si la terre elle-même cherchait à cacher ce monstre de pierre.",
-    ]  
-    
-    for dialogue in dialogues:
-        screen.blit(background, (0, 0))
-        pygame.display.flip()
-        if isinstance(dialogue, tuple):
-            display_dialogue_with_sprite(screen, dialogue[1], font, clock, dialogue[0])
-        else:
-            display_dialogue_box(screen, dialogue, font, clock)
-     
-       
-    background = fade_in_background(screen, "graphics/resources/backgrounds/Colline.PNG", WIDTH, HEIGHT)
+    display_dialogue_box(screen, 
+        "Aldric, proche de la barre du navire tenue par Sakl, vérifie dans son journal...",
+        font, clock)
+
+    display_dialogue_with_sprite(screen, 
+        "Aldric : Pas de doute, c'est ce qu'a marqué Ulric.",
+        font, clock, sprite_aldric)
+
+    display_dialogue_with_sprite(screen, 
+        "Sakl : Je vois, la mer est agitée comme jamais. Dis-moi, Aldric, tu es sûr de vouloir tenter l'ascension ? Je veux dire, tu sais que la majorité n'en ressort jamais.",
+        font, clock, sprite_marin)
+
+    display_dialogue_with_sprite(screen, 
+        "Aldric : Je veux en avoir le cœur net...",
+        font, clock, sprite_aldric)
+
+    display_dialogue_with_sprite(screen, 
+        "Sakl : Ton frère, hein ? Je pensais que tu lui en voudrait de t'avoir laissé en plan. Puis, ça se trouve, il est mort dans cette tour, Aldric... C'est de la folie...",
+        font, clock, sprite_marin)
+
+    display_dialogue_with_sprite(screen, 
+        "Aldric (confiant): Folie ou pas, on ne peut plus reculer... Regarde, on l'aperçoit au loin !",
+        font, clock, sprite_aldric)
+
+    display_dialogue_box(screen, 
+        "Après des jours en mer, la pointe de la tour se montre enfin à l'horizon...",
+        font, clock)
+
+    display_dialogue_with_sprite(screen, 
+        "Sakl : Même de loin, elle est terrifiante... Eh, les gars, on va accoster bientôt !",
+        font, clock, sprite_marin)
+
+    background = fade_in_background(screen,"graphics/resources/backgrounds/ponton.webp", WIDTH, HEIGHT)
     screen.blit(background, (0, 0))
     pygame.display.flip()
+    
+    display_dialogue_box(screen, 
+    "Aldric débarque sur le dock.",
+    font, clock)
 
-    dialogues = [
-        "Au loin, la tour se dresse, avec une silhouette d'obsidienne luisante, projetant son ombre jusqu'aux étoiles. "
-        "Chaque pierre semble polie par des siècles de tempêtes et de sang versé.",
-        (sprites["Aldric"],"Aldric (murmurant) : La voilà… comme dans mes rêves…, j'espère trouver les réponses que je cherche.."),
-        "Perché sur une colline, Aldric contemple la Tour depuis les hauteurs. Le vent balaie son manteau clair, "
-        "et ses cheveux blonds tombent en mèches éparses sur son front. L'épée sans garde à sa ceinture semble légère, mais ses doigts la frôlent par réflexe.",
-    ]
+    display_dialogue_with_sprite(screen, 
+        "Aldric : Merci pour la traversée, Sakl.",
+        font, clock, sprite_aldric)
 
-    for dialogue in dialogues:
-        screen.blit(background, (0, 0))
-        pygame.display.flip()
-        if isinstance(dialogue, tuple):
-            display_dialogue_with_sprite(screen, dialogue[1], font, clock, dialogue[0])
-        else:
-            display_dialogue_box(screen, dialogue, font, clock)
+    display_dialogue_with_sprite(screen, 
+        "Sakl : Je te devais bien ça... Aldric, attends ! Ne meurs pas... Peu importe combien de temps l'ascension te prendra... reviens en vie. Ne cours pas après un fantôme...",
+        font, clock, sprite_marin)
 
-    # Transition en fondu vers la scène suivante
-    fade_out(screen, WIDTH, HEIGHT)
-    clear_screen(screen)
+    display_dialogue_with_sprite(screen, 
+        "Aldric : Hm, t'en fais pas, vieux crouton, je reviendrai avec lui !",
+        font, clock, sprite_aldric)
 
-    fade_out_music(fade_duration=4000)
+    display_dialogue_with_sprite(screen, 
+        "Sakl : J'espère être encore là pour voir ça, moi...",
+        font, clock, sprite_marin)
 
-    # Poursuite du prologue avec l'environnement autour de la Tour
+    display_dialogue_box(screen, 
+        "Aldric quitte son vieil ami pour aller en direction de la tour, le cœur lourd, plein de questions, mais il était déterminé à poursuivre sa quête.",
+        font, clock)
+    
+    pygame.time.wait(1000)
+    fade_out_ambient_sound(fade_duration=3000)
+    play_ambient_sound("graphics/resources/sounds/rain.mp3", volume=0.2, loop=-1)
+    # Suite du prologue
     clear_screen(screen)
     fade_in_text(screen, 
-             "Autour de la Tour", 
+             "Une heure plus tard, au pied de la tour..", 
              font, 
              (WIDTH // 2, HEIGHT // 2),  # Centré sur l'écran
              duration=3000)
-    fade_out_text(screen, 3000, fade_speed=2)
+    fade_out_text(screen, 2000, fade_speed=2)
+    fade_out_music(fade_duration=2000)
     pygame.time.wait(1000)
-    fade_in_music("graphics/resources/music/bell.mp3", max_volume=0.2, fade_duration=4000)
-    clear_screen(screen)
+    background = fade_in_background(screen,"graphics/resources/backgrounds/bastour.PNG", WIDTH, HEIGHT)
     
-    background = fade_in_background(screen,"graphics/resources/backgrounds/aldric.webp", WIDTH, HEIGHT)
-    screen.blit(background, (0, 0))
-    pygame.display.flip()
-    # Liste des dialogues autour de la Tour
-    dialogues_autour_tour = [
-        "En contrebas, une masse de silhouettes s'agite. Des dizaines de participants, guerriers, voleurs et mages se tiennent "
-        "devant l’entrée de la Tour, scrutant l'obscurité avec appréhension.",
-    
-        "Dans un coin, un vieil homme vêtu d'une cape poussiéreuse murmure en boucle des avertissements. La Tour dévore tout… Le sommet ? "
-        "Un mensonge. Personne ne revient jamais… Mais peu lui prêtent attention. Ils sont là pour une raison. Ils ont des comptes à régler.",
-    
-        "Non loin, une silhouette d'un vieux mage s’appuie sur un bâton orné de runes anciennes, observant la Tour avec un air de familiarité. "
-        "Ses yeux mi-clos semblent sonder quelque chose au-delà des murs de pierre. Un étrange calme entoure cet homme malgré l’effervescence ambiante.",
-    
-        "Plus loin, deux jeunes figures, presque identiques, échangent à voix basse. "
-        "Le garçon, légèrement plus grand, trace des cercles dans la terre de la pointe de son bâton, "
-        "tandis que sa sœur resserre la sangle d’un grimoire fatigué sur son dos. Tous deux arborent des vêtements marqués de symboles tribaux.",
-    
-        "Adossée à une pierre, une archère affûte la pointe de ses flèches à l’aide d’un petit couteau. "
-        "Son regard vif scrute discrètement chaque participant, mais elle évite soigneusement tout contact visuel prolongé. "
-        "Un bandage à peine visible serpente autour de son bras gauche.",
-    
-        "À l’ombre d’une torche vacillante, un homme mince jongle distraitement avec deux dagues. "
-        "Son sourire narquois ne quitte jamais ses lèvres, et chaque fois qu’une dague scintille sous la lumière, "
-        "son regard dérive vers les autres participants, comme s’il pesait déjà leurs chances de survie."
-    ]
-     # Affiche chaque ligne du dialogue avec display_delay
-    afficher_dialogues(screen, font, clock, dialogues_autour_tour)
+    display_dialogue_box(screen, 
+    "Après une heure de marche, Aldric arrive au pied de la tour. Il y a beaucoup de monde : des guerriers, des mages, des archers... Tous sont ici pour une raison. "
+    "Alors qu'il prend ses repères, il tombe sur un vieil homme qui crie des avertissements.",
+    font, clock)
 
-    clear_screen(screen)
-    background = fade_in_background(screen,"graphics/resources/backgrounds/bande.webp", WIDTH, HEIGHT)
-    screen.blit(background, (0, 0))
-    pygame.display.flip()
-    
+    display_dialogue_with_sprite(screen, 
+        "Vieil homme : Fuyez ! Personne n'a jamais atteint le sommet ! Vous allez mourir ! Rentrez chez vous, la tour n'attend que de dévorer votre âme !",
+        font, clock, sprite_vieux)
+
+    display_dialogue_with_sprite(screen,
+        "Clotaire : Ferme-la, le vieux. C'est toi qui devrais rentrer chez toi. On sait tous pourquoi on est ici, alors viens pas me les briser.",      
+        font, clock, sprite_clotaire)
+
+    display_dialogue_with_sprite(screen, 
+        "Brandio (une voix rauque s’élève derrière Aldric) : Laisse-le parler, Clotaire... On s'en fout.",
+        font, clock, sprite_brandio)
+
+    display_dialogue_box(screen, 
+        "Aldric continua son chemin, mais il fut interpellé par Brandio.",
+        font, clock)
+
     # Interaction avec Aldric
     display_dialogue_with_sprite(screen, 
-    "??? (une voix rauque s’élève derrière Aldric) : C’est la première fois que tu viens ici ?",
+    "Brandio (une voix rauque s’élève derrière Aldric) : Et toi ! C’est la première fois que tu viens ici ?",
     font,clock, sprite_brandio)
     
     display_dialogue_with_sprite(screen, 
@@ -212,39 +218,67 @@ def chapitre_1(hero, screen, font, clock, sprites):
     "La voix appartient à un homme massif, vêtu d’une armure cabossée. Son visage est marqué par d’anciennes cicatrices. "
     "Il arbore le blason d'une des gardes de l'Empire. Il est accompagné de ses compagnons, "
     "celui qui semble être leur chef ressemble à un roi des voleurs, et son acolyte, plus petit, aux cheveux rouges, "
-    "se tient non loin à côté d'une femme.",
+    "se tient non loin à côté d'une femme aux cheveux mauve qui se rechauffe les mains.",
     font, clock)
     
     display_dialogue_with_sprite(screen, 
-    "??? (hochant la tête) : Impressionnant, hein… ? Jusqu’à ce que tu sois là-dedans. C'est tuer ou être tué ici. "
+    "Brandio (hochant la tête) : Impressionnant, hein… ? Jusqu’à ce que tu sois là-dedans. C'est tuer ou être tué ici. "
     "Garde ça à l'esprit, personne ne te fera de cadeaux.",
     font, clock, sprite_brandio)
     
     display_dialogue_with_sprite(screen, 
-    "Aldric (s'éloignant) : Hm... Le conseil vaut aussi pour toi.",
+    "Aldric (s'éloignant) : Hm...merci, Le conseil vaut aussi pour toi.",
     font, clock, sprite_aldric)
     
-    display_dialogue_with_sprite(screen,
-    "??? : Alors comme ça tu parles aux étrangers, Brandio ?", font, clock, sprite_velm)
-    
-    display_dialogue_with_sprite(screen, 
-    "Brandio : Un étranger ?", font, clock, sprite_brandio)
-    
-    display_dialogue_with_sprite(screen,
-    "??? (L'homme au long manteau joue avec son anneau en regardant la scène) : Velm a raison. "
-    "Ce type n'est clairement pas de l'Empire... Ça se voit. Gardons-le à l'œil, "
-    "il pourrait bien sortir du lot.", font, clock, sprite_clotaire)
+    display_dialogue_box(screen, 
+    "Aldric s'éloigne vers la tour.",
+    font, clock)
 
     display_dialogue_with_sprite(screen,
-    "??? : N'oublie pas, Clotaire, j'accepte de faire quelques étages avec vous car cela m'est profitable, "
-    "mais ne comptez pas sur moi pour la totalité de l'ascension.", font, clock, sprite_emphyr)
-    
+        "Velm : Alors comme ça, tu parles aux étrangers, Brandio ?", 
+        font, clock, sprite_velm)
+
+    display_dialogue_with_sprite(screen, 
+        "Brandio : Un étranger ?", 
+        font, clock, sprite_brandio)
+
     display_dialogue_with_sprite(screen,
-    "Clotaire (faisant une révérence moqueuse) : Oui m'dame ! Nous sommes vos obligés, ô dame Emphyr !", 
-    font, clock, sprite_clotaire)
-    
+        "Clotaire (l'homme au long manteau joue avec son anneau en regardant la scène) : Velm a raison. "
+        "Ce type n'est clairement pas de l'Empire... Ça se voit. Gardons-le à l'œil, "
+        "il pourrait bien sortir du lot.",
+        font, clock, sprite_clotaire)
+
+    display_dialogue_with_sprite(screen,
+        "Clotaire (souriant avec une pointe de malice) : Mais bon... les héros venus de nulle part ont tendance à finir rapidement dans une tombe. "
+        "Je parie qu'il ne tiendra pas trois étages.",
+        font, clock, sprite_clotaire)
+
+    display_dialogue_with_sprite(screen,
+        "Velm : Pas faux, Je m'attend deja à le voir crever..Ca me fait presque de la peine.",
+        font, clock, sprite_velm)
+
+    display_dialogue_with_sprite(screen,
+        "Clotaire (détournant les yeux avec un rire bref) : Héhé, c'est pas nous qui fixons les règles. La tour, elle ne fait pas de cadeau, Velm.",
+        font, clock, sprite_clotaire)
+
+    display_dialogue_with_sprite(screen,
+        "Emphyr : N'oublie pas de mener ta mission à bien, Clotaire, sinon tu peux dire adieu à ta fichue carte de ton île imaginaire.",
+        font, clock, sprite_emphyr)
+
+    display_dialogue_with_sprite(screen,
+        "Clotaire (faisant une révérence moqueuse) : Oui m'dame ! Nous sommes vos obligés, ô dame Emphyr !", 
+        font, clock, sprite_clotaire)
+
+    display_dialogue_with_sprite(screen,
+        "Velm : Parfois je me demande comment tu fais pour que tout le monde te supporte, Clotaire.",
+        font, clock, sprite_velm)
+
+    display_dialogue_with_sprite(screen,
+        "Clotaire (tapotant son anneau) : Parce que je suis indispensable, Velm. Indispensable...",
+        font, clock, sprite_clotaire)
+
     clear_screen(screen)
-    background = fade_in_background(screen,"graphics/resources/backgrounds/attente.PNG", WIDTH, HEIGHT)
+    background = fade_in_background(screen,"graphics/resources/backgrounds/bastour2.webp", WIDTH, HEIGHT)
     screen.blit(background, (0, 0))
     pygame.display.flip()
     
@@ -252,6 +286,7 @@ def chapitre_1(hero, screen, font, clock, sprites):
     "Plus loin, Devant Aldric se trouve des dizaines de participants forment des groupes dispersés, certains adossés aux parois rocheuses, d'autres concentrés "
     "dans des cercles discrets. Quelques torches éclairent faiblement les visages tendus et les reflets métalliques des lames. ",
     font,clock)
+    
     
     # Interaction avec Garen
     garen = Character("Garen", "graphics/resources/sprites/Garen1.webp", 
@@ -11341,7 +11376,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
     display_dialogue_box(
         screen,
         "Pourtant, malgré les sourires discrets, chacun garde pour lui la nature exacte de ce qu’il a reçu dans la salle de la boîte. "
-        "Le Margith’r est un pouvoir personnel, et dans cette tour, tout secret peut être une arme précieuse.",
+        "L'Elix est un pouvoir personnel, et dans cette tour, tout secret peut être une arme précieuse.",
         font, clock
     )
 
@@ -13117,7 +13152,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
     display_dialogue_box(
         screen,
         "Tous les regards se posent sur Garen, qui se tient légèrement en retrait, "
-        "serrant nerveusement la lanière de son épée. Il n’a pas encore utilisé son Margith’r, "
+        "serrant nerveusement la lanière de son épée. Il n’a pas encore utilisé son Elix, "
         "et cela le hante. Il sait que d’autres, comme Kael ou Emphyr, cachent aussi des capacités inconnues.",
         font, clock
     )
@@ -13292,7 +13327,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_box(
         screen,
-        "Kael ajuste sa rapière, effectuant quelques mouvements fluides. La lame brille légèrement d’une aura bleutée, signe du Margith’r qui pulse en lui.",
+        "Kael ajuste sa rapière, effectuant quelques mouvements fluides. La lame brille légèrement d’une aura bleutée, signe de l'Elix qui pulse en lui.",
         font, clock
     )
 
@@ -13597,8 +13632,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Zyn (fixant la lueur autour de Garen) : Aldric… cette lumière… C’est quoi, ça ?",
         font, clock, sprites["Zyn"]
     )
-    # Choix de dialogue sur le Margith'r de Garen
-    options_margithr_garen = [
+    # Choix de dialogue sur l'Elix de Garen
+    options_elix_garen = [
         {
             "text": "J’ai l’impression que ça absorbe les coups. Étrange…",
             "consequence": lambda h: [
@@ -13635,11 +13670,11 @@ def chapitre_9(hero, screen, font, clock,sprites):
     ]
 
     # Afficher les choix et exécuter les conséquences
-    choix = display_choices_box(screen, font, [(option["text"], idx) for idx, option in enumerate(options_margithr_garen)], clock)
+    choix = display_choices_box(screen, font, [(option["text"], idx) for idx, option in enumerate(options_elix_garen)], clock)
 
     if choix is not None:
         # Exécuter les conséquences du choix sélectionné
-        options_margithr_garen[choix]["consequence"](hero)
+        options_elix_garen[choix]["consequence"](hero)
 
     # Intensification du combat
     display_dialogue_box(
@@ -13719,7 +13754,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_box(
         screen,
-        "Garen baisse légèrement son bouclier, laissant apparaître son regard déterminé sous la lueur rougeâtre de son Margith'r.",
+        "Garen baisse légèrement son bouclier, laissant apparaître son regard déterminé sous la lueur rougeâtre de son Elix.",
         font, clock
     )
 
@@ -14167,7 +14202,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
             ]
         },
         {
-            "text": "Emphyr, même si je ne connais rien de son Margith’r.",
+            "text": "Emphyr, même si je ne connais rien de son Elix.",
             "consequence": lambda h: [
                 display_dialogue_box(
                     screen,
@@ -15091,7 +15126,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Clotaire (croisant les bras) : Aucun des deux n'a encore utilisé son Margith'r…",
+        "Clotaire (croisant les bras) : Aucun des deux n'a encore utilisé son Elix…",
         font, clock, sprites["Clotaire"]
     )
 
@@ -15512,9 +15547,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
     )
 
     # Choix interactif pour répondre à la capacité de Gallius
-    options_margithr = [
+    options_elix = [
         {
-            "text": "Pas mal ton Margith'r, mais tu dois détourner le regard de ta cible, c'est ça ?",
+            "text": "Pas mal ton Elix, mais tu dois détourner le regard de ta cible, c'est ça ?",
             "consequence": lambda h: [
                 display_dialogue_with_sprite(
                     screen,
@@ -15550,10 +15585,10 @@ def chapitre_9(hero, screen, font, clock,sprites):
     ]
 
     # Affichage des choix et exécution des conséquences
-    choix = display_choices_box(screen, font, [(option["text"], idx) for idx, option in enumerate(options_margithr)], clock)
+    choix = display_choices_box(screen, font, [(option["text"], idx) for idx, option in enumerate(options_elix)], clock)
 
     if choix is not None:
-        options_margithr[choix]["consequence"](hero)
+        options_elix[choix]["consequence"](hero)
 
     # Suite après les choix
     display_dialogue_box(
@@ -17020,43 +17055,10 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Il reste 8 participants.",
         font, clock
     )
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-
-    
-
-
-
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    fade_out_music(fade_duration=4000)
+    fade_in_text(screen, "Fin du Chapitre 9 - Il reste 8 participants sur 99 et 91 étages", font, (WIDTH // 2, HEIGHT // 2), duration=2000)
+    fade_out_text(screen, 1000)
+    game_menu(screen, font, clock, WIDTH, HEIGHT, hero)
 
 
 def main():

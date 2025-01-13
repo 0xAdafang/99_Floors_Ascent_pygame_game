@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 from classes import *
 from pygame.locals import *
 from graphics import *
@@ -361,7 +362,7 @@ def display_dialogue_box(screen, text, font, clock, box_width=700, box_height=15
     pygame.draw.rect(box_surface, (30, 30, 30, alpha), (0, 0, box_width, box_height))
     pygame.draw.rect(box_surface, (255, 255, 255, 120), (0, 0, box_width, box_height), 3)
 
-    dialogue_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 14)
+    dialogue_font = pygame.font.Font("graphics/resources/font/Cinzel-Regular.otf", 13)
     lines = wrap_text(text, dialogue_font, box_width - 40)
     x, y = 20, 20
     line_height = dialogue_font.get_linesize() + 5
@@ -449,7 +450,9 @@ def load_sprites():
         "Zyn": "Zyn.webp",
         "Participant" : "sprite_random_participant.webp",
         "Creature" : "Creature.webp",
-        "Archeon" : "Archeon.webp"
+        "Archeon" : "Archeon.webp",
+        "Sakl" : "marin.webp",
+        "Vieux" : "vieux.webp"
     }
 
     # Parcours et chargement des sprites
@@ -875,4 +878,144 @@ def main_menu(screen, font, clock):
 
 
 
+def play_ambient_sound(sound_path, volume=0.2, loop=-1):
+    """
+    Joue un son d'ambiance et arrête tout autre son en cours.
+    
+    Args:
+        sound_path (str): Chemin du fichier audio.
+        volume (float): Volume cible pour le son.
+        loop (int): Nombre de répétitions (-1 pour une boucle infinie).
+    """
+    try:
+        pygame.mixer.stop()  # Arrête tous les sons en cours
+        ambient_sound = pygame.mixer.Sound(sound_path)
+        ambient_sound.set_volume(volume)
+        ambient_sound.play(loops=loop)
+    except Exception as e:
+        print(f"Erreur lors de la lecture du son : {e}")
 
+
+def create_visual_effect(screen, effect_type, position=(400, 300), duration=3000, color=(255, 255, 255), max_particles=50):
+    """
+    Gère différents types d'effets visuels.
+    
+    Args:
+        screen (Surface): Surface Pygame.
+        effect_type (str): Type d'effet ("fog", "fire", "sparks", "rain").
+        position (tuple): Position centrale de l'effet (x, y).
+        duration (int): Durée de l'effet en millisecondes.
+        color (tuple): Couleur principale de l'effet.
+        max_particles (int): Nombre maximum de particules simultanées.
+    """
+    start_time = pygame.time.get_ticks()
+    particles = []
+
+    while pygame.time.get_ticks() - start_time < duration:
+        screen.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+
+        if effect_type == "fog":
+            _create_fog_particles(screen, particles, max_particles, color)
+        elif effect_type == "fire":
+            _create_fire_particles(screen, particles, position, color)
+        elif effect_type == "sparks":
+            _create_spark_particles(screen, particles, position, color)
+        elif effect_type == "rain":
+            _create_rain_particles(screen, particles, screen.get_width())
+
+        _update_and_draw_particles(screen, particles, effect_type)
+
+        pygame.display.flip()
+        pygame.time.delay(30)
+
+
+def _create_fog_particles(screen, particles, max_particles, color):
+    if len(particles) < max_particles:
+        particles.append([
+            random.randint(0, screen.get_width()),
+            random.randint(0, screen.get_height()),
+            random.randint(50, 120),
+            random.uniform(-0.5, 0.5),
+            random.uniform(-0.2, 0.2),
+            100
+        ])
+
+
+def _create_fire_particles(screen, particles, position, color):
+    if len(particles) < 30:
+        particles.append([
+            position[0] + random.randint(-10, 10),
+            position[1],
+            random.randint(3, 7),
+            random.uniform(-1, 1),
+            random.uniform(-2, -1),
+            255
+        ])
+
+
+def _create_spark_particles(screen, particles, position, color):
+    for _ in range(5):  # Étincelles par frame
+        particles.append([
+            position[0] + random.randint(-20, 20),
+            position[1] + random.randint(-20, 20),
+            position[0] + random.randint(-30, 30),
+            position[1] + random.randint(-30, 30),
+            255
+        ])
+
+
+def _create_rain_particles(screen, particles, width):
+    if len(particles) < 100:
+        particles.append([
+            random.randint(0, width),  # Position X
+            0,  # Position Y
+            random.randint(2, 5)  # Taille
+        ])
+
+
+def _update_and_draw_particles(screen, particles, effect_type):
+    for particle in particles[:]:
+        if effect_type == "fog":
+            particle[0] += particle[3]
+            particle[1] += particle[4]
+            particle[5] -= 1  # Réduction de transparence
+            if particle[5] > 0:
+                pygame.draw.circle(screen, (200, 200, 200, particle[5]), (int(particle[0]), int(particle[1])), int(particle[2]))
+            else:
+                particles.remove(particle)
+
+        elif effect_type == "fire":
+            particle[0] += particle[3]
+            particle[1] += particle[4]
+            particle[2] -= 0.1
+            particle[5] -= 5  # Réduction de transparence
+            if particle[5] > 0 and particle[2] > 0:
+                flame_color = (255, 140, 0, particle[5])
+                pygame.draw.circle(screen, flame_color, (int(particle[0]), int(particle[1])), int(particle[2]))
+            else:
+                particles.remove(particle)
+
+        elif effect_type == "sparks":
+            pygame.draw.line(screen, (0, 255, 255), (particle[0], particle[1]), (particle[2], particle[3]), width=2)
+            particles.remove(particle)  # Étincelles éphémères
+
+        elif effect_type == "rain":
+            particle[1] += 5
+            pygame.draw.circle(screen, (0, 0, 255), (particle[0], particle[1]), particle[2])
+            if particle[1] > screen.get_height():
+                particles.remove(particle)
+                
+
+def fade_out_ambient_sound(fade_duration=2000):
+    """
+    Réalise un fade-out progressif du son d'ambiance en cours de lecture.
+    
+    Args:
+        fade_duration (int): Durée du fade-out en millisecondes.
+    """
+    try:
+        # Effectue un fade-out progressif
+        pygame.mixer.music.fadeout(fade_duration)
+        pygame.time.wait(fade_duration)  # Attendre la fin du fade-out avant de continuer
+    except Exception as e:
+        print(f"Erreur lors du fade-out du son d'ambiance : {e}")
