@@ -24,6 +24,8 @@ def save_game(hero):
     save_data = {
         "name": hero.name,
         "health": hero.health,
+        "karma": hero.karma,
+        "dalgs": hero.dalgs,  # Ajout des Dalgs ici
         "chapter_reached": hero.chapter_reached,
         "relations": [
             {"name": r.character.name, "score": r.score, "type": r.relationship_type}
@@ -36,7 +38,6 @@ def save_game(hero):
     
     print(f"Sauvegarde réussie : {save_name}")
     return f"Sauvegarde réussie : {save_name}"
-
 
 
 def list_saves():
@@ -61,6 +62,8 @@ def load_game():
         hero = Heros()
         hero.name = data.get("name", "Aldric")
         hero.health = data.get("health", 100)
+        hero.karma = data.get("karma", 0)
+        hero.dalgs = data.get("dalgs", 0)  # Lecture des Dalgs
         hero.chapter_reached = data.get("chapter_reached", 1)
 
         # Chargement des relations à partir de la sauvegarde

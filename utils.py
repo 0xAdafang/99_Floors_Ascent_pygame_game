@@ -406,28 +406,31 @@ def display_dialogue_box(screen, text, font, clock, box_width=700, box_height=15
 
 
 
-def process_dialogue(screen, font, hero, options, clock, relation_name):
+def process_dialogue(screen, font, hero, options, clock, relation_name=None):
+    """
+    Gère les dialogues interactifs, les ajustements de relation, et les notifications.
+
+    Args:
+        screen (pygame.Surface): L'écran principal.
+        font (pygame.font.Font): La police pour afficher le texte.
+        hero (Heros): Le personnage principal du joueur.
+        options (list): Une liste de tuples avec les choix (texte, ajustement de relation, dialogues).
+        clock (pygame.time.Clock): L'objet clock pour gérer les FPS.
+        relation_name (str, optional): Le nom de la relation à ajuster.
+    """
     choice = display_choices_box(screen, font, options, clock)  # Boîte de choix interactifs
 
-    score_adjustment = options[choice][1]
-    dialogue_lines = options[choice][2]
+    score_adjustment = options[choice][1]  # Ajustement de relation pour le choix sélectionné
+    dialogue_lines = options[choice][2]   # Dialogues associés au choix
+
+    # Affichage des dialogues sélectionnés
+    for sprite, line in dialogue_lines:
+        display_dialogue_with_sprite(screen, line, font, clock, sprite)
 
     if relation_name and hasattr(hero, 'get_relation'):
         relation = hero.get_relation(relation_name)
         if relation:
-            relation.adjust_score(score_adjustment)
-    
-    # Réaffiche l'image de fond après le choix
-    screen.blit(background, (0, 0))
-    pygame.display.flip()
-
-    # Affiche les dialogues après le choix avec les sprites associés
-    for sprite, line in dialogue_lines:
-        if sprite:
-            display_dialogue_with_sprite(screen, line, font, clock, sprite)
-        else:
-            display_dialogue_box(screen, line, font, clock)
-
+            relation.adjust_score(score_adjustment, screen, font, clock)  # Ajuste la relation
 
      
 def load_sprites():
@@ -452,7 +455,11 @@ def load_sprites():
         "Creature" : "Creature.webp",
         "Archeon" : "Archeon.webp",
         "Sakl" : "marin.webp",
-        "Vieux" : "vieux.webp"
+        "Vieux" : "vieux.webp",
+        "Bandit" : "bandit1.webp",
+        "Brigand" : "brigand.webp",
+        "Voleur" : "voleur.webp",
+        "Marchand" : "marchand.webp"
     }
 
     # Parcours et chargement des sprites
@@ -634,8 +641,8 @@ def game_menu(screen, font, clock, width, height, hero):
 
     options = ["Continuer", "Afficher Relation", "Sauvegarder", "Quitter"]
     selected = 0
-    box_width = 450
-    box_height = 400
+    box_width = 500
+    box_height = 600
     line_height = font.get_linesize() + 20
     padding_top = 40
 
@@ -814,7 +821,7 @@ def return_to_main_menu(screen, font, clock):
 
 def main_menu(screen, font, clock):
     # Chargement des ressources
-    background = pygame.image.load("graphics/resources/backgrounds/tour3.webp")
+    background = pygame.image.load("graphics/resources/backgrounds/tour.webp")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # L'image prend tout l'écran
     
     # Utilisation de la nouvelle police CinzelDecorative-Bold avec une taille plus petite
@@ -1019,3 +1026,262 @@ def fade_out_ambient_sound(fade_duration=2000):
         pygame.time.wait(fade_duration)  # Attendre la fin du fade-out avant de continuer
     except Exception as e:
         print(f"Erreur lors du fade-out du son d'ambiance : {e}")
+
+
+def display_status_menu(screen, font, clock, hero):
+    """
+    Affiche la santé, le karma et les Dalgs du héros dans un menu de statut.
+    """
+    running = True
+    select_sound = pygame.mixer.Sound("graphics/resources/music/menuselection.mp3")
+    click_sound = pygame.mixer.Sound("graphics/resources/music/menuclick.mp3")
+    options = ["Retour"]
+    selected = 0
+
+    # Dimensions de la boîte
+    box_width, box_height = 600, 400
+    line_spacing = font.get_linesize() + 10
+
+    while running:
+        # Effacer l'écran et afficher la boîte
+        screen.fill((0, 0, 0))
+        box_surface = pygame.Surface((box_width, box_height), pygame.SRCALPHA)
+        pygame.draw.rect(box_surface, (30, 30, 30, 200), (0, 0, box_width, box_height))
+        pygame.draw.rect(box_surface, (255, 255, 255), (0, 0, box_width, box_height), 3)
+
+        # Calculer le karma
+        if hero.karma <= -100:
+            karma_label = "Maléfique"
+        elif hero.karma <= -75:
+            karma_label = "Sans Cœur"
+        elif hero.karma <= -50:
+            karma_label = "Impitoyable"
+        elif hero.karma <= -25:
+            karma_label = "Pragmatique"
+        elif hero.karma <= 24:
+            karma_label = "Neutre"
+        elif hero.karma <= 50:
+            karma_label = "Conciliant"
+        elif hero.karma <= 75:
+            karma_label = "Empathique"
+        elif hero.karma <= 100:
+            karma_label = "Saint"
+        else:
+            karma_label = "Indéfini"
+
+        # Afficher les informations
+        y_margin = 50
+        x_margin = 20
+        health_text = font.render(f"Santé : {hero.health}/{hero.max_health}", True, (255, 255, 255))
+        karma_text = font.render(f"Karma : {hero.karma} ({karma_label})", True, (255, 255, 255))
+        dalgs_text = font.render(f"Dalgs : {hero.dalgs}", True, (255, 255, 0))
+
+        box_surface.blit(health_text, (x_margin, y_margin))
+        box_surface.blit(karma_text, (x_margin, y_margin + line_spacing))
+        box_surface.blit(dalgs_text, (x_margin, y_margin + 2 * line_spacing))
+
+        # Ajouter l'option de retour
+        for i, option in enumerate(options):
+            color = (255, 255, 0) if i == selected else (255, 255, 255)
+            option_text = font.render(option, True, color)
+            box_surface.blit(option_text, (x_margin, box_height - 40))
+
+        # Blitter la boîte au centre de l'écran
+        screen.blit(box_surface, (WIDTH // 2 - box_width // 2, HEIGHT // 2 - box_height // 2))
+        pygame.display.flip()
+
+        # Gestion des événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    selected = (selected + 1) % len(options)
+                    select_sound.play()
+                if event.key == pygame.K_RETURN:
+                    click_sound.play()
+                    if selected == 0:  # Retour
+                        running = False
+
+        clock.tick(30)
+                    
+"""
+display_dialogue_with_sprite(screen, 
+    "Vous voyez un drôle de marchand qui vous fait signe avec un sourire en coin. Voulez-vous approcher ?",
+    font, clock, sprite_marchand)
+
+options = [
+    ("Oui, approcher du marchand.", lambda: display_shop(screen, font, clock, hero)),
+    ("Non, continuer votre chemin.", lambda: None)
+]
+choice = display_choices_box(screen, font, options, clock)
+options[choice][1]()
+"""
+def display_shop(screen, font_path, clock, hero):
+    """
+    Affiche le shop et permet d'acheter des items avec texte adapté.
+    """
+    running = True
+    items = [
+        ("Potion du Malveillant (-10 karma)", 70, lambda: hero.adjust_karma(-10)),
+        ("Potion du Bienfaiteur (+10 karma)", 70, lambda: hero.adjust_karma(10)),
+        ("Potion d'Amitié (+10 relation aléatoire)", 100, lambda: random.choice(hero.relations).adjust_score(10)),
+        ("Potion de Soin (Santé max)", 50, lambda: hero.adjust_health(100 - hero.health)),
+        ("Potion d'Existence (+15 santé max)", 150, lambda: setattr(hero, 'max_health', hero.max_health + 15)),
+    ]
+
+    select_sound = pygame.mixer.Sound("graphics/resources/music/menuselection.mp3")
+    click_sound = pygame.mixer.Sound("graphics/resources/music/menuclick.mp3")
+    selected_item = 0
+
+    # Taille de la boîte
+    box_width, box_height = 700, 500
+    max_text_width = box_width - 40  # Marge intérieure de 20 px de chaque côté
+
+    # Charger la police ou utiliser une par défaut en cas d'erreur
+    try:
+        default_font = pygame.font.Font(font_path, 25)
+    except Exception as e:
+        print(f"Erreur lors du chargement de la police : {e}")
+        default_font = pygame.font.SysFont("Arial", 25)
+
+    while running:
+        screen.fill((0, 0, 0))
+
+        # Créer la boîte
+        box_surface = pygame.Surface((box_width, box_height), pygame.SRCALPHA)
+        pygame.draw.rect(box_surface, (30, 30, 30, 200), (0, 0, box_width, box_height))
+        pygame.draw.rect(box_surface, (255, 255, 255), (0, 0, box_width, box_height), 3)
+
+        # Afficher le solde
+        dalgs_font = default_font
+        dalgs_text = dalgs_font.render(f"Dalgs : {hero.dalgs}", True, (255, 255, 0))
+        box_surface.blit(dalgs_text, (20, 20))
+
+        # Afficher les items
+        y_offset = 60
+        for i, (name, price, _) in enumerate(items):
+            text_color = (255, 255, 0) if i == selected_item else (255, 255, 255)
+            item_font = default_font
+            item_text = item_font.render(f"{name} - {price} Dalgs", True, text_color)
+            box_surface.blit(item_text, (20, y_offset))
+            y_offset += item_font.get_linesize() + 10
+
+        # Instructions
+        instruction_font = default_font
+        instruction_text = instruction_font.render("Appuyez sur [Échap] pour quitter. [Entrée] pour acheter.", True, (255, 255, 0))
+        box_surface.blit(instruction_text, (20, box_height - 40))
+
+        screen.blit(box_surface, (WIDTH // 2 - box_width // 2, HEIGHT // 2 - box_height // 2))
+        pygame.display.flip()
+
+        # Gérer les événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                elif event.key == pygame.K_DOWN:
+                    selected_item = (selected_item + 1) % len(items)
+                    select_sound.play()
+                elif event.key == pygame.K_UP:
+                    selected_item = (selected_item - 1) % len(items)
+                    select_sound.play()
+                elif event.key == pygame.K_RETURN:
+                    name, price, effect = items[selected_item]
+                    if hero.dalgs >= price:
+                        hero.adjust_dalgs(-price)
+                        effect()
+                        click_sound.play()
+                        display_save_confirmation(screen, dalgs_font, f"Vous avez acheté : {name}")
+                    else:
+                        display_save_confirmation(screen, dalgs_font, "Vous n'avez pas assez de Dalgs !")
+
+        clock.tick(30)
+
+
+def fit_text_to_width(font_path, text, max_width, initial_size=30):
+    """
+    Ajuste dynamiquement la taille de la police pour que le texte tienne dans une largeur donnée.
+
+    Args:
+        font_path (str): Chemin de la police.
+        text (str): Texte à ajuster.
+        max_width (int): Largeur maximale.
+        initial_size (int): Taille initiale de la police.
+
+    Returns:
+        pygame.font.Font: Police ajustée.
+    """
+    size = initial_size
+    font = pygame.font.Font(font_path, size)
+    while font.size(text)[0] > max_width:
+        size -= 1
+        font = pygame.font.Font(font_path, size)
+        if size <= 10:  # Taille minimale pour éviter des polices trop petites
+            break
+    return font
+
+def reward_dalgs(hero, amount, screen, font, clock):
+    """
+    Récompense le joueur avec des Dalgs et joue un son.
+    
+    Args:
+        hero (Heros): Le héros qui reçoit la récompense.
+        amount (int): La quantité de Dalgs gagnée.
+        screen (pygame.Surface): L'écran pour afficher le message.
+        font (pygame.font.Font): La police utilisée pour afficher le texte.
+        clock (pygame.time.Clock): L'objet clock pour gérer les FPS.
+    """
+    # Ajouter les Dalgs au héros
+    hero.adjust_dalgs(amount)
+
+    # Jouer le son de récompense
+    reward_sound = pygame.mixer.Sound("graphics/resources/music/win.mp3")
+    reward_sound.set_volume(0.5)  # Ajuster le volume si nécessaire
+    reward_sound.play()
+
+    # Afficher un message temporaire
+    message = f"Quête accomplie ! Vous avez gagné {amount} Dalgs !"
+    display_dialogue_box(screen, message, font, clock)
+
+    # Petite pause pour l'effet
+    clock.tick(1)
+    
+def notify_change(screen, font, text, color, clock, duration=3000, box_width=700, box_height=150):
+    """
+    Affiche une notification dans une boîte centrée à l'écran.
+
+    Args:
+        screen: surface pygame
+        font: police pygame
+        text: texte de la notification
+        color: couleur du texte
+        clock: horloge pygame
+        duration: durée d'affichage (ms)
+        box_width: largeur de la boîte
+        box_height: hauteur de la boîte
+    """
+    width, height = screen.get_size()
+
+    # Créer une surface pour la boîte
+    box_surface = pygame.Surface((box_width, box_height), pygame.SRCALPHA)
+    pygame.draw.rect(box_surface, (30, 30, 30, 180), (0, 0, box_width, box_height))
+    pygame.draw.rect(box_surface, (255, 255, 255), (0, 0, box_width, box_height), 3)
+
+    # Rendre le texte
+    text_surface = font.render(text, True, color)
+    text_rect = text_surface.get_rect(center=(box_width // 2, box_height // 2))
+
+    # Blitter le texte sur la boîte
+    box_surface.blit(text_surface, text_rect)
+
+    # Blitter la boîte centrée sur l'écran
+    screen.blit(box_surface, (width // 2 - box_width // 2, height // 2 - box_height // 2))
+    pygame.display.flip()
+
+    pygame.time.wait(duration)
+    clear_screen(screen)
