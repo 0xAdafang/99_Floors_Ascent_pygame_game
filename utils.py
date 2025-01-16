@@ -459,7 +459,9 @@ def load_sprites():
         "Bandit" : "bandit1.webp",
         "Brigand" : "brigand.webp",
         "Voleur" : "voleur.webp",
-        "Marchand" : "marchand.webp"
+        "Marchand" : "marchand.webp",
+        "Kara"  : "Kara.webp",
+        "Anders" : "psycho.webp"
     }
 
     # Parcours et chargement des sprites

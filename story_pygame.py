@@ -1103,13 +1103,78 @@ def chapitre_1(hero, screen, font, clock, sprites):
     "Garen : Te retrouver ? Tu veux dire que… tu es là pour quelqu'un ?",
     font, clock, sprite_garen)
     
+    display_dialogue_with_sprite(screen, 
+    "Aldric : ... ",
+    font, clock, sprite_aldric)
+    
 # Narration de l'ascension
-    display_dialogue_box(screen, 
-    "Aldric continue à gravir les marches sans prêter attention à ce que dit Garen. "
-    "Garen vous suit, la gorge nouée… Kael est déjà entré, et l'homme mystérieux a disparu. "
-    "La terrible ascension peut enfin commencer.",
-    font, clock)
+    display_dialogue_box(
+        screen,
+        "Au pied de la Tour, l'immense porte d'obsidienne s'ouvre lentement dans un grondement sourd, révélant un passage noir d'encre. "
+        "Autour de vous, les participants retiennent leur souffle, subjugués par l'aura imposante de l'édifice. "
+        "Chaque année, à la même heure, ces portes s'ouvrent, mais personne ne sait ce qui se cache au sommet.",
+        font, clock
+    )
 
+    # Dialogues individuels
+    display_dialogue_with_sprite(
+        screen,
+        "Aldric (pensif, lisant son journal) : Chaque pas que je fais me rapproche de la vérité... ou de ma fin.",
+        font, clock, sprites["Aldric"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Kael (fixant les portes) : Hmph... Une belle scène pour un spectacle tragique. Il n'y aura pas de deuxième acte pour la plupart d'entre eux.",
+        font, clock, sprites["Kael"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Garen (serrant son blason contre lui) : Frangin..Mère je vous promets de leur montrer que je ne suis pas un lâche.",
+        font, clock, sprites["Garen"]
+    )
+
+    # Narration immersive
+    display_dialogue_box(
+        screen,
+        "Alors que la porte atteint son ouverture complète, un silence lourd s'abat sur l'assemblée. "
+        "Même les plus bruyants retiennent leur souffle, conscients que le moment tant attendu est enfin arrivé.",
+        font, clock
+    )
+
+    # Interaction finale entre les personnages
+    display_dialogue_with_sprite(
+        screen,
+        "Kael (sarcastique) : Alors, Aldric, prêt à conquérir l'impossible ? Ou bien est-ce simplement une autre de ces histoires tragiques où tout le monde meurt ?",
+        font, clock, sprites["Kael"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Aldric (calme, déterminé) : Peu importe ce qui m'attend à l'intérieur, je n'ai pas fait tout ce chemin pour reculer maintenant.",
+        font, clock, sprites["Aldric"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Garen (timidement) : Je suis peut-être un poids mort pour vous, mais je vais prouver que j'ai ma place ici.",
+        font, clock, sprites["Garen"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Kael (sourire moqueur) : Hah. Ne te fatigue pas trop, paysan. La Tour saura te rappeler où est ta place.",
+        font, clock, sprites["Kael"]
+    )
+
+    # Clôture de la scène
+    display_dialogue_box(
+        screen,
+        "Les trois hommes échangent un dernier regard avant de s'engager sous l'arche imposante de la Tour. "
+        "L'air semble s'alourdir autour d'eux, comme si la Tour elle-même s'éveillait à leur présence.",
+        font, clock
+    )
     fade_out_ambient_sound(fade_duration=3000)
     
     fade_out_music(fade_duration=4000)
@@ -1141,8 +1206,10 @@ def chapitre_2(hero, screen, font, clock,sprites):
     sprite_zyn = sprites["Zyn"]
     sprite_random_participant = sprites["Participant"]
     sprite_marchand = sprites["Marchand"]
+    sprite_kara = sprites["Kara"]
+    sprite_anders = sprites["Anders"]
     
-    fade_in_music("graphics/resources/music/AmbientHades.mp3", max_volume=0.2, fade_duration=1000)
+    play_ambient_sound("graphics/resources/sounds/Cathedral.mp3", volume=0.2, loop=-1)
     clear_screen(screen)
     fade_in_text(screen, 
              "Chapitre 2 : L'ascension commence - Etage 1/99", 
@@ -1159,7 +1226,13 @@ def chapitre_2(hero, screen, font, clock,sprites):
     "éclairé seulement par quelques torches vacillantes. L’air est froid, chargé de l’odeur de pierre humide.",
     font, clock
     )
-
+    
+    display_dialogue_box(screen,
+    "Les pas des participants résonnent dans le premier couloir de la tour, la plupart n'en ressortiront pas. "
+    "Ils se regroupent tous dans le hall principal où les attend leur première épreuve.",
+    font, clock
+    )
+    
     display_dialogue_with_sprite(screen,
     "Kael : Plus de retour en arrière possible hein ?",
     font, clock, sprite_kael
@@ -1437,7 +1510,7 @@ def chapitre_2(hero, screen, font, clock,sprites):
     )
     
     display_dialogue_with_sprite(screen,
-    "Aldric : Ah ! J'avais oublié que je ne suis pas de l'empire, la d'ou je viens ces symboles sont omiprésents.."
+    "Aldric : Ah ! J'avais oublié que vous etes de l'empire, la d'ou je viens ces symboles sont omiprésents.."
     "On parle la langue de l'empire mais plusieurs stèles comme celle ci sont disséminée un peu partout dans ma contré, c'est ce qui m'a poussé à...",
     font, clock, sprite_aldric
     )
@@ -1459,6 +1532,552 @@ def chapitre_2(hero, screen, font, clock,sprites):
     "Elles semblent vous scruter, jaugeant chaque mot, chaque hésitation. Aldric, Kael et Garen s'engouffre dans une des failles proche des statues et tombe sur un grande statues de guerrier.",
     font, clock
     )
+    # Introduction après la réplique de narration
+    display_dialogue_box(
+        screen,
+        "Un cri strident déchire le silence, venant de l’obscurité. Vous tournez la tête, incertains de ce que vous venez d’entendre. "
+        "Kael fronce les sourcils, Garen se raidit. Une décision s’impose.",
+        font, clock
+    )
+    
+    def quest_arnaque(hero, screen, font, clock, sprites):
+        global background
+        background = fade_in_background(screen,"graphics/resources/backgrounds/quetearnaque1.webp", WIDTH, HEIGHT)
+        # Introduction de la quête
+        display_dialogue_box(
+            screen,
+            "En avançant dans la faille, vous trouvez une femme recroquevillée au sol. "
+            "Son visage est marqué par la terreur et des griffures profondes ornent ses bras. "
+            "À côté d’elle, un sac éventré laisse échapper des provisions éparpillées.",
+            font, clock
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (apeurée, sanglotant) : S'il vous plaît... Aidez-moi ! Une... une créature m'a attaquée ! Elle m'a volé mon artefact, je dois continuer mon ascension...",
+            font, clock, sprites["Kara"]
+        )
+
+        # Kara commence son explication
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (tremblante) :Je m'appelle Kara, Je suis venue ici pour ma sœur... Elle est morte il y a deux ans, mais je ne peux pas l'accepter. "
+            "On m'a dit que la Tour cache des artefacts puissants... des objets capables de défier la mort elle-même.",
+            font, clock, sprites["Kara"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Garen (curieux, baissant sa garde) : Ces artefacts... Vous voulez dire qu'ils peuvent ramener quelqu'un à la vie ?",
+            font, clock, sprites["Garen"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (essuyant ses larmes) : Peut-être... Peut-être pas. Mais je n'avais rien à perdre. "
+            "Et puis, je l'ai trouvé ! Un artefact ancien, caché dans les décombres de cette Tour. "
+            "Mais... je crois qu'il vaut aussi une fortune pour ceux qui n'ont pas mes motivations.",
+            font, clock, sprites["Kara"]
+        )
+
+        # Kara décrit l’attaque
+        display_dialogue_with_sprite(
+            screen,
+            "Kael (sceptique) : Alors, vous êtes tombée sur un artefact qui pourrait valoir une fortune. Et ensuite, une créature vous attaque ? "
+            "Quelle coïncidence...",
+            font, clock, sprites["Kael"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (désespérée) : Je sais ce que vous pensez, mais je dis la vérité ! Une créature m'a surprise. Elle... elle avait des griffes, "
+            "des crocs. Elle était rapide et féroce. Elle m'a arraché mon sac et a disparu dans cette direction.",
+            font, clock, sprites["Kara"]
+        )
+
+        display_dialogue_box(
+            screen,
+            "Kara pointe une faille sombre qui s’enfonce dans l’obscurité. Sa main tremble, et son regard semble perdu entre peur et rage.",
+            font, clock
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (serrant les poings) : Elle a aussi tué une autre participante juste devant moi... Je n’ai rien pu faire. "
+            "S’il vous plaît, vous devez m’aider !",
+            font, clock, sprites["Kara"]
+        )
+
+        # Les compagnons réagissent
+        display_dialogue_with_sprite(
+            screen,
+            "Garen (horrifié) : Une autre participante ? Elle est toujours là-bas ?",
+            font, clock, sprites["Garen"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kael (calme, observant Kara) : Hm. Et pourquoi cette... créature ne vous a pas tuée ? Vous êtes couverte de griffures, mais rien de mortel.",
+            font, clock, sprites["Kael"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (hésitante) : Je... je ne sais pas. Peut-être que j'ai eu de la chance. Peut-être qu'elle avait déjà eu ce qu'elle voulait. L'autre participante à lutté..c'est surement pour ça..",
+            font, clock, sprites["Kara"]
+        )
+
+        display_dialogue_box(
+            screen,
+            "Le groupe échange des regards. L'histoire de Kara semble plausible, mais certaines incohérences suscitent des doutes. ce qui est possible, ici, chacun a un but caché après tout.. "
+            "Cependant, il est impossible de l’ignorer : une personne pourrait encore être en danger, Voir vous même..",
+            font, clock
+        )
+
+        # Étape 1 : Choix initial
+        options = [
+            ("L'aider et enquêter sur ce qui s'est passé.", 0),
+            ("Lui offrir quelques provisions et continuer votre chemin.", 1)
+        ]
+        choice = display_choices_box(screen, font, options, clock)
+
+        if choice == 0:
+            
+            # Étape 2 : Enquête
+            display_dialogue_box(
+                screen,
+                "Vous décidez d’aider la femme et de chercher des indices sur l’attaquant. "
+                "En progressant dans la faille sombre, une odeur métallique se mêle à l’air humide, "
+                "et vos pas résonnent sur le sol rocailleux.",
+                font, clock
+            )
+            background = fade_in_background(screen,"graphics/resources/backgrounds/quetearnaque1.webp", WIDTH, HEIGHT)
+            display_dialogue_box(
+                screen,
+                "Après quelques mètres, vous tombez sur une scène macabre : le corps d’une participante gît sur le sol, "
+                "ses yeux grands ouverts fixant le vide. Des traces de lutte sont visibles autour d’elle, et son sac éventré est à quelques pas.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Garen (horrifié) : C’est… horrible. Vous pensez que c’est la créature dont elle parlait ?",
+                font, clock, sprites["Garen"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kael (plissant les yeux) : Peut-être... ou peut-être pas. Regardez autour de vous, les marques au sol. "
+                "Ça ressemble à des coups portés par une lame, pas des griffes.",
+                font, clock, sprites["Kael"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Les traces au sol indiquent effectivement une lutte intense. Le sang forme une traînée menant plus loin dans l'obscurité. "
+                "Le sac de la victime, éventré, semble avoir été fouillé à la hâte.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kara (sanglotant) : C’était elle… La créature l’a attaquée juste devant moi. J’ai couru aussi vite que j’ai pu…",
+                font, clock, sprites["Kara"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kael (froidement) : Intéressant… Mais si c’est une créature, pourquoi fouiller un sac ?",
+                font, clock, sprites["Kael"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Kara détourne le regard, visiblement mal à l’aise. Elle serre ses bras, et sa respiration devient plus rapide. "
+                "Kael continue de l’observer, ses yeux perçants cherchant à déceler la moindre incohérence.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Garen (calme, essayant de rassurer Kara) : Eh, c’est bon. On va découvrir ce qui s’est passé. Restez avec nous.",
+                font, clock, sprites["Garen"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Vous prenez un moment pour examiner la scène. Les indices sont éparpillés, mais deux éléments retiennent votre attention : "
+                "le corps de la participante, couvert de blessures, et le sac déchiré près d’elle.",
+                font, clock
+            )
+
+            # Options d'enquête
+            options_enquete = [
+                ("Inspecter le corps au sol pour comprendre ce qui s'est passé.", 0),
+                ("Examiner le sac de la participante pour trouver des indices.", 1)
+            ]
+
+            choice_enquete = display_choices_box(screen, font, options_enquete, clock)
+
+            if choice_enquete == 0:
+                # Choix : Inspecter le corps
+                display_dialogue_box(
+                    screen,
+                    "Vous vous approchez lentement du corps, prenant soin d'éviter les traces de sang qui serpentent sur le sol. "
+                    "Les blessures sur la victime sont profondes, mais elles ne ressemblent pas à des griffures. "
+                    "En y regardant de plus près, vous remarquez des entailles nettes, typiques d’une lame affûtée.",
+                    font, clock
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Kael (souriant froidement) : Eh bien, voilà qui devient intéressant. Une créature avec une épée, maintenant ?",
+                    font, clock, sprites["Kael"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Garen (choqué) : Vous pensez que c’est un humain qui a fait ça ? Mais pourquoi ?",
+                    font, clock, sprites["Garen"]
+                )
+
+                display_dialogue_box(
+                    screen,
+                    "Vous reculez, une sensation de malaise s’installant. Quelque chose ne colle pas dans cette histoire, "
+                    "et la peur commence à envahir le groupe.",
+                    font, clock
+                )
+
+            elif choice_enquete == 1:
+                # Choix : Examiner le sac
+                display_dialogue_box(
+                    screen,
+                    "Vous vous dirigez vers le sac éventré, toujours à moitié enfoui dans la poussière. En le ramassant, "
+                    "vous constatez qu'il est vide, sans la moindre trace de provisions ni d’objets de valeur. "
+                    "Les coutures semblent avoir été déchirées volontairement.",
+                    font, clock
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Kael (sarcastique) : Vide ? Alors, soit cette créature est gourmande, soit quelqu’un s’amuse à nous mener en bateau.",
+                    font, clock, sprites["Kael"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Kara (visiblement mal à l’aise) : Non ! C’était plein... Je... je ne comprends pas ce qui s’est passé...",
+                    font, clock, sprites["Kara"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Garen (tentant de la rassurer) : Peut-être que la créature l’a pris ? Ça expliquerait pourquoi elle a fouillé le sac.",
+                    font, clock, sprites["Garen"]
+                )
+
+                display_dialogue_box(
+                    screen,
+                    "Malgré les paroles de Garen, l’attitude de Kara et les indices laissent planer un doute. "
+                    "Vous reposez le sac vide, des questions tourbillonnant dans votre esprit.",
+                    font, clock
+                )
+
+            # Rencontre avec Anders
+            display_dialogue_box(
+                screen,
+                "En avançant plus loin, vous tombez sur un homme armé, Anders. Il tient fermement une épée rouillée, "
+                "et son sourire inquiétant révèle une confiance dangereuse. Sans prévenir, il attrape Garen et place la lame contre sa gorge.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Anders (moqueur) : Ah, regardez ce que nous avons là... Vous pensiez vraiment pouvoir m’échapper ? "
+                "Donnez-moi tout ce que vous avez, ou je coupe la gorge de votre petit compagnon.",
+                font, clock, sprites["Anders"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kara : Non ! Ne faites pas ça ! S’il vous plaît, laissez-le partir... Je vous en supplie !",
+                font, clock, sprites["Kara"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Aldric (calme mais déterminé, sortant son arme) : Relâche-le. Tu as une chance de t’en sortir vivant.",
+                font, clock, sprites["Aldric"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kael (sarcastique, pointant son épée) : Une créature, hein ? Alors, c’est toi le monstre. Décevant...",
+                font, clock, sprites["Kael"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Anders (menaçant) : Un pas de plus, et je le tue. Maintenant, posez vos armes et videz vos poches. Je ne le répéterai pas.",
+                font, clock, sprites["Anders"]
+            )
+
+            # Choix face à Anders
+            options_anders = [
+                ("Lancer un couteau sur Anders rapidement.", 0),
+                ("Tenter de négocier avec lui.", 1)
+            ]
+            choice_anders = display_choices_box(screen, font, options_anders, clock)
+
+            if choice_anders == 0:
+                # Choix : Lancer un couteau
+                display_dialogue_box(
+                    screen,
+                    "Sans perdre un instant, vous saisissez un couteau de lancer et visez avec précision. Le couteau siffle dans l’air et se plante dans la gorge d’Anders. "
+                    "Il lâche son arme et s’effondre, libérant Garen qui tombe à genoux, tremblant.",
+                    font, clock
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Kael (souriant) : Pas mal... Tu m’impressionnes parfois, Aldric.",
+                    font, clock, sprites["Kael"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Garen (haletant) : Merci... Merci… Je croyais que j’allais y passer.",
+                    font, clock, sprites["Garen"]
+                )
+
+            elif choice_anders == 1:
+                # Choix : Tenter de négocier
+                display_dialogue_box(
+                    screen,
+                    "Vous levez les mains en signe de paix, essayant de calmer Anders. Mais alors que vous parlez, Kael agit vite : "
+                    "il se déplace sur le côté, et dans un mouvement précis, il plante sa rapière dans le flanc d’Anders.",
+                    font, clock
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Kael (calme) : Tu parles trop, Aldric. Ici, il n’y a pas de place pour la pitié.",
+                    font, clock, sprites["Kael"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Anders (haletant, tombant au sol) : Vous... Vous allez le regretter... Kara... Je suis... désolé...",
+                    font, clock, sprites["Anders"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Garen (abasourdi) : Kael ! Tu l’as tué ! Mais... il aurait pu relâcher sa prise !",
+                    font, clock, sprites["Garen"]
+                )
+
+                display_dialogue_with_sprite(
+                    screen,
+                    "Kael (fixant Garen) : Peut-être. Mais dans cette Tour, l’hésitation est une faiblesse.",
+                    font, clock, sprites["Kael"]
+                )
+
+            # Après la mort d'Anders
+            display_dialogue_box(
+                screen,
+                "Anders s'effondre, son sang se mêlant à la poussière du sol. Kara reste figée, ses mains tremblant légèrement. "
+                "Garen, toujours sous le choc, se relève lentement.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kara (pleurant, se tournant vers Anders) : Non... Non, ce n’est pas vrai... Pourquoi... Pourquoi lui ?",
+                font, clock, sprites["Kara"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kael (soupçonneux, observant Kara) : Hm ?",
+                font, clock, sprites["Kael"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Les regards se tournent vers Kara, qui semble sur le point de craquer. Sa supercherie commence à se fissurer, "
+                "mais elle détourne les yeux, essayant de dissimuler sa panique.",
+                font, clock
+            )
+            display_dialogue_with_sprite(
+                screen,
+                "Aldric (soupirant) : C'etait un coup monté hein ? Evidement.",
+                font, clock, sprites["Aldric"]
+            )
+
+            display_dialogue_with_sprite(
+            screen,
+            "Kara (éclatant en sanglots) : Oui... Oui, d'accord ! C’était un coup monté. Anders était mon... "
+            "mon petit ami. On voulait juste un peu d’argent pour partir loin d’ici.",
+            font, clock, sprites["Kara"]
+        )
+
+        display_dialogue_box(
+            screen,
+            "Kara s’effondre à genoux, le visage baigné de larmes. Sa voix tremble alors qu’elle poursuit.",
+            font, clock
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara : Nous sommes des nomades. On vogue de région en région, sans attaches, sans maison. "
+            "Cette Tour... on s’est dit qu’on pourrait en tenter un étage ou deux. Pas pour aller au sommet, mais juste pour survivre. "
+            "Ce n’est pas un crime, si ? Après tout, les gens qui viennent ici vont presque tous mourir.",
+            font, clock, sprites["Kara"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kael (glacial) : Et vous avez décidé de précipiter leur chute. Ingénieux.",
+            font, clock, sprites["Kael"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Kara (désespérée) : Ce n’est pas comme si on les tuait nous-mêmes ! Si ça peut nous sauver, alors oui, je le ferais encore. "
+            "En quoi c’est mal ?",
+            font, clock, sprites["Kara"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Aldric (ferme) : Tout le monde a le droit de tenter sa chance, au péril de sa propre vie. Mais ce n’est pas à toi ou à Anders de décider de leur sort.",
+            font, clock, sprites["Aldric"]
+        )
+
+        # Choix final avec Kara
+        options_kara = [
+            ("L’éliminer pour la punir.", 0),
+            ("La condamner à cet étage.", 1)
+        ]
+        choice_kara = display_choices_box(screen, font, options_kara, clock)
+
+        if choice_kara == 0:
+            # Punir Kara : la tuer
+            
+            display_dialogue_with_sprite(
+                screen,
+                "Aldric (froidement) : Désolé, je ne peux pas te laisser vivre. De toute façon, c'est mourir maintenant ou à la fin de l'épreuve, alors...",
+                font, clock, sprites["Aldric"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kara (suppliante) : Non ! S'il te plaît, je ferai tout ce que tu veux ! Ne fais pas ça... Je veux vivre !",
+                font, clock, sprites["Kara"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Vous brandissez votre arme et mettez fin à ses jours. Kael observe en silence, approuvant votre décision, "
+                "tandis que Garen détourne le regard, visiblement troublé.",
+                font, clock
+            )
+
+            hero.adjust_karma(-5, screen, font, clock)
+            hero.adjust_relation("Kael", +5)
+            hero.adjust_relation("Garen", -5)
+
+
+            display_dialogue_box(
+                screen,
+                "Votre karma diminue. Une tension palpable s’installe dans le groupe, et vous avancez, alourdi par vos choix.",
+                font, clock
+            )
+            reward_dalgs(hero, 15, screen, font, clock)
+
+        elif choice_kara == 1:
+            # Condamner Kara : ligoter et la laisser
+            display_dialogue_box(
+                screen,
+                "Vous confisquez les armes de Kara et la ligotez fermement. Malgré ses supplications, vous la condamnez à rester ici. "
+                "Sans moyens de défense, elle sera éliminée dès le premier étage.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kara (hurlant) : Non ! Vous ne pouvez pas faire ça ! Laissez-moi une chance ! Je peux me racheter !",
+                font, clock, sprites["Kara"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Aldric (froidement) : Dis ça à cette fille que ton pote a tuée...",
+                font, clock, sprites["Aldric"]
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Kara (hurlant) : Aaaaaaaaaaaaaaaaah ! Bande de merdes !",
+                font, clock, sprites["Kara"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Alors que vous tournez les talons pour quitter la zone, vous apercevez des participants sortir de l'ombre. "
+                "Leur regard est lourd de colère et de mépris tandis qu’ils s’approchent lentement de Kara, qui recule, terrifiée. Les rumeurs racontent qu'ils ont aussi fait cela a l'exterieur de la tour "
+                "Vous n’entendez plus que ses cris qui s’estompent au loin alors que vous disparaissez dans l’obscurité.",
+                font, clock
+            )
+            hero.adjust_karma(+10, screen, font, clock)
+            hero.adjust_relation("Kael", 0)
+            hero.adjust_relation("Garen", +5)
+
+            display_dialogue_box(
+                screen,
+                "Votre karma augmente. Garen semble soulagé par votre décision, mais un silence pesant accompagne vos pas tandis que vous quittez la zone.",
+                font, clock
+            )
+            reward_dalgs(hero, 15, screen, font, clock)
+
+        elif choice == 1:
+            # Choix initial : Continuer sans aider
+            display_dialogue_box(
+                screen,
+                "Vous laissez quelques provisions à Kara et reprenez votre chemin, laissant derrière vous ses cris étouffés par l’obscurité.",
+                font, clock
+            )
+            hero.adjust_karma(-2, screen, font, clock)
+            reward_dalgs(hero, 5, screen, font, clock)
+
+
+    def ignorer_femme(hero, screen, font, clock):
+        """
+        Ignore la quête et continue l'histoire principale.
+        """
+        display_dialogue_box(
+            screen,
+            "Vous entendez le cri s’estomper alors que vous choisissez de continuer sans intervenir. "
+            "Vos pas résonnent dans le couloir sombre, tandis que le silence reprend ses droits.",
+            font, clock
+        )
+        hero.adjust_karma(-5, screen, font, clock)  # Diminution de karma
+        display_dialogue_box(
+            screen,
+            "Votre karma diminue de 5 points. Un malaise persiste, mais vous vous concentrez sur votre objectif.",
+            font, clock
+        )
+
+
+        # Choix du joueur
+    options = [
+        ("Aller voir ce qui se passe. (Quête : Arnaque à l'artefact)", lambda: quest_arnaque(hero, screen, font, clock, sprites)),
+        ("Ignorer et continuer votre chemin.", lambda: ignorer_femme(hero, screen, font, clock))
+    ]
+
+    choice = display_choices_box(screen, font, options, clock)
+    options[choice][1]()  # Exécuter l'action choisie
 
     def chapitre_2_interaction(hero, screen, font, clock, sprites):
         global background
@@ -1939,6 +2558,7 @@ def chapitre_2(hero, screen, font, clock,sprites):
     "Le vrai danger se cache dans ce qui ne peut être vu.",
     font, clock, sprite_kael
     )
+    
     display_dialogue_box(screen,
     "Alors que vous continuez à avancer, un lourd grondement résonne derrière vous. "
     "La porte du premier étage se referme lentement, scellant le passage. "
@@ -2044,7 +2664,7 @@ def chapitre_2(hero, screen, font, clock,sprites):
     font, clock
     )
 
-    fade_out_music(fade_duration=4000)
+    fade_out_ambient_sound(fade_duration=1000)
     fade_in_text(screen, "Fin du Chapitre 2 - Il reste 93 participants sur 99 et 98 étages", font, (WIDTH // 2, HEIGHT // 2), duration=2000)
     fade_out_text(screen, 1000)
 
@@ -4184,6 +4804,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
     sprite_zyn = sprites["Zyn"]
     sprite_random_participant = sprites["Participant"]
     sprite_creature = sprites["Creature"]
+    sprite_marchand = sprites["Marchand"]
     
     fade_in_music("graphics/resources/music/safe.mp3", max_volume=0.2, fade_duration=1000)
     clear_screen(screen)
@@ -4579,15 +5200,15 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock, sprite_kael
                 )
                 display_dialogue_with_sprite(screen, 
-                "Aldric : Mon père m'appelais comme ca..", 
+                "Aldric : Mon frère m'appelais comme ca..", 
                 font, clock, sprite_aldric
                 )
                 display_dialogue_with_sprite(screen, 
-                "Kael (riant) : Ton père ? t'appelais ? pourquoi en parle tu au passé ?", 
+                "Kael (riant) : Ton frère ? t'appelais ? pourquoi en parle tu au passé ?", 
                 font, clock, sprite_kael
                 )
                 display_dialogue_with_sprite(screen, 
-                "Aldric : Il a disparu quand j'etait gamin...j'en ai des souvenirs..partiels mais bien la..", 
+                "Aldric : Il est parti tenté la tour quand j'etait gamin...j'en ai des souvenirs..partiels mais bien la..", 
                 font, clock, sprite_aldric
                 )
                 display_dialogue_with_sprite(screen, 
@@ -4595,11 +5216,19 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock, sprite_kael
                 )
                 display_dialogue_with_sprite(screen, 
-                "Aldric (s'éloignant): C'est ma dernière théorie...Pour ca je dois continuer !", 
+                "Aldric (s'éloignant): C'est ce que dit son journal..alors je dois y croire et aller le chercher, savoir ce qui c'est passé !", 
+                font, clock, sprite_aldric
+                )
+                display_dialogue_with_sprite(screen, 
+                "Kael : Tu le trouvera Aldric ! Tu a une tête de personnage principal ahah, sans deconner j'espere pour toi..", 
+                font, clock, sprite_kael
+                )
+                display_dialogue_with_sprite(screen, 
+                "Aldric : Merci Kael...t'est pas si con pour un noble à la noix..", 
                 font, clock, sprite_aldric
                 )
                 display_dialogue_box(screen,
-                "Vous Vous eloigner..",                     
+                "Vous Vous eloigner avec le sourire..",                     
                 font, clock)
 
             elif choix_kael == 1:  # Réponse : Tu mens mal
@@ -4626,7 +5255,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock, sprite_kael
                 )
                 display_dialogue_with_sprite(screen, 
-                "Aldric : Hm..mon père à disparu quand j'etait gamin...je suis tombé sur son journal il a mentionné la tour ", 
+                "Aldric : Hm..est parti tenté la tour quand j'etait gamin...je suis tombé sur son journal il a mentionné sa volonté d'atteindre le sommet.", 
                 font, clock, sprite_aldric
                 )
                 display_dialogue_with_sprite(screen, 
@@ -4638,11 +5267,11 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock, sprite_aldric
                 )
                 display_dialogue_with_sprite(screen, 
-                "Kael (souriant à nouveau) : Alors Tâchons de ne pas mourir trop bas avant d'avoir trouver ce qu'on cherche..", 
+                "Kael (souriant à nouveau) : Alors Tâchons de ne pas mourir trop bas avant d'avoir trouver ce qu'on cherche..Tu le trouvera Aldric ! J'y crois !", 
                 font, clock, sprite_kael
                 )
                 display_dialogue_box(screen,
-                "Vous Vous eloigner..",                     
+                "Vous Vous eloigner avec le sourire..",                     
                 font, clock)
 
 
@@ -4765,6 +5394,90 @@ def chapitre_5(hero, screen, font, clock,sprites):
     
     background = fade_in_background(screen,"graphics/resources/backgrounds/porte4.webp", WIDTH, HEIGHT)
     # Clôture de l'étage 4
+    # Introduction du marchand
+    display_dialogue_box(
+        screen,
+        "Aldric remarque un homme encapuchonné adossé à un mur, à moitié dissimulé dans l’ombre. "
+        "Un léger 'pssst' attire son attention.",
+        font, clock
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Marchand (chuchotant) : Pssst... Par ici, homme blond. As-tu des Dalgs ? Moi, j'aime les Dalgs. "
+        "Et je peux t'offrir bien des choses en échange...",
+        font, clock, sprites["Marchand"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Aldric (méfiant) : Qui es-tu ? Et pourquoi voudrais-tu m’aider ?",
+        font, clock, sprites["Aldric"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Marchand (amusé) : Oh, qui je suis n’a pas d’importance. Mais toi... toi, tu m’intéresses. "
+        "Si tu veux survivre, écoute mes conseils et rends-moi un petit service.",
+        font, clock, sprites["Marchand"]
+    )
+
+    # Explication de la quête et énigme cryptée
+    display_dialogue_box(
+        screen,
+        "Le marchand se redresse légèrement, son sourire dissimulé sous son capuchon.",
+        font, clock
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Marchand : Je cherche quelqu'un capable de survivre au-delà de l'étage 8 et de revenir me parler. "
+        "Sans savoir pourquoi, de moins en moins de participants parviennent jusque-là. "
+        "Si tu y arrives, je te révèlerai tous mes secrets... et je te vendrai ce dont tu auras besoin.",
+        font, clock, sprites["Marchand"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Aldric (sceptique) : Et si je refuse ?",
+        font, clock, sprites["Aldric"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Marchand (souriant) : Alors, tu passes à côté de précieux conseils. Comme celui-ci : "
+        "À l’orée de deux chemins, lorsque la dualité danse, 13 est souvent le plus chanceux. "
+        "Réfléchis bien à ce que cela pourrait signifier.",
+        font, clock, sprites["Marchand"]
+    )
+
+    display_dialogue_box(
+        screen,
+        "Aldric fronce les sourcils, essayant de décrypter les paroles du marchand. "
+        "Sans attendre de réponse, le marchand éclate de rire doucement, puis pointe un petit étalage derrière lui.",
+        font, clock
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Marchand : Bien ! Maintenant, veux-tu voir mon stock ?",
+        font, clock, sprites["Marchand"]
+    )
+
+    # Options pour le magasin
+    options = [
+        ("Oui, approcher du marchand.", lambda: display_shop(screen, font, clock, hero)),
+        ("Non, continuer votre chemin.", lambda: None)
+    ]
+    choice = display_choices_box(screen, font, options, clock)
+    options[choice][1]()
+    
+    display_dialogue_with_sprite(
+        screen,
+        "Marchand : A bientôt...Jeune Aldric (le marchand disparait)",
+        font, clock, sprites["Marchand"]
+    )
+    
     display_dialogue_box(screen, 
         "Plus tard dans la soirée, une violente altercation éclate entre plusieurs participants. "
         "Les cris résonnent dans la salle sombre, étouffés par l'épaisseur des murs de pierre. "
@@ -11400,41 +12113,44 @@ def chapitre_8(hero, screen, font, clock,sprites):
     # Archeon reveals a connection
     display_dialogue_with_sprite(
         screen,
-        "Archeon (regardant fixement Aldric) : Parce que tu es déjà venu ici… Il y a longtemps. Avec ton père.",
+        "Archeon (regardant fixement Aldric) : Parce que ton frère est déjà venu ici… Il y a longtemps. Avec son meilleur ami. "
+        "Il n'a pas mentionné la boîte dans... son journal ?",
         font, clock, sprites["Archeon"]
     )
 
     # Aldric's memories are triggered
     display_dialogue_box(
         screen,
-        "Le cœur d’Aldric manque un battement. Des fragments de mémoire éclatent dans son esprit : un homme aux cheveux bruns et un sourire franc, "
-        "portant une épée trop grande pour un simple voyageur… et un autre homme, plus sombre, toujours à ses côtés.",
+        "Le cœur d’Aldric manque un battement. Des fragments de mémoire éclatent dans son esprit : une boîte noire, la tour... "
+        "Aldric ne sait pas comment le journal de son frère lui est parvenu.",
         font, clock
     )
 
     # Aldric probes for answers
     display_dialogue_with_sprite(
         screen,
-        "Aldric (voix basse) : Je… je ne me souviens que d'ombres. Vous insinuez donc que mon père a atteint cet étage ? Qu'il est encore dans la tour ?",
+        "Aldric (voix basse) : Je… je ne me souviens que d’ombres. Vous insinuez donc que mon frère a atteint cet étage ? Qu’il est encore dans la tour ?",
         font, clock, sprites["Aldric"]
     )
 
     # Archeon confirms the past
     display_dialogue_with_sprite(
         screen,
-        "Archeon (calme) : Oui. Lui… et son compagnon. Est il encore ici ? Hm..qui sais..comme je t'ai dit plus bas, l'ascension peut prendre des années.",
+        "Archeon (calme) : Oui. Lui… et son compagnon. Est-il encore ici ? Hm... qui sait… Comme je te l'ai dit plus bas, l'ascension peut prendre des années.",
         font, clock, sprites["Archeon"]
     )
-    # Aldric confronts Archeon about his father's decision.
+
+    # Aldric confronts Archeon about his brother's decision.
     display_dialogue_with_sprite(
         screen,
-        "Aldric (froidement) : S’il est encore là… comment m’a-t-il fait sortir de la tour ?",
+        "Aldric (froidement) : S’il est encore là… pourquoi m’a-t-il envoyé son journal ?",
         font, clock, sprites["Aldric"]
     )
 
     display_dialogue_with_sprite(
         screen,
-        "Archeon (calme) : À un certain étage… l’épreuve etait implacable. Ton père a atteint l’étage 72. Là-bas il a perdu, pour rester il devait faire un choix : mourir, ou sacrifier quelque chose.",
+        "Archeon (calme) : À un certain étage, l’épreuve était implacable. Ton frère a atteint l’étage 72. Là-bas, il a dû faire un choix : "
+        "perdre, ou sacrifier une partie de lui-même et son meilleur ami pour continuer.",
         font, clock, sprites["Archeon"]
     )
 
@@ -11444,27 +12160,28 @@ def chapitre_8(hero, screen, font, clock,sprites):
         font, clock
     )
 
+    # Archeon reveals the sacrifice
     display_dialogue_with_sprite(
         screen,
-        "Archeon : La cupidité l’avait atteint. Il savait qu’il ne pouvait pas abandonner si près du sommet. Alors… il t’a sacrifié, Aldric. Il t’a offert à la tour.",
+        "Archeon : Il a sacrifié son ami pour avancer. Mais le prix qu’il a payé ne s’arrête pas là. Une partie de lui, son humanité, a été consumée par la tour.",
         font, clock, sprites["Archeon"]
     )
 
     display_dialogue_box(
         screen,
-        "Un frisson glacé parcourt Aldric alors que ces mots frappent son esprit. Il se revoit, enfant, perdu dans un monde qu’il ne comprenait pas.",
+        "Un frisson glacé parcourt Aldric alors que ces mots frappent son esprit. Il se revoit, enfant, recevant ce journal, un vestige du voyage de son frère.",
         font, clock
     )
 
     display_dialogue_with_sprite(
-    screen,
-    "Aldric (fronçant les sourcils) : J’aurais dû mourir… Mais je suis vivant. Pourquoi ? Je me souviens vaguement de ça, mais surtout d'avoir vécu loin d'ici, à l'est.",
-    font, clock, sprites["Aldric"]
+        screen,
+        "Aldric (fronçant les sourcils) : Je ne comprends pas. Comment son journal m’a-t-il trouvé ? Pourquoi l’envoyer à moi ?",
+        font, clock, sprites["Aldric"]
     )
 
     display_dialogue_with_sprite(
         screen,
-        "Archeon (posant une main sur son cœur, son regard devenant distant) : Ton père a fait un autre sacrifice pour éviter cela…",
+        "Archeon (posant une main sur son cœur, son regard devenant distant) : Ton frère voulait que quelqu’un sache. Que quelqu’un poursuive son ascension s’il échouait.",
         font, clock, sprites["Archeon"]
     )
 
@@ -11474,9 +12191,11 @@ def chapitre_8(hero, screen, font, clock,sprites):
         font, clock
     )
 
+    # The link between Aldric and the tower is revealed
     display_dialogue_with_sprite(
         screen,
-        "Archeon : Ce deuxième sacrifice n’a pas seulement épargné et éloigné un enfant de son père et de l’Empire. Il a lié ton destin à cette tour.",
+        "Archeon : Ce sacrifice n’a pas seulement coûté à ton frère son compagnon et son humanité. Il a lié votre famille à cette tour. "
+        "Le journal était son dernier appel, un passage de témoin pour toi.",
         font, clock, sprites["Archeon"]
     )
 
@@ -11488,10 +12207,10 @@ def chapitre_8(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Archeon : La malédiction que ton père a invoquée t’a condamné, Aldric. Peu importe où tu es allé, peu importe combien d’années ont passé… "
+        "Archeon : Peu importe où tu es allé, peu importe combien d’années ont passé… Ton frère t’a laissé une mission inachevée. "
         "Tu étais destiné à revenir ici, à tenter cette ascension. Jusqu’à mourir… ou réussir.",
         font, clock, sprites["Archeon"]
-    )   
+    )
 
     display_dialogue_box(
         screen,
@@ -11500,12 +12219,12 @@ def chapitre_8(hero, screen, font, clock,sprites):
         font, clock
     )
 
+    # Final words from Archeon
     display_dialogue_with_sprite(
         screen,
-        "Archeon (calme) : Comme je l’ai dit plus tôt… l’ascension peut prendre des années. Ce qu’il est devenu, seul la suite pourrait te le révéler.",
+        "Archeon (calme) : Ce qu’il est devenu, seule la suite pourrait te le révéler. Alors n'echoue pas ma prochaine épreuve. ",
         font, clock, sprites["Archeon"]
     )
-
 
     # Aldric tries to gauge Archeon's intent
     display_dialogue_box(
@@ -11513,111 +12232,116 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Aldric observe Archeon, scrutant ses moindres gestes. Il sent qu'il y a plus dans ces paroles qu'Archeon ne laisse paraître.",
         font, clock
     )
-    # Dialogue: Questions About Aldric's Father
-    choix_pere = [
-    {
-        "text": "Que s’est-il passé lors de leur ascension ?",
-        "consequence": lambda h: [
-            display_dialogue_with_sprite(
-                screen,
-                "Aldric (fixant Archeon) : Quelle était l'épreuve qu'il a perdu ?",
-                font, clock, sprites["Aldric"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon (avec un sourire énigmatique) : C'était un combat, un combat spectaculaire, les adversaires à ce niveau de la tour sont surpuissants Aldric. Et je ne parle pas seulement de monstre mais aussi de participants.",
-                font, clock, sprites["Archeon"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Aldric : Je vois, donc ce que l'on a traversé jusque-là, c'était rien...",
-                font, clock, sprites["Aldric"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon (se tournant légèrement) : Tu comprends vite, mais c'est à toi de t'en rendre compte.",
-                font, clock, sprites["Archeon"]
-            ),
-            h.get_relation("Archeon").adjust_score(+10)
-        ]
-    },
-    {
-        "text": "Où est mon père maintenant ?",
-        "consequence": lambda h: [
-           display_dialogue_with_sprite(
-                screen,
-                "Aldric (plus froidement) : Vous savez ce qui est arrivé à mon père après. Pourquoi a-t-il tenté l'ascension ?",
-                font, clock, sprites["Aldric"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon (croisant les bras) : La vérité n’est pas un don gratuit, Aldric. Elle se mérite… comme tout dans cette tour. Considère cela comme le but de ton ascension.",
-                font, clock, sprites["Archeon"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Aldric (le regard perçant) : Vous avez raison...",
-                font, clock, sprites["Aldric"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon (avec un rictus) : Comme souvent, ahah ! De ce que je sais, ton père voulait sauver ta mère, mais je ne sais pas si c'était la vérité ou un prétexte.",
-                font, clock, sprites["Archeon"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Aldric (surpris) : Ma mère ? Elle a disparu quand j'étais enfant... Je ne sais pas si elle est en vie. Donc mon père est venu ici pour la sauver ?",
-                font, clock, sprites["Aldric"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon (souriant) : À toi de le découvrir.",
-                font, clock, sprites["Archeon"]
-            ),
-            h.get_relation("Archeon").adjust_score(-5)
-        ]
-    },
-    {
-        "text": "Et vous, pourquoi faites-vous le serviteur de la tour ?",
-        "consequence": lambda h: [
-            display_dialogue_with_sprite(
-                screen,
-                "Aldric (ironique) : J'espère que la tour vous paye au moins.",
-                font, clock, sprites["Aldric"]
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon (calme) : Ahah elle est bonne, mais sache que la tour a une façon bien à elle de réveiller les fantômes.",
-                font, clock, sprites["Archeon"]
-            ),
-            display_dialogue_box(
-                screen,
-                "Archeon observe Aldric un moment, puis désigne la boîte du menton.",
-                font, clock
-            ),
-            display_dialogue_with_sprite(
-                screen,
-                "Archeon : Va. Pioche ton destin. Comme ton père l’a fait avant toi.",
-                font, clock, sprites["Archeon"]
-            )
-        ]
-    }
-]
 
-# Gestion des choix progressifs
-    while choix_pere:
+    # Dialogue: Questions About Aldric's Father
+    choix_frere = [
+        {
+            "text": "Que s’est-il passé lors de son ascension ?",
+            "consequence": lambda h: [
+                display_dialogue_with_sprite(
+                    screen,
+                    "Aldric (fixant Archeon) : Quelle était l'épreuve qu'il a perdue ?",
+                    font, clock, sprites["Aldric"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon (avec un sourire énigmatique) : C'était un combat, un combat spectaculaire. Les adversaires à ce niveau de la tour sont surpuissants, Aldric. "
+                    "Et je ne parle pas seulement de monstres, mais aussi de participants. Tu comprendra qu'apres le prochain étages, ce sera completement autre chose.",
+                    font, clock, sprites["Archeon"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Aldric : Je vois... Donc ce que l'on a traversé jusque-là, c'était rien.",
+                    font, clock, sprites["Aldric"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon (se tournant légèrement) : Tu comprends vite, mais c'est à toi de t'en rendre compte. D'où l'acquisition d'un Elix, il est impossible de continuer sans..",
+                    font, clock, sprites["Archeon"]
+                ),
+                h.get_relation("Archeon").adjust_score(+10)
+            ]
+        },
+        {
+            "text": "Pourquoi m’a-t-il envoyé son journal ?",
+            "consequence": lambda h: [
+                display_dialogue_with_sprite(
+                    screen,
+                    "Aldric (plus froidement) : Vous savez ce qui est arrivé à mon frère après. Pourquoi a-t-il voulu que je reçoive son journal ?",
+                    font, clock, sprites["Aldric"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon (croisant les bras) : La vérité n’est pas un don gratuit, Aldric. Elle se mérite... comme tout dans cette tour. "
+                    "Considère cela comme le but de ton ascension.",
+                    font, clock, sprites["Archeon"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Aldric (le regard perçant) : Vous avez raison...",
+                    font, clock, sprites["Aldric"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon (avec un rictus) : Comme souvent, ahah ! Ce que je sais, c’est que ton frère voulait que tu comprennes pourquoi il avait échoué. "
+                    "Peut-être un avertissement. Peut-être un appel à continuer là où il s’est arrêté.",
+                    font, clock, sprites["Archeon"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Aldric (surpris) : Un avertissement ? Il a sacrifié son meilleur ami... et une partie de lui-même pour progresser. Alors pourquoi moi ?",
+                    font, clock, sprites["Aldric"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon (souriant) : À toi de le découvrir.",
+                    font, clock, sprites["Archeon"]
+                ),
+                h.get_relation("Archeon").adjust_score(-5)
+            ]
+        },
+        {
+            "text": "Et vous, pourquoi faites-vous le serviteur de la tour ?",
+            "consequence": lambda h: [
+                display_dialogue_with_sprite(
+                    screen,
+                    "Aldric (ironique) : J'espère que la tour vous paye au moins.",
+                    font, clock, sprites["Aldric"]
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon (calme) : Ahah elle est bonne, mais sache que la tour a une façon bien à elle de réveiller les fantômes.",
+                    font, clock, sprites["Archeon"]
+                ),
+                display_dialogue_box(
+                    screen,
+                    "Archeon observe Aldric un moment, puis désigne la boîte du menton.",
+                    font, clock
+                ),
+                display_dialogue_with_sprite(
+                    screen,
+                    "Archeon : Va. Pioche ton destin. Comme ton frère l’a fait avant toi.",
+                    font, clock, sprites["Archeon"]
+                )
+            ]
+        }
+    ]
+
+    # Gestion des choix progressifs
+    while choix_frere:
         # Préparer les choix disponibles
-        options = [(choice["text"], idx) for idx, choice in enumerate(choix_pere)]
+        options = [(choice["text"], idx) for idx, choice in enumerate(choix_frere)]
         
         # Afficher les choix
         choix_index = display_choices_box(screen, font, options, clock)
         
         if choix_index is not None:
             # Exécuter les conséquences du choix sélectionné
-            choix_pere[choix_index]["consequence"](hero)
+            choix_frere[choix_index]["consequence"](hero)
             
             # Supprimer le choix sélectionné de la liste
-            del choix_pere[choix_index]
+            del choix_frere[choix_index]
+
 
         
     display_dialogue_box(
@@ -11733,7 +12457,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
     display_dialogue_with_sprite(
     screen,
     "Archeon (voix basse) : Hm, dans un sens, oui. "
-    "Ton père t’a laissé des questions sans réponses. Tu es maudit, oui, mais ce n'est pas une fatalité. "
+    "Ton frère t’a laissé des questions sans réponses. Tu es maudit, oui, mais ce n'est pas une fatalité. "
     "La tour a, en quelque sorte, misé sur toi. Personne n'a encore atteint le sommet depuis son apparition, il y a des milliers d'années. "
     "Pourtant, combien de personnes risquent leur vie ici, dans un espoir subtil ?",
     font, clock, sprites["Archeon"]
@@ -16469,7 +17193,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
     display_dialogue_with_sprite(
         screen,
         "Aldric (avec douceur) : Garen a besoin de moi. Yohna aussi. "
-        "J’ai rejoint cette tour pour des réponses… Pour retrouver des traces de mon père. Mais ce n’est plus ma priorité.",
+        "J’ai rejoint cette tour pour des réponses… Pour retrouver des traces de mon frère. Mais ce n’est plus ma priorité.",
         font, clock, sprites["Aldric"]
     )
 
@@ -17210,7 +17934,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Archeon : Tu as du flair, Aldric. Ton père avait la même intuition.",
+        "Archeon : Tu as du flair, Aldric. Ton frère avait la même intuition.",
         font, clock, sprites["Archeon"]
     )
 
@@ -17312,7 +18036,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
     display_dialogue_with_sprite(
         screen,
         "Archeon (souriant) : Encore une fois, tu as tout compris, Aldric. "
-        "Ton père avait fait la même réflexion.",
+        "Ton frère avait fait la même réflexion.",
         font, clock, sprites["Archeon"]
     )
 
@@ -17456,7 +18180,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "??? (doucement, avec une pointe d’ironie) : Que tu es l’homme qui a tué son père… Ton meilleur ami.",
+        "??? (doucement, avec une pointe d’ironie) : Que son frère ta sacrifié, toi, son meilleur ami, à érer dans cette tour...",
         font, clock, sprites["???"]
     )
 
@@ -17469,7 +18193,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Archeon (voix basse) : Ce n’est pas encore l’heure…",
+        "Archeon (voix basse) : Il est trop pour le tuer, j'ai envie de voir jusqu'ou il ira..ensuite des qu'il echoura je prendra son ame..",
         font, clock, sprites["Archeon"]
     )
 
