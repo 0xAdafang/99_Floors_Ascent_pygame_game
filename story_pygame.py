@@ -1985,8 +1985,8 @@ def chapitre_2(hero, screen, font, clock,sprites):
             )
 
             hero.adjust_karma(-5, screen, font, clock)
-            hero.adjust_relation("Kael", +5)
-            hero.adjust_relation("Garen", -5)
+            hero.get_relation("Kael").adjust_score(+5, screen, font, clock)
+            hero.get_relation("Garen").adjust_score(-5, screen, font, clock)
 
 
             display_dialogue_box(
@@ -2031,8 +2031,9 @@ def chapitre_2(hero, screen, font, clock,sprites):
                 font, clock
             )
             hero.adjust_karma(+10, screen, font, clock)
-            hero.adjust_relation("Kael", 0)
-            hero.adjust_relation("Garen", +5)
+            hero.get_relation("Kael").adjust_score(0, screen, font, clock)
+            hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+
 
             display_dialogue_box(
                 screen,
@@ -2827,7 +2828,8 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Garen (impressionné) : Bonne observation. Ça nous donne peut-être une chance de trouver une faille. (+5 Garen)",
         font, clock, sprite_garen
         )
-        hero.get_relation("Garen").adjust_score(+5)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+
 
     elif choix == 1:  # Provoquer le chevalier
         display_dialogue_with_sprite(screen,
@@ -2842,8 +2844,9 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Garen (gêné) : Kael… Fais attention. On ne sait pas de quoi il est capable. (+10 Kael, -5 Garen)",
         font, clock, sprite_garen
         )
-        hero.get_relation("Kael").adjust_score(+10)
-        hero.get_relation("Garen").adjust_score(-5)
+        hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(-5, screen, font, clock)
+
 
     elif choix == 2:  # Ignorer et avancer
         display_dialogue_with_sprite(screen,
@@ -2970,8 +2973,9 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Garen (fronçant les sourcils) : Tête brûlée… On n'a pas de plan ! (+10 Kael, -5 Garen)",
         font, clock, sprite_garen
         )
-        hero.get_relation("Kael").adjust_score(+10)
-        hero.get_relation("Garen").adjust_score(-5)
+        hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(-5, screen, font, clock)
+
 
     elif choix == 1:  # Observation stratégique
         display_dialogue_with_sprite(screen,
@@ -2987,7 +2991,8 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Garen (soulagé) : C’est mieux comme ça… Frapper à l’aveugle, c’est risqué. (+5 Garen, neutre Kael)",
         font, clock, sprite_garen
         )
-        hero.get_relation("Garen").adjust_score(+5)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+
 
     elif choix == 2:  # Analyse de faiblesse
         display_dialogue_box(screen,
@@ -3003,8 +3008,9 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Aldric (désignant la brèche) : Là. On frappe ici. Ça pourrait les déstabiliser. (+5 Garen, +5 Kael)",
         font, clock, sprite_aldric
         )
-        hero.get_relation("Kael").adjust_score(+5)
-        hero.get_relation("Garen").adjust_score(+5)
+        hero.get_relation("Kael").adjust_score(+5, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+
     else:
         display_dialogue_box(screen,
         "Choix invalide. Aldric reste en garde, observant la situation sans agir.",
@@ -3194,8 +3200,9 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Garen (souriant nerveusement) : Rappelle-moi de toujours écouter Ayela.",
         font, clock, sprite_garen
         )
-        hero.get_relation("Kael").adjust_score(+5)
-        hero.get_relation("Ayela").adjust_score(+5)
+        hero.get_relation("Kael").adjust_score(+5, screen, font, clock)
+        hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
+
 
     elif choix == 1:  # Attaque frontale avec Kael
         display_dialogue_box(screen,
@@ -3220,7 +3227,8 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Ayela (froide) : Évitez de mourir bêtement.",
         font, clock, sprite_ayela
         )
-        hero.get_relation("Kael").adjust_score(-10)
+        hero.get_relation("Kael").adjust_score(-10, screen, font, clock)
+
 
     elif choix == 2:  # Protéger Garen
         display_dialogue_box(screen,
@@ -3303,7 +3311,7 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Aldric (se relevant lentement) : …Je m’en souviendrai. La prochaine fois, préviens avant de charger. (+10 Kael, -5 PV)",
         font, clock, sprite_aldric
         )
-        hero.get_relation("Kael").adjust_score(+10)
+        hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
         hero.adjust_health(-5)
 
     elif choix == 1:  # Protection d’Ayela
@@ -3320,8 +3328,9 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Ayela (prête à tirer) : Continuez comme ça… Encore un peu. (+10 Ayela, +5 Garen)",
         font, clock, sprite_ayela
         )
-        hero.get_relation("Ayela").adjust_score(+10)
-        hero.get_relation("Garen").adjust_score(+5)
+        hero.get_relation("Ayela").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+
 
     elif choix == 2:  # Recherche d’une faille
         display_dialogue_box(screen,
@@ -3421,7 +3430,8 @@ def chapitre_3(hero, screen, font, clock,sprites):
         font, clock
     )
 
-    hero.get_relation("Ayela").adjust_score(+5)
+    hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
+
 
     # Présentation de Garen
     display_dialogue_with_sprite(screen,
@@ -3607,9 +3617,9 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Clotaire (plissant les yeux) : Oh ? Menace-moi encore, blondinet.. J’adore ça. (+10 Kael, +5 Garen, -10 Clotaire)",
         font, clock, sprite_clotaire
         )
-        hero.get_relation("Kael").adjust_score(+10)
-        hero.get_relation("Garen").adjust_score(+5)
-        hero.get_relation("Clotaire").adjust_score(-10)
+        hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+        hero.get_relation("Clotaire").adjust_score(-10, screen, font, clock)
 
     elif choix == 1:  # Moquerie envers Garen
         display_dialogue_with_sprite(screen,
@@ -3628,10 +3638,10 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Kael (soupire) : Garen… il a pas tort… (+10 Clotaire, -10 Garen, -5 Ayela, -5 Kael)",
         font, clock, sprite_kael
         )
-        hero.get_relation("Clotaire").adjust_score(+10)
-        hero.get_relation("Garen").adjust_score(-10)
-        hero.get_relation("Ayela").adjust_score(-5)
-        hero.get_relation("Kael").adjust_score(-5)
+        hero.get_relation("Clotaire").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(-10, screen, font, clock)
+        hero.get_relation("Ayela").adjust_score(-5, screen, font, clock)
+        hero.get_relation("Kael").adjust_score(-5, screen, font, clock)
 
     elif choix == 2:  # Choix pacifique
         display_dialogue_with_sprite(screen,
@@ -3646,8 +3656,8 @@ def chapitre_3(hero, screen, font, clock,sprites):
         "Clotaire (amusé) : Hah, regarde-les fuir. Classique. (renifle) Vous sentez ça ? Ça sent la mort… (+5 Ayela, +5 Garen)",
         font, clock, sprite_clotaire
         )
-        hero.get_relation("Ayela").adjust_score(+5)
-        hero.get_relation("Garen").adjust_score(+5)
+        hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
 
     else:
         display_dialogue_box(screen,
@@ -3725,8 +3735,10 @@ def chapitre_4(hero, screen, font, clock,sprites):
     sprite_zyn = sprites["Zyn"]
     sprite_random_participant = sprites["Participant"]
     sprite_creature = sprites["Creature"]
+    sprite_pola = sprites["Pola"]
+    sprite_tinei = sprites["Tinei"]
     
-    fade_in_music("graphics/resources/music/Fates.mp3", max_volume=0.2, fade_duration=1000)
+    fade_in_music("graphics/resources/music/prayer.mp3", max_volume=0.2, fade_duration=1000)
     clear_screen(screen)
     fade_in_text(screen, 
              "Chapitre 4 : Lumière noire - Etage 3/99", 
@@ -3837,7 +3849,7 @@ def chapitre_4(hero, screen, font, clock,sprites):
         "Aldric : Ce n’est pas seulement une épreuve physique… Ces ombres sont vivantes. Restez sur vos gardes.",
         font, clock, sprite_aldric
     )
-        hero.get_relation("Kael").adjust_score(+5)  # Kael apprécie votre perspicacité
+        hero.get_relation("Kael").adjust_score(+5, screen, font, clock)  # Kael apprécie votre perspicacité
 
     elif choix == 1:
         display_dialogue_box(screen,
@@ -3854,7 +3866,7 @@ def chapitre_4(hero, screen, font, clock,sprites):
         "La lumière pulse brièvement avant de revenir à la normale.",
         font, clock
         )
-        hero.get_relation("Garen").adjust_score(+5)  # Garen admire votre courage
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)  # Garen admire votre courage
 
     elif choix == 2:
         display_dialogue_box(screen,
@@ -3870,7 +3882,7 @@ def chapitre_4(hero, screen, font, clock,sprites):
         "Vous réalisez que leurs déplacements suivent un schéma précis, et qu'il est possible de prévoir leur prochain mouvement.",
         font, clock
         )
-        hero.get_relation("Kael").adjust_score(+5)  # Kael admire votre calme et analyse
+        hero.get_relation("Kael").adjust_score(+5, screen, font, clock)  # Kael admire votre calme et analyse
 
 # Transition après les choix
     display_dialogue_box(screen,
@@ -3919,7 +3931,6 @@ def chapitre_4(hero, screen, font, clock,sprites):
     )
     background = fade_in_background(screen,"graphics/resources/backgrounds/etage4b.webp", WIDTH, HEIGHT)
     
-    fade_in_music("graphics/resources/music/DarkLight.mp3", max_volume=0.2, fade_duration=1000)
     
     display_dialogue_box(screen,
     "Les hurlements d’agonie se répercutent dans la salle. Certains participants, pensant pouvoir affronter les créatures, "
@@ -4318,7 +4329,7 @@ def chapitre_4(hero, screen, font, clock,sprites):
             font, clock
         )
 
-        hero.get_relation("Ayela").adjust_score(+5)
+        hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
         hero.adjust_health(-15)
 
     elif choix_ayela == 1:  # Utiliser un objet pour bloquer la lumière
@@ -4372,8 +4383,8 @@ def chapitre_4(hero, screen, font, clock,sprites):
             font, clock
         )
 
-        hero.get_relation("Garen").adjust_score(-15)
-        hero.get_relation("Kael").adjust_score(+10)
+        hero.get_relation("Garen").adjust_score(-15, screen, font, clock)
+        hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
 
     else:  # Choix invalide
         display_dialogue_box(screen,
@@ -4452,6 +4463,260 @@ def chapitre_4(hero, screen, font, clock,sprites):
     "Mais avant qu’il ne puisse trouver une réponse, elle disparaît à nouveau dans l’ombre.",
     font, clock
     )
+    # Narration initiale
+    display_dialogue_box(
+        screen,
+        "Alors que l'escalier se dresse devant vous, des cris de panique déchirent le silence. "
+        "Deux participants semblent en difficulté. Un guerrier, Tinei, est au sol, blessé, tandis que son équipière, Pola, "
+        "lutte désespérément contre une créature imposante. La porte est proche, mais leur sort semble scellé.",
+        font, clock
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Garen (choqué) : Ils ne s'en sortiront pas seuls ! On doit faire quelque chose !",
+        font, clock, sprites["Garen"]
+    )
+
+    display_dialogue_with_sprite(
+        screen,
+        "Kael (calme) : Hmph. Aider des inconnus maintenant pourrait nous coûter cher.",
+        font, clock, sprites["Kael"]
+    )
+
+    display_dialogue_box(
+        screen,
+        "Vous hésitez, pesant les risques et les bénéfices. La porte est à portée, mais les cris résonnent avec urgence.",
+        font, clock
+    )
+    def quest_ombre_en_cache(hero):
+    
+        # Introduction de la quête
+        display_dialogue_box(
+        screen,
+        "Alors que vous approchez de l’escalier, des cris brisent le silence oppressant de la Tour. "
+        "Votre regard se tourne vers deux participants en difficulté : Tinei, un guerrier robuste, est à terre, "
+        "le souffle court, tandis que son équipière, Pola, fait face à une créature terrifiante.",
+        font, clock
+        )
+        play_ambient_sound("graphics/resources/sounds/ship.mp3", volume=0.2, loop=-1)
+        display_dialogue_box(
+            screen,
+            "La créature humanoïde est imposante, son corps tordu et dépourvu de visage. Une lanterne de feu noir pend à sa main droite, "
+            "projetant une lueur sombre et vacillante. Des chants étranges, mêlant murmures et notes dissonantes, s’échappent de sa gorge, "
+            "emplissant l’air d’une sensation d’inconfort profond.",
+            font, clock
+        )
+
+        display_dialogue_box(
+            screen,
+            "Tinei, au sol, tente de ramper vers Pola, mais sa jambe ensanglantée l’immobilise. "
+            "Pola, les bras tremblants, brandit une épée pour repousser la créature, mais chaque coup semble inefficace contre son assaillant.",
+            font, clock
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Tinei (haletant) : S’il vous plaît… Sauvez Pola ! Elle ne tiendra pas longtemps ! Elle mérite de vivre !",
+            font, clock, sprites["Tinei"]
+        )
+
+        display_dialogue_with_sprite(
+            screen,
+            "Pola (criant) : Non ! Ne m’écoutez pas ! Sauvez Tinei ! Il est blessé ! Aidez-le, vite !",
+            font, clock, sprites["Pola"]
+        )
+
+        display_dialogue_box(
+            screen,
+            "Les chants dérangeants de la créature s’intensifient, s’insinuant dans votre esprit comme un poison. "
+            "Vous sentez le poids du choix qui vous attend, chaque option paraissant aussi lourde que la Tour elle-même.",
+            font, clock
+        )
+
+        # Choix du joueur
+        options_sauvetage = [
+            ("Sauver Tinei.", 0),
+            ("Sauver Pola.", 1)
+        ]
+        choix_sauvetage = display_choices_box(screen, font, options_sauvetage, clock)
+
+        if choix_sauvetage == 0:
+            # Sauver Tinei
+            display_dialogue_box(
+                screen,
+                "Vous vous précipitez pour aider Tinei à se relever. Son visage est marqué par la douleur, mais il parvient à se mettre debout avec votre aide. "
+                "Pendant ce temps, Pola continue de se battre contre la créature, ses mouvements devenant de plus en plus saccadés.",
+                font, clock
+            )
+
+            display_dialogue_box(
+                screen,
+                "Un cri déchirant retentit soudain. Vous vous retournez, et ce que vous voyez vous glace le sang. "
+                "Pola s’effondre sur le sol, son corps se tordant de manière anormale. Une lumière sombre jaillit de ses yeux, "
+                "et un chant lugubre s’échappe de sa gorge.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Pola (chantant, voix distordue) : Laaaah… aaa… laaa… L’ombre appelle… laaah… aaa…",
+                font, clock, sprites["Creature"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Son visage se dissout dans l’obscurité, révélant une créature humanoïde sans visage. Une lanterne de feu noir émerge de sa main droite, "
+                "projetant une lueur inquiétante. Les chants résonnent dans vos oreilles, éveillant une terreur ancestrale.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Tinei (tremblant) : Non… Ce n’est pas possible… Pola… Elle était déjà morte… La Tour l’a ramenée… Pourquoi ?!",
+                font, clock, sprites["Tinei"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Vous essayez de tirer Tinei vers la porte, mais il reste figé, les yeux fixés sur la créature qui était autrefois son amie.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Tinei (pleurant) : Je suis désolé… mais je ne peux pas l’abandonner une seconde fois.",
+                font, clock, sprites["Tinei"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Avant que vous ne puissiez le retenir, il lâche votre main et se retourne pour faire face à la créature. "
+                "Un dernier regard empli de tristesse et de détermination vous transperce alors que la porte se ferme brusquement.",
+                font, clock
+            )
+
+            display_dialogue_box(
+                screen,
+                "Les chants de la créature continuent de résonner de l’autre côté de la porte, accompagnés des hurlements de Tinei. "
+                "Un silence pesant s’installe, vous laissant avec un lourd sentiment d’échec.",
+                font, clock
+            )
+            fade_out_ambient_sound(fade_duration=1000)
+
+            # Impact narratif
+            hero.adjust_karma(+10, screen, font, clock)
+            reward_dalgs(hero, 15, screen, font, clock)
+
+
+        elif choix_sauvetage == 1:
+            # Sauver Pola
+            display_dialogue_box(
+                screen,
+                "Vous vous précipitez vers Pola, déterminé à la sauver. Son regard croise le vôtre, empli de panique et de désespoir. "
+                "Mais alors que vous tendez la main pour l’aider, son corps se fige soudainement. Une lueur sombre envahit ses yeux.",
+                font, clock
+            )
+
+            display_dialogue_box(
+                screen,
+                "Son souffle devient rauque, presque inhumain, tandis que son corps commence à se tordre de manière grotesque. "
+                "Ses traits disparaissent lentement, son visage se lissant jusqu’à devenir un masque vide. Une lanterne de feu noir "
+                "apparaît dans sa main, projetant une lumière terrifiante.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Pola (chantant, voix distordue) : Laaaah… aaa… laaa… Une âme pour une ombre… laaah… aaa…",
+                font, clock, sprites["Creature"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Vous reculez instinctivement, sentant une terreur viscérale s’emparer de vous. Les chants de la créature résonnent dans votre esprit, "
+                "chaque note semblant griffer votre âme.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Tinei (hurlant) : NON ! C’est elle ! Elle est encore là, je le sais ! Ne lui faites pas de mal !",
+                font, clock, sprites["Tinei"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Aveuglé par la rage et la douleur, Tinei vous bouscule violemment. Il se précipite vers la créature, ignorant les dangers. "
+                "Vous tentez de l’arrêter, mais il vous plaque au sol, criant qu’il ne vous laissera pas toucher Pola.",
+                font, clock
+            )
+
+            display_dialogue_box(
+                screen,
+                "Alors que la créature attrape Tinei et commence à le tirer dans les ombres, il continue de s’accrocher à vous, "
+                "tentant désespérément de vous entraîner avec lui. Ses doigts se referment autour de votre jambe comme un étau.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Tinei (suppliant) : Si je meurs… alors vous mourrez avec moi ! Elle ne mérite pas ça !",
+                font, clock, sprites["Tinei"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Une flèche siffle dans l’air, frappant Tinei au bras. Son emprise se relâche juste assez pour que vous puissiez vous dégager. "
+                "Vous vous retournez pour voir Ayela, son arc encore tendu, vous criant de vous dépêcher.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Ayela : Dépêche-toi ! On ne peut plus rien pour lui !",
+                font, clock, sprites["Ayela"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Vous franchissez la porte à l’instant où elle se referme, laissant Tinei et la créature derrière. "
+                "Le rire dément de Tinei résonne de l’autre côté, accompagné par les chants lugubres de la créature.",
+                font, clock
+            )
+
+            display_dialogue_box(
+                screen,
+                "Un silence pesant s’installe. Vous réalisez que, peu importe vos choix, la Tour exige toujours un sacrifice.",
+                font, clock
+            )
+            fade_out_ambient_sound(fade_duration=1000)
+
+            # Impact narratif
+            hero.adjust_karma(+10, screen, font, clock)
+            reward_dalgs(hero, 15, screen, font, clock)
+            hero.get_relation("Ayela").adjust_score(+10)
+
+    # Ignorer la scène
+    def ignorer_ombre(hero):
+        """
+        Ignore la quête et continue l'histoire principale.
+        """
+        display_dialogue_box(
+            screen,
+            "Vous détournez les yeux et avancez vers la porte, ignorant les appels désespérés de Tinei et Pola. "
+            "Les cris s’estompent alors que vous franchissez la porte, le cœur alourdi.",
+            font, clock
+        )
+        hero.adjust_karma(-10, screen, font, clock)
+
+    # Gestion des choix pour lancer ou ignorer la quête
+    options = [
+        ("Les aider (Quête : Une ombre en cache une autre).", lambda: quest_ombre_en_cache(hero)),
+        ("Les ignorer et passer la porte.", lambda: ignorer_ombre(hero))
+    ]
+    choix = display_choices_box(screen, font, options, clock)
+    options[choix][1]()  # Exécuter l'action choisie
 
 # Transition vers la suite
     display_dialogue_box(screen,
@@ -4459,13 +4724,6 @@ def chapitre_4(hero, screen, font, clock,sprites):
     "Les créatures cessent de vous poursuivre dès que vous franchissez la porte suivante, "
     "comme retenues par une barrière invisible. Derrière vous, l’obscurité s’étend, avalant les silhouettes des malheureux restés derrière.",
     font, clock
-    )
-
-    display_dialogue_box(screen,
-        "Finalement, après une progression lente et douloureuse, vous atteignez l’autre côté de la salle. "
-        "Les créatures cessent de vous poursuivre dès que vous franchissez la porte suivante, "
-        "comme retenues par une barrière invisible. Derrière vous, l’obscurité s’étend, avalant les silhouettes des malheureux restés derrière.",
-        font, clock
     )
 
     display_dialogue_box(screen,
@@ -4485,6 +4743,8 @@ def chapitre_4(hero, screen, font, clock,sprites):
         "Ayela (à voix basse, esquissant un faible sourire malgré elle) : Merci… Tu as fait ce qu’il fallait…",
         font, clock, sprite_ayela
     )
+    
+    
     fade_out_music(fade_duration=1000)
 
     display_dialogue_box(screen,
@@ -5011,7 +5271,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
     )
 
 # Relation avec Archeon
-    hero.get_relation("Archeon").adjust_score(+5)
+    hero.get_relation("Archeon").adjust_score(+5, screen, font, clock)
 
 # Narration - Ressenti d'Aldric
     display_dialogue_box(screen,
@@ -5043,6 +5303,8 @@ def chapitre_5(hero, screen, font, clock,sprites):
 
         if personnage == "Parler à Garen.":
             
+
+            
             display_dialogue_with_sprite(screen, 
             "Aldric (vous vous approchez de Garen, le voyant pensif à l'écart des autres) : "
             "Au fait, tu m'as jamais dit pourquoi tu avais tenté la tour... ?", 
@@ -5050,28 +5312,60 @@ def chapitre_5(hero, screen, font, clock,sprites):
             )
             display_dialogue_with_sprite(screen, 
             "Garen (baissant les yeux, triturant l'anneau en cuir de son gantelet) : "
-            "Ah ça... eh bien... J'ai quitté ma ferme. Mon père voulait me marier pour un prêt… parce que la ferme fait faillite depuis la mort de mon frère.", 
+            "Ah ça... eh bien... J'ai quitté ma ferme. Mon père veut la vendre pour rembourser ses dettes… parce que la ferme fait faillite depuis la mort de mon frère.", 
             font, clock, sprite_garen
         )
             display_dialogue_with_sprite(screen, 
             "Garen (légèrement tremblant) : "
             "Je voulais prouver à mon père que je pouvais subvenir... sauver la ferme. Mais je crois que j'ai surtout voulu me prouver à moi-même… "
-            "que je ne suis pas l'incapable qu'il prétend.", 
+            "que je ne suis pas l'incapable qu'il prétend. C'est ce qu'aurait voulu mon frère...Digen", 
             font, clock, sprite_garen
-        )
-            display_dialogue_box(screen, 
-            "Sa voix est lourde de regrets et d'espoir. Il semble gêné, incapable de croiser votre regard.", 
-            font, clock
-        )
+            )
+            display_dialogue_box(
+                screen,
+                "Sa voix est lourde de regrets et d'espoir. Il semble gêné, incapable de croiser votre regard.",
+                font, clock
+            )
+            background = fade_in_background(screen,"graphics/resources/backgrounds/garenflash.webp", WIDTH, HEIGHT)
+            # Dialogue nostalgique de Garen
+            display_dialogue_with_sprite(
+                screen,
+                "Garen (souriant doucement) : Tu verrais ma ferme... Grand espace, des champs à perte de vue, le blé qui danse sous le vent. "
+                "Des animaux partout, des vaches, des poules, des chevaux... C’était chez moi.",
+                font, clock, sprites["Garen"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Un léger sourire éclaire son visage, mais ses yeux trahissent une profonde mélancolie.",
+                font, clock
+            )
+
+            display_dialogue_with_sprite(
+                screen,
+                "Garen : Le matin, on entendait les oiseaux chanter, le bruit du moulin... Tu n'imagines pas la paix qu'on ressent là-bas. "
+                "Mais tout ça... tout ça va disparaître.",
+                font, clock, sprites["Garen"]
+            )
+
+            display_dialogue_box(
+                screen,
+                "Garen regarde au loin, comme s’il cherchait les souvenirs d’un passé qui lui échappe. "
+                "Le silence s’installe, chargé d’un poids que vous ne pouvez ignorer.",
+                font, clock
+            )
+
+            
             display_dialogue_with_sprite(screen, 
             "Garen (riant nerveusement) : J'ai alors dépensé toutes mes économies… pour cet equipement et venir ici. "
             "Regarde-moi ça, du toc. Je crois que je me suis fait avoir...l'empire s'ecroule...ca se voit.", 
             font, clock, sprite_garen
-        )
+            )
             display_dialogue_with_sprite(screen, 
             "Garen (voix basse) : Le pire dans tout ça, c'est que ma mère m'a dit au revoir... comme si elle savait que je ne reviendrais jamais. C'est peut etre pas plus mal..", 
             font, clock, sprite_garen
-        )
+            )
+            background = fade_in_background(screen,"graphics/resources/backgrounds/repas.webp", WIDTH, HEIGHT)
 
     # Options de réponse pour Garen
             display_dialogue_box(screen, "Comment répondez-vous à Garen ?", font, clock)
@@ -5083,7 +5377,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
 
     # Branches des réponses
             if choix_garen == 0:  # Réponse positive
-                hero.get_relation("Garen").adjust_score(10)
+                hero.get_relation("Garen").adjust_score(10, screen, font, clock)
                 display_dialogue_with_sprite(screen, 
                 "Garen (souriant sincèrement, levant enfin la tête) : Tu le penses vraiment ?", 
                 font, clock, sprite_garen
@@ -5114,7 +5408,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock)
 
             elif choix_garen == 1:  # Réponse négative
-                hero.get_relation("Garen").adjust_score(-5)
+                hero.get_relation("Garen").adjust_score(-5, screen, font, clock)
                 display_dialogue_with_sprite(screen, 
                 "Garen (déçu, baissant la tête encore plus bas) : Tu... tu as sûrement raison. Je ne suis qu'un boulet…"
                 "et en plus de ça, je vais sûrement mourir.", 
@@ -5178,7 +5472,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
 
     # Branches des réponses
             if choix_kael == 0:  # Réponse : Ça semble crédible
-                hero.get_relation("Kael").adjust_score(5)
+                hero.get_relation("Kael").adjust_score(5, screen, font, clock)
                 display_dialogue_with_sprite(screen,
                 "Kael (hausse un sourcil, amusé) : Hm… sans doute. Qui sait ?", 
                 font, clock, sprite_kael
@@ -5232,7 +5526,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock)
 
             elif choix_kael == 1:  # Réponse : Tu mens mal
-                hero.get_relation("Kael").adjust_score(10)
+                hero.get_relation("Kael").adjust_score(10, screen, font, clock)
                 display_dialogue_with_sprite(screen,
                 "Kael (sourire effacé, l'air surpris) : …Hah, t'es un petit futé toi. "
                 "Je l'avais deviné dès qu'on s'est croisés à l'extérieur de la tour.", 
@@ -5289,6 +5583,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
             "Ayela (voix douce, presque murmurée) : Je viens de Rher a l'ouest, Mon village est frappé par une épidémie. Personne ne sait d'où ça vient…", 
             font, clock, sprite_ayela
             )
+            background = fade_in_background(screen,"graphics/resources/backgrounds/ayelaflash.webp", WIDTH, HEIGHT)
             display_dialogue_box(screen, 
             "Sa voix se brise un instant, trahissant une fragilité qu'elle s'efforce de masquer. J'ai pensé… que cette tour pourrait m'apporter des réponses.", 
             font, clock
@@ -5318,6 +5613,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
             "Ayela (à voix basse) : C'était stupide, je le sais...Aldric...J'ai peur de mourir..", 
             font, clock, sprite_ayela
             )
+            background = fade_in_background(screen,"graphics/resources/backgrounds/repas.webp", WIDTH, HEIGHT)
 
     # Options de réponse pour Ayela
             display_dialogue_box(screen, "Que dites-vous à Ayela ?", font, clock)
@@ -5329,7 +5625,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
 
     # Branches des réponses
             if choix_ayela == 0:  # Réponse : Ce n'est pas stupide
-                hero.get_relation("Ayela").adjust_score(10)
+                hero.get_relation("Ayela").adjust_score(10, screen, font, clock)
                 display_dialogue_box(screen, 
                 "Ayela lève les yeux vers vous, rougissante et légèrement surprise par votre réponse.(Ayela +10)", 
                 font, clock
@@ -5368,7 +5664,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
                 font, clock)
 
             elif choix_ayela == 1:  # Réponse : Les chances sont faibles
-                hero.get_relation("Ayela").adjust_score(-15)
+                hero.get_relation("Ayela").adjust_score(-15, screen, font, clock)
                 display_dialogue_box(screen, 
                 "Ayela baisse brusquement la tête, ses épaules s'affaissant sous le poids de vos mots.(Ayela -15)", 
                 font, clock
@@ -5460,7 +5756,7 @@ def chapitre_5(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Marchand : Bien ! Maintenant, veux-tu voir mon stock ?",
+        "Marchand : Bien ! Maintenant, veux-tu voir mon stock ?",
         font, clock, sprites["Marchand"]
     )
 
@@ -5657,10 +5953,10 @@ def chapitre_5(hero, screen, font, clock,sprites):
 
 # Conséquences des choix
     if choix == 0:  # Prendre le parti de Garen
-        hero.get_relation("Garen").adjust_score(+5)
-        hero.get_relation("Clotaire").adjust_score(-5)
-        hero.get_relation("Velm").adjust_score(-5)
-        hero.get_relation("Brandio").adjust_score(-5)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+        hero.get_relation("Clotaire").adjust_score(-5, screen, font, clock)
+        hero.get_relation("Velm").adjust_score(-5, screen, font, clock)
+        hero.get_relation("Brandio").adjust_score(-5, screen, font, clock)
         display_dialogue_with_sprite(screen, 
         "Aldric (ferme) : Garen est quelqu'un de juste. Tout le monde mérite une chance, même dans cette tour.", 
         font, clock, sprite_aldric
@@ -5683,9 +5979,9 @@ def chapitre_5(hero, screen, font, clock,sprites):
         )
 
     elif choix == 1:  # Défendre Clotaire
-        hero.get_relation("Clotaire").adjust_score(+10)
-        hero.get_relation("Velm").adjust_score(+10)
-        hero.get_relation("Brandio").adjust_score(+10)
+        hero.get_relation("Clotaire").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Velm").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Brandio").adjust_score(+10, screen, font, clock)
         display_dialogue_with_sprite(screen, 
         "Aldric (regardant Clotaire) : Il a raison, Garen. La tour ne pardonne pas. Si tu veux survivre, tu dois accepter ça.", 
         font, clock, sprite_aldric
@@ -5704,8 +6000,8 @@ def chapitre_5(hero, screen, font, clock,sprites):
         )
 
     elif choix == 2:  # Soutenir Emphyr
-        hero.get_relation("Garen").adjust_score(5)
-        hero.get_relation("Emphyr").adjust_score(10)
+        hero.get_relation("Garen").adjust_score(5, screen, font, clock)
+        hero.get_relation("Emphyr").adjust_score(10, screen, font, clock)
         display_dialogue_with_sprite(screen, 
         "Aldric (pragmatique) : Ce qu'ils disent est dur, Garen, mais Emphyr a raison. Vu leur carrure, ils n'auraient surement pas passé la prochaine salle.", 
         font, clock, sprite_aldric
@@ -6028,7 +6324,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             "Clotaire (ironique) : Ah, l’éternel Brandio et sa philosophie… Velm, oublie pas de leur mettre trois cases dans les dents, ahah !", 
             font, clock, sprite_clotaire
         )
-            hero.get_relation("Kael").adjust_score(+5)
+            hero.get_relation("Kael").adjust_score(+5, screen, font, clock)
 
         elif choix == 1:  # Avancer de deux cases (équilibré)
             display_dialogue_with_sprite(screen, "Garen (souriant) : Bonne stratégie. Restons sur ce rythme.", font, clock, sprite_garen)
@@ -6045,7 +6341,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             "Clotaire (calme) : L'avance est l'avantage, Garen. Mais bon… on verra. Si tu préfères le surplace et meurs, ça m'est égal.", 
             font, clock, sprite_clotaire
             )
-            hero.get_relation("Garen").adjust_score(+5)
+            hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
 
         elif choix == 2:  # Avancer de trois cases (risqué)
             display_dialogue_with_sprite(screen, "Kael (furieux) : Tu veux nous faire tuer ?", font, clock, sprite_kael)
@@ -6155,7 +6451,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             display_dialogue_with_sprite(screen, "Clotaire (en souriant) : Concentrés ? C'est une belle manière de dire 'lents'.", font, clock, sprite_clotaire)
             display_dialogue_with_sprite(screen, "Aldric : Garen ! Je fais quoi, toi qui connais le jeu ?", font, clock, sprite_aldric)
             display_dialogue_with_sprite(screen, "Garen : Un pas à droite pour faire reculer Brandio et un pas en avant.", font, clock, sprite_garen)
-            hero.get_relation("Kael").adjust_score(+5)
+            hero.get_relation("Kael").adjust_score(+5, screen, font, clock)
 
         elif choix == 1:  # Avancer de 2 cases
             display_dialogue_with_sprite(screen, "Kael (avançant rapidement) : J'avance de deux. Suivez-moi.", font, clock, sprite_kael)
@@ -6165,7 +6461,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             display_dialogue_with_sprite(screen, "Clotaire (calme) : Continue de parler, Velm. J’aime bien quand tu les distrais.", font, clock, sprite_clotaire)
             display_dialogue_with_sprite(screen, "Brandio (se rapprochant) : Les distractions coûtent cher ici…", font, clock, sprite_brandio)
             display_dialogue_with_sprite(screen, "Aldric : J'ai hâte de voir ta tête voler.", font, clock, sprite_aldric)
-            hero.get_relation("Garen").adjust_score(+5)
+            hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
 
         elif choix == 2:  # Passer son tour
             display_dialogue_with_sprite(screen, "Clotaire (ricanant) : Dommage, pauvre con. Tu vas attendre ici pendant qu’on avance. Muhaha.", font, clock, sprite_clotaire)
@@ -6176,7 +6472,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             display_dialogue_with_sprite(screen, "Clotaire (en avançant de trois cases) : Continuez à discuter. Moi, je gagne. En avant les gars !", font, clock, sprite_clotaire)
             display_dialogue_with_sprite(screen, "Aldric : Pas si vite.", font, clock, sprite_aldric)
             display_dialogue_with_sprite(screen, "Clotaire : Tsss fait chier une gargouille ! Tu es content de toi hein !", font, clock, sprite_clotaire)
-            hero.get_relation("Clotaire").adjust_score(-5)
+            hero.get_relation("Clotaire").adjust_score(-5, screen, font, clock)
 
 # Appels des fonctions
     kael_mouvement(hero, screen, font, clock, sprites)
@@ -6339,8 +6635,8 @@ def chapitre_6(hero, screen, font, clock,sprites):
             "Les gargouilles immobiles ajoutent une tension sourde, leur silence pesant comme une menace constante.", 
             font, clock
         )
-            hero.get_relation("Clotaire").adjust_score(-5)
-            hero.get_relation("Kael").adjust_score(+10)
+            hero.get_relation("Clotaire").adjust_score(-5, screen, font, clock)
+            hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
 
         elif choix == 1:  # Laisser faire
             display_dialogue_with_sprite(screen, "Kael (furieux) : Tu le laisses vraiment faire ça ?", font, clock, sprite_kael)
@@ -6348,8 +6644,8 @@ def chapitre_6(hero, screen, font, clock,sprites):
             display_dialogue_with_sprite(screen, "Ayela (regard inquiet) : Les gargouilles ne nous attendront pas…", font, clock, sprite_ayela)
             display_dialogue_with_sprite(screen, "Clotaire (avec un sourire en coin) : Je fais avancer le jeu, c’est tout.", font, clock, sprite_clotaire)
             display_dialogue_with_sprite(screen, "Velm (haussement d’épaules) : Un jeu dangereux… Mais intéressant.", font, clock, sprite_velm)
-            hero.get_relation("Kael").adjust_score(-10)
-            hero.get_relation("Clotaire").adjust_score(+5)
+            hero.get_relation("Kael").adjust_score(-10, screen, font, clock)
+            hero.get_relation("Clotaire").adjust_score(+5, screen, font, clock)
 
         elif choix == 2:  # Laisser Garen gérer
             display_dialogue_with_sprite(screen, "Garen (souriant) : Je vais m'en sortir.", font, clock, sprite_garen)
@@ -6368,7 +6664,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             "Les autres participants restent bloqués, les gargouilles avançant lentement derrière eux.", 
             font, clock
             )
-            hero.get_relation("Garen").adjust_score(+5)
+            hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
 
 # Appel de la fonction
     clotaire_reaction(hero, screen, font, clock, sprites)
@@ -6520,6 +6816,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
         choix = display_choices_box(screen, font, [(option[0], option[1]) for option in options_sacrifice], clock)
 
         if choix == 0:  # Sacrifier Velm
+            
             display_dialogue_box(screen, 
             "Velm se fige petit à petit, un rictus de défi sur les lèvres alors que la lumière de la gargouille l'engloutit. "
             "Le craquement sinistre de la pierre enveloppant son corps résonne dans toute la salle, "
@@ -6532,6 +6829,7 @@ def chapitre_6(hero, screen, font, clock,sprites):
             "...Trouve cette île dont tu m'as tant parlé, realise notre rêve à tout les trois !... Clot...", 
             font, clock, sprite_velm
         )
+            
 
             display_dialogue_box(screen, 
             "Sa voix s’éteint alors que son corps devient une statue immobile. "
@@ -6594,8 +6892,8 @@ def chapitre_6(hero, screen, font, clock,sprites):
                 "Je trouverai cette île, Velm. Je te le promets.", 
                 font, clock
             )
-            hero.get_relation("Clotaire").adjust_score(-30)
-            hero.get_relation("Brandio").adjust_score(-20)
+            hero.get_relation("Clotaire").adjust_score(-30, screen, font, clock)
+            hero.get_relation("Brandio").adjust_score(-20, screen, font, clock)
             hero.remove_relation("Velm")
 
         elif choix == 1:  # Proposer Brandio comme sacrifice
@@ -6663,8 +6961,8 @@ def chapitre_6(hero, screen, font, clock,sprites):
                 font, clock
             )
 
-            hero.get_relation("Clotaire").adjust_score(-30)
-            hero.get_relation("Velm").adjust_score(-20)
+            hero.get_relation("Clotaire").adjust_score(-30, screen, font, clock)
+            hero.get_relation("Velm").adjust_score(-20, screen, font, clock)
             hero.remove_relation("Brandio")
 
 # Appel de la fonction
@@ -6933,9 +7231,9 @@ def chapitre_6(hero, screen, font, clock,sprites):
                 "Ayela (regardant Clotaire du coin de l'œil) : Il ne s'arrêtera pas là. Je le sens…", 
                 font, clock, sprite_ayela
                 )
-                hero.get_relation("Garen").adjust_score(+5)
-                hero.get_relation("Ayela").adjust_score(+5)
-                hero.get_relation("Kael").adjust_score(-5)
+                hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
+                hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
+                hero.get_relation("Kael").adjust_score(-5, screen, font, clock)
 
             elif choix == 1:  # Confronter Clotaire discrètement
                 display_dialogue_box(screen, 
@@ -6954,8 +7252,8 @@ def chapitre_6(hero, screen, font, clock,sprites):
                 "Clotaire (légèrement amusé) : Tant d'efforts pour me défier en silence… Intéressant.", 
                 font, clock, sprite_clotaire
                 )
-                hero.get_relation("Kael").adjust_score(+10)
-                hero.get_relation("Clotaire").adjust_score(-5)
+                hero.get_relation("Kael").adjust_score(+10, screen, font, clock)
+                hero.get_relation("Clotaire").adjust_score(-5, screen, font, clock)
 
             elif choix == 2:  # Menacer Clotaire ouvertement
                 display_dialogue_box(screen, 
@@ -7021,9 +7319,9 @@ def chapitre_6(hero, screen, font, clock,sprites):
                     "Sa voix résonne dans la salle silencieuse. Le groupe reste figé, chacun conscient que cette querelle pourrait éclater à tout moment en une confrontation irréparable.", 
                     font, clock
                 )
-                hero.get_relation("Kael").adjust_score(+15)
-                hero.get_relation("Clotaire").adjust_score(-10)
-                hero.get_relation("Ayela").adjust_score(-5)
+                hero.get_relation("Kael").adjust_score(+15, screen, font, clock)
+                hero.get_relation("Clotaire").adjust_score(-10, screen, font, clock)
+                hero.get_relation("Ayela").adjust_score(-5, screen, font, clock)
 
 # Appel de la fonction
     clotaire_reaction_finale(hero, screen, font, clock, sprites)
@@ -7487,7 +7785,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 clock,
                 sprite_gallius
             )
-            hero.get_relation("Gallius").adjust_score(-5)
+            hero.get_relation("Gallius").adjust_score(-5, screen, font, clock)
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(
@@ -7497,7 +7795,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     clock,
                     sprite_velm
                 )
-                hero.get_relation("Velm").adjust_score(-5)
+                hero.get_relation("Velm").adjust_score(-5, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(
@@ -7507,7 +7805,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     clock,
                     sprite_brandio
                 )
-                hero.get_relation("Brandio").adjust_score(+10)
+                hero.get_relation("Brandio").adjust_score(+10, screen, font, clock)
 
         elif choix == 1:  # Observer et attendre une faille
             display_dialogue_box(
@@ -7532,7 +7830,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     clock,
                     sprite_velm
                 )
-                hero.get_relation("Velm").adjust_score(+10)
+                hero.get_relation("Velm").adjust_score(+10, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(
@@ -7542,7 +7840,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     clock,
                     sprite_brandio
                 )
-                hero.get_relation("Brandio").adjust_score(-5)
+                hero.get_relation("Brandio").adjust_score(-5, screen, font, clock)
 
         elif choix == 2:  # Demander à Ayela de tirer une flèche
             display_dialogue_box(
@@ -7567,7 +7865,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     clock,
                     sprite_velm
                 )
-                hero.get_relation("Velm").adjust_score(+5)
+                hero.get_relation("Velm").adjust_score(+5, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(
@@ -7577,8 +7875,8 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     clock,
                     sprite_brandio
                 )
-                hero.get_relation("Brandio").adjust_score(-5)
-                hero.get_relation("Ayela").adjust_score(+5)
+                hero.get_relation("Brandio").adjust_score(-5, screen, font, clock)
+                hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
 
         # Post-choice
         display_dialogue_box(
@@ -7624,7 +7922,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(screen, "Velm (grinçant des dents) : Je n'ai pas besoin de conseils, surtout pas de sa part.", font, clock, sprite_velm)
-                hero.get_relation("Velm").adjust_score(-5)
+                hero.get_relation("Velm").adjust_score(-5, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(screen, "Brandio (murmurant) : Velm aurait couru droit dans le feu… Et il aurait survécu, lui.", font, clock, sprite_brandio)
@@ -7637,15 +7935,15 @@ def chapitre_7(hero, screen, font, clock,sprites):
             )
             hero.adjust_health(-3)
             display_dialogue_with_sprite(screen, "Ayela (soulagée) : Merci Aldric…", font, clock, sprite_ayela)
-            hero.get_relation("Ayela").adjust_score(+5)
+            hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(screen, "Velm (regardant Aldric) : Ça n'aurait pas suffi pour sauver Brandio.", font, clock, sprite_velm)
-                hero.get_relation("Velm").adjust_score(-5)
+                hero.get_relation("Velm").adjust_score(-5, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(screen, "Brandio (à voix basse) : Tu prends des coups… Mais c'est trop tard pour Velm.", font, clock, sprite_brandio)
-                hero.get_relation("Brandio").adjust_score(-5)
+                hero.get_relation("Brandio").adjust_score(-5, screen, font, clock)
 
         elif choix == 2:  # Contre-attaquer avec Gallius
             display_dialogue_box(
@@ -7654,15 +7952,15 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 font, clock
             )
             display_dialogue_with_sprite(screen, "Gallius : Il saigne… du feu ?", font, clock, sprite_gallius)
-            hero.get_relation("Gallius").adjust_score(+5)
+            hero.get_relation("Gallius").adjust_score(+5, screen, font, clock)
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(screen, "Velm : Il aurait aimé cette phrase, tu sais.", font, clock, sprite_velm)
-                hero.get_relation("Velm").adjust_score(+5)
+                hero.get_relation("Velm").adjust_score(+5, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(screen, "Brandio (croisant les bras) : Tsss… Quand je pense que Velm est mort par ta faute...J'espere sortir vivant pour te le faire payer.", font, clock, sprite_brandio)
-                hero.get_relation("Brandio").adjust_score(-5)
+                hero.get_relation("Brandio").adjust_score(-5, screen, font, clock)
             
         # Post-choix narration enrichie
         display_dialogue_box(
@@ -7750,7 +8048,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 "forçant le Gardien à reculer. Une partie de son armure se brise, révélant un noyau fragile.",
                 font, clock
             )
-            hero.get_relation("Ayela").adjust_score(+5)  # Relation renforcée
+            hero.get_relation("Ayela").adjust_score(+5, screen, font, clock)  # Relation renforcée
         elif choix == 2:
             display_dialogue_box(
             screen,
@@ -7761,7 +8059,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 "taillant le Gardien avec la précision d’une roue tranchante.",
                 font, clock
             )
-            hero.get_relation("Gallius").adjust_score(+5)  # Relation renforcée
+            hero.get_relation("Gallius").adjust_score(+5, screen, font, clock)  # Relation renforcée
             # Transition vers une nouvelle phase ou conclusion
         display_dialogue_box(
             screen,
@@ -7786,16 +8084,16 @@ def chapitre_7(hero, screen, font, clock,sprites):
             )
             display_dialogue_with_sprite(screen, "Ayela (soulagée) : Tu es cinglé… mais c'était magnifique.", font, clock, sprite_ayela)
             display_dialogue_with_sprite(screen, "Gallius (léger sourire) : Direct, J'aime ça...", font, clock, sprite_gallius)
-            hero.get_relation("Ayela").adjust_score(+15)
-            hero.get_relation("Gallius").adjust_score(+15)
+            hero.get_relation("Ayela").adjust_score(+15, screen, font, clock)
+            hero.get_relation("Gallius").adjust_score(+15, screen, font, clock)
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(screen, "Velm (hésitant) : Je suppose que Brandio aurait approuvé ce genre de folie…", font, clock, sprite_velm)
-                hero.get_relation("Velm").adjust_score(+15)
+                hero.get_relation("Velm").adjust_score(+15, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(screen, "Brandio (fixant les cendres du gardien) : Velm aurait ri… Je crois qu'il te pardonnerait aussi.", font, clock, sprite_brandio)
-                hero.get_relation("Brandio").adjust_score(+15)
+                hero.get_relation("Brandio").adjust_score(+15, screen, font, clock)
 
         elif choix == 1:  # Ayela tire une flèche au cœur
             display_dialogue_box(
@@ -7805,15 +8103,15 @@ def chapitre_7(hero, screen, font, clock,sprites):
             )
             hero.adjust_health(-20)
             display_dialogue_with_sprite(screen, "Ayela (accourant vers Aldric) : Aldric ! Ça va ?", font, clock, sprite_ayela)
-            hero.get_relation("Ayela").adjust_score(+25)
+            hero.get_relation("Ayela").adjust_score(+25, screen, font, clock)
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(screen, "Velm (observant Ayela) : Ça, c'est du tir.", font, clock, sprite_velm)
-                hero.get_relation("Velm").adjust_score(+10)
+                hero.get_relation("Velm").adjust_score(+10, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(screen, "Brandio (amusé) : Ah, cette fille est dangereuse… Je suppose que Velm aurait applaudi.", font, clock, sprite_brandio)
-                hero.get_relation("Brandio").adjust_score(+10)
+                hero.get_relation("Brandio").adjust_score(+10, screen, font, clock)
 
         elif choix == 2:  # Gallius se hâte sur le cœur et donne une pluie de coups
             display_dialogue_box(
@@ -7822,15 +8120,15 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 font, clock
             )
             display_dialogue_with_sprite(screen, "Gallius (grimaçant) : C'est maintenant ou jamais, Aldric !", font, clock, sprite_gallius)
-            hero.get_relation("Gallius").adjust_score(+20)
+            hero.get_relation("Gallius").adjust_score(+20, screen, font, clock)
 
             if hero.get_relation("Velm"):
                 display_dialogue_with_sprite(screen, "Velm (fonçant) : Je suis pas aveugle !", font, clock, sprite_velm)
-                hero.get_relation("Velm").adjust_score(+20)
+                hero.get_relation("Velm").adjust_score(+20, screen, font, clock)
 
             if hero.get_relation("Brandio"):
                 display_dialogue_with_sprite(screen, "Brandio (grinçant des dents) : J'arrive. Pas besoin de me presser.", font, clock, sprite_brandio)
-                hero.get_relation("Brandio").adjust_score(+20)
+                hero.get_relation("Brandio").adjust_score(+20, screen, font, clock)
 
         # Post-choix narration
         # Narration de la victoire
@@ -8194,7 +8492,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 "Aldric (souriant) : Hm...T'habitue pas trop..", 
                 font, clock, sprite_aldric
             )
-            hero.get_relation("Ayela").adjust_score(+30)
+            hero.get_relation("Ayela").adjust_score(+30, screen, font, clock)
 
         elif choix == 1:  # Tourner le dos
             display_dialogue_box(
@@ -8536,7 +8834,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 "Malgré ses efforts, la valve reste bloquée. La rafale devient plus intense, et le sablier accélère davantage.", 
                 font, clock
             )
-            hero.get_relation("Garen").adjust_score(-5)
+            hero.get_relation("Garen").adjust_score(-5, screen, font, clock)
 
         elif choix == 1:  # Emphyr aide Garen
             display_dialogue_with_sprite(screen, 
@@ -8551,8 +8849,8 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 "Ensemble, ils tournent la valve, et une note harmonieuse résonne enfin. Le sablier ralentit légèrement.", 
                 font, clock
             )
-            hero.get_relation("Emphyr").adjust_score(+10)
-            hero.get_relation("Garen").adjust_score(+5)
+            hero.get_relation("Emphyr").adjust_score(+10, screen, font, clock)
+            hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
 
         elif choix == 2:  # Clotaire sarcastique
             display_dialogue_with_sprite(screen, 
@@ -8567,7 +8865,7 @@ def chapitre_7(hero, screen, font, clock,sprites):
                 "Les tensions montent entre Kael et Clotaire, mais personne n’intervient. La valve reste bloquée, et le sablier s’accélère.", 
                 font, clock
             )
-            hero.get_relation("Clotaire").adjust_score(-10)
+            hero.get_relation("Clotaire").adjust_score(-10, screen, font, clock)
 
         # Conclusion
         display_dialogue_box(screen, 
@@ -9229,8 +9527,8 @@ def chapitre_7(hero, screen, font, clock,sprites):
                     "Archeon observe la scène sans intervenir, hochant légèrement la tête en signe d'approbation.", 
                     font, clock
                 ),
-                h.get_relation("Garen").adjust_score(+10),
-                h.get_relation("Archeon").adjust_score(+10)
+                h.get_relation("Garen").adjust_score(+10, screen, font, clock),
+                h.get_relation("Archeon").adjust_score(+10, screen, font, clock)
             ]
             ),
             (
@@ -9273,11 +9571,11 @@ def chapitre_7(hero, screen, font, clock,sprites):
                         "Durnir (calme) : Les enfants… Arrêtez cette folie. Ce n'est ni le lieu ni le moment.", 
                         font, clock, sprites["Durnir"]
                     ),
-                    h.get_relation("Clotaire").adjust_score(+20),
-                    h.get_relation("Kael").adjust_score(+20),
-                    h.get_relation("Ayela").adjust_score(-20),
-                    h.get_relation("Archeon").adjust_score(-20),
-                    h.get_relation("Garen").adjust_score(-20)
+                    h.get_relation("Clotaire").adjust_score(+20, screen, font, clock),
+                    h.get_relation("Kael").adjust_score(+20, screen, font, clock),
+                    h.get_relation("Ayela").adjust_score(-20, screen, font, clock),
+                    h.get_relation("Archeon").adjust_score(-20, screen, font, clock),
+                    h.get_relation("Garen").adjust_score(-20, screen, font, clock)
                 ]
             ),
             (
@@ -9481,10 +9779,10 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Archeon (en observant la boîte) : Cela n’arrive pas souvent. Garde cela à l’esprit, Aldric.", 
                     font, clock, sprites["Archeon"]
                 ),
-                h.get_relation("Zyn").adjust_score(+10),
-                h.get_relation("Yohna").adjust_score(+10),
-                h.get_relation("Durnir").adjust_score(+10),
-                h.get_relation("Archeon").adjust_score(+10)
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock),
+                h.get_relation("Durnir").adjust_score(+10, screen, font, clock),
+                h.get_relation("Archeon").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -9516,10 +9814,10 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Clotaire (narquois) : Ah ! Pour une fois, Aldric dit quelque chose d’intelligent.", 
                     font, clock, sprites["Clotaire"]
                 ),
-                h.get_relation("Garen").adjust_score(+5),
-                h.get_relation("Kael").adjust_score(+5),
-                h.get_relation("Ayela").adjust_score(+5),
-                h.get_relation("Clotaire").adjust_score(+5)
+                h.get_relation("Garen").adjust_score(+5, screen, font, clock),
+                h.get_relation("Kael").adjust_score(+5, screen, font, clock),
+                h.get_relation("Ayela").adjust_score(+5, screen, font, clock),
+                h.get_relation("Clotaire").adjust_score(+5, screen, font, clock)
             ]
         )
     ]
@@ -9773,7 +10071,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Aldric ressent une étrange familiarité dans ces paroles, comme si un souvenir lointain effleurait sa mémoire.",
                     font, clock
                 ),
-                h.get_relation("Archeon").adjust_score(+10)
+                h.get_relation("Archeon").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -9798,7 +10096,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Archeon ne détourne pas son regard, et Aldric sent une tension sourde dans l'air.",
                     font, clock
                 ),
-                h.get_relation("Archeon").adjust_score(-5)
+                h.get_relation("Archeon").adjust_score(-5, screen, font, clock)
             ]
         ),
         (
@@ -9890,19 +10188,19 @@ def chapitre_8(hero, screen, font, clock,sprites):
     # Garen se confie
     display_dialogue_with_sprite(
         screen,
-        "Garen (voix basse) : Je… Je t’ai vaguement dit pourquoi je suis là à l'étage 4. Pas pour echapper à un marriage, ni l’argent… C’est mon père.",
+        "Garen (voix basse) : Je… Je t’ai vaguement dit pourquoi je suis là à l'étage 4. Les dettes de mon père tout ça tout ça..",
         font, clock, sprites["Garen"]
     )
     display_dialogue_with_sprite(
         screen,
-        "Aldric (sérieux) : Ton père ?",
+        "Aldric (sérieux) : Ton père hein..",
         font, clock, sprites["Aldric"]
     )
     display_dialogue_with_sprite(
         screen,
-        "Garen (hésitant) : Mon frère est mort à la guerre. Depuis, c’est moi qui aurais dû… enfin, tu vois. "
+        "Garen (hésitant) : Mon frère est mort à la guerre de ce stupide empereur... Depuis, c’est moi qui aurais dû… enfin, tu vois. "
         "Mais mon père… il boit trop. Il frappe ma mère et ma petite sœur. Il vend des morceaux de la ferme pour rembourser ses dettes… "
-        "Bientôt, ils n’auront plus rien.",
+        "Bientôt, ils n’auront plus rien. Je dois prendre soin d'elles...",
         font, clock, sprites["Garen"]
     )
     display_dialogue_with_sprite(
@@ -9971,7 +10269,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Garen (riant nerveusement) : J’espère que tu dis vrai ! Merci, mon ami.", 
                     font, clock, sprites["Garen"]
                 ),
-                h.get_relation("Garen").adjust_score(+10)
+                h.get_relation("Garen").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -10027,7 +10325,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Il s'éloigne sans ajouter un mot, laissant Aldric seul, plongé dans ses réflexions silencieuses.",
                     font, clock
                 ),
-                h.get_relation("Garen").adjust_score(-10)
+                h.get_relation("Garen").adjust_score(-10, screen, font, clock)
             ]
         )
     ]
@@ -10072,6 +10370,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Aldric (intrigué) : Tu m’as dit que ta maison avait disparu après la guerre contre l'Empire du Nord…",
         font, clock, sprites["Aldric"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/kaelflash.webp", WIDTH, HEIGHT)
     display_dialogue_with_sprite(
         screen,
         "Kael (un rictus amer sur le visage) : Disparue ? Non. La Maison Sielmarr n’a jamais disparu… "
@@ -10111,6 +10410,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Kael se tait, laissant le vent emporter ses paroles. Il semble fragile, presque brisé, mais l’étincelle de colère brûle encore dans ses yeux.",
         font, clock
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/etage7.webp", WIDTH, HEIGHT)
     # Introduction des choix avec Kael
     display_dialogue_box(
         screen,
@@ -10199,7 +10499,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Aldric : Tu ne sais rien de moi.", 
                     font, clock, sprites["Aldric"]
                 ),
-                h.get_relation("Kael").adjust_score(-10)
+                h.get_relation("Kael").adjust_score(-10, screen, font, clock)
             ]
         )
     ]
@@ -10286,6 +10586,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Nos anciens ont été brûlés vifs, et ceux qui restaient ont fui dans les montagnes.",
         font, clock, sprites["Zyn"]
     )
+    background = fade_in_background(screen, "graphics/resources/backgrounds/yohnaflash.webp", WIDTH, HEIGHT)
     display_dialogue_with_sprite(
         screen,
         "Yohna (hoche la tête) : Nous étions des héros, et du jour au lendemain, nous sommes devenus des traîtres.",
@@ -10311,6 +10612,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Zyn (voix basse) : Nous, on ne veut pas survivre. On veut voir l’Empire brûler comme Yzunfarl.",
         font, clock, sprites["Zyn"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/etage7.webp", WIDTH, HEIGHT)
     # Introduction des choix avec les jumeaux
     display_dialogue_box(
         screen,
@@ -10348,8 +10650,8 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "(Zyn -10 Yohna +20)",
                     font, clock
                 ),
-                h.get_relation("Yohna").adjust_score(+20),
-                h.get_relation("Zyn").adjust_score(-10)
+                h.get_relation("Yohna").adjust_score(+20, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(-10, screen, font, clock)
             ]
         ),
         (
@@ -10380,8 +10682,8 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "(Zyn +10)",
                     font, clock
                 ),
-                h.get_relation("Yohna").adjust_score(-10),
-                h.get_relation("Zyn").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(-10, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -10411,8 +10713,8 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "(Zyn +10)",
                     font, clock
                 ),
-                h.get_relation("Yohna").adjust_score(+10),
-                h.get_relation("Zyn").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock)
             ]
         )
     ]
@@ -10550,7 +10852,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "(Relation Durnir +15)",
                     font, clock
                 ),
-                h.get_relation("Durnir").adjust_score(+15)
+                h.get_relation("Durnir").adjust_score(+15, screen, font, clock)
             ]
         ),
         (
@@ -10575,12 +10877,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Ce n’est pas toujours dans les pages que nous trouvons ce que nous cherchons.", 
                     font, clock, sprites["Durnir"]
                 ),
-                display_dialogue_box(
-                    screen,
-                    "(Relation Durnir +10)",
-                    font, clock
-                ),
-                h.get_relation("Durnir").adjust_score(+10)
+                h.get_relation("Durnir").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -10736,6 +11033,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Un orphelin qui volait pour survivre. C’était ça, ou crever de faim.",
         font, clock, sprites["Clotaire"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/clotaireflash.webp", WIDTH, HEIGHT)
     display_dialogue_box(
         screen,
         "Clotaire (perdu dans ses souvenirs) : Je vivais dans un bordel. C’étaient les filles là-bas qui m’ont élevé… "
@@ -10798,6 +11096,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Je leur ai dit qu’on quitterait cet Empire désolant et en lambeaux et qu’on irait là-bas ensemble.",
         font, clock, sprites["Clotaire"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/ileflash.webp", WIDTH, HEIGHT)
     display_dialogue_box(
         screen,
         "Clotaire laisse échapper un rire sans joie.",
@@ -10805,7 +11104,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
     )
     display_dialogue_with_sprite(
         screen,
-        "Clotaire : On y croyait. On a passé des années à amasser de quoi fuir. Sauf qu’on n’aura pas quitté cette tour tous les trois. "
+        "Clotaire : On y croyait. On a passé des années à courir après un rêve... Sauf qu’on n’aura pas quitté cette tour tous les trois. "
         "On devait récupérer l'artefact, si il existe... et partir loin... ni vu, ni connu... peu importe le moyen.",
         font, clock, sprites["Clotaire"]
     )
@@ -10822,7 +11121,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
     )
     display_dialogue_with_sprite(
         screen,
-        "Clotaire : Non. Il est mort avec eux. Ici... dans cette tour...",
+        "Clotaire : Non. Il est mort avec eux. Ici... dans cette tour...Tu peux garder ta satané carte, je vais avancé pour moi désormais.",
         font, clock, sprites["Clotaire"]
     )
     display_dialogue_box(
@@ -10838,12 +11137,13 @@ def chapitre_8(hero, screen, font, clock,sprites):
     display_dialogue_with_sprite(
         screen,
         "Clotaire (amèrement) : Peut-être. Mais ce monde, il n’a jamais eu de place pour nous. "
-        "On était juste trois rêveurs qui essayaient de s’en sortir. 10 ans plus tard ils sont morts et moi je radote de vieux souvenirs.",
+        "On était juste trois rêveurs qui essayaient de s’en sortir. 10 ans plus tard ils sont morts et moi je radote de vieux souvenirs. Tu dit ca pour te servir de moi, rien de plus..",
         font, clock, sprites["Clotaire"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/etage7.webp", WIDTH, HEIGHT)
     display_dialogue_box(
         screen,
-        "Un silence s’installe à nouveau, mais cette fois, il semble plus léger, comme si Emphyr avait réussi à alléger "
+        "Un silence s’installe à nouveau, mais cette fois, il semble plus léger, comme si Emphyr avait réussi à alléger un peu "
         "ne serait-ce qu’une partie du fardeau de Clotaire.",
         font, clock
     )
@@ -10872,7 +11172,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
     )
     display_dialogue_with_sprite(
         screen,
-        "Gallius : Ah… Il s’accroche encore. Je suppose qu’on doit tous porter nos fantômes d’une manière ou d’une autre.",
+        "Gallius : Ah… Il s’accroche encore. Je suppose qu’on doit tous porter nos fantômes d’une manière ou d’une autre. Mais en venant ici faut cané c'est tout.",
         font, clock, sprites["Gallius"]
     )
 
@@ -10903,6 +11203,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Gallius (léger sourire) : Je viens du sud, de Nauxziq'Aa. Là-bas, on dit que tant qu’il y a des hommes, il y aura toujours du travail.",
         font, clock, sprites["Gallius"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/gallius.webp", WIDTH, HEIGHT)
     display_dialogue_box(
         screen,
         "Il marque une pause, jouant distraitement avec la lame.",
@@ -10934,6 +11235,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Gallius : Alors je suis venu ici. J’me suis dit que la tour, c’était comme des congés. Tu vois, un peu de repos… au sommet du chaos.",
         font, clock, sprites["Gallius"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/etage7.webp", WIDTH, HEIGHT)
     # Dialogue avec Gallius : choix
     display_dialogue_box(
         screen,
@@ -10964,7 +11266,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Gallius semble amusé, mais une lueur plus sérieuse traverse brièvement ses yeux.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         ),
         (
@@ -10988,7 +11290,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Gallius s’appuie contre le pilier, l’air détendu, mais ses yeux restent perçants.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+10)
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -11013,7 +11315,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Un silence s’installe. Gallius garde un air impassible, mais Aldric sent un éclat de vérité dans ses mots.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+15)
+                h.get_relation("Gallius").adjust_score(+15, screen, font, clock)
             ]
         )
     ]
@@ -11114,6 +11416,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Emphyr (doucement) : Mais si tu veux savoir… Je travaille pour l’Empereur.",
         font, clock, sprites["Emphyr"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/vilmar.webp", WIDTH, HEIGHT)
     display_dialogue_box(
         screen,
         "Aldric marque une pause, surpris. Il fronce les sourcils, cherchant à déceler si elle plaisante.",
@@ -11130,6 +11433,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Emphyr (amusée) : Tu parles comme si tu connaissais l’Empire mieux que moi.",
         font, clock, sprites["Emphyr"]
     )
+    
     display_dialogue_with_sprite(
         screen,
         "Aldric : Je l’ai vu s’effondrer, en même temps que l’état mental de Vilmar II. "
@@ -11147,6 +11451,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
         "Emphyr (souriante) : C’est un autre de mes secrets.",
         font, clock, sprites["Emphyr"]
     )
+    background = fade_in_background(screen,"graphics/resources/backgrounds/etage7.webp", WIDTH, HEIGHT)
     # Dialogue avec Emphyr : choix
     display_dialogue_box(
         screen,
@@ -11174,7 +11479,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Emphyr (doucement) : Ce genre de garçons, avec un regard déterminé… Je les aime bien.",
                     font, clock, sprites["Emphyr"]
                 ),
-                h.get_relation("Emphyr").adjust_score(+20)
+                h.get_relation("Emphyr").adjust_score(+20, screen, font, clock)
             ]
         ),
         (
@@ -11196,7 +11501,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Emphyr : Tu apprends vite. Mais parfois, la survie impose des alliances.",
                     font, clock, sprites["Emphyr"]
                 ),
-                h.get_relation("Emphyr").adjust_score(+5)
+                h.get_relation("Emphyr").adjust_score(+5, screen, font, clock)
             ]
         ),
         (
@@ -11218,7 +11523,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Emphyr (à voix basse) : Il m’a recueillie. Pas directement… mais un prince électeur l’a fait.",
                     font, clock, sprites["Emphyr"]
                 ),
-                h.get_relation("Emphyr").adjust_score(-5)
+                h.get_relation("Emphyr").adjust_score(-5, screen, font, clock)
             ]
         )
     ]
@@ -11275,7 +11580,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Ayela rougit légèrement mais détourne le regard.",
                     font, clock
                 ),
-                h.get_relation("Ayela").adjust_score(+10)
+                h.get_relation("Ayela").adjust_score(+10, screen, font, clock)
             ]
         ),
         (
@@ -11292,7 +11597,6 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Ayela (hochant la tête) : Hm… Ouais. Ça se tient.",
                     font, clock, sprites["Ayela"]
                 ),
-                h.get_relation("Ayela").adjust_score(+0)
             ]
         )
     ]
@@ -11370,7 +11674,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Ayela : Mais maintenant… Je me demande si je verrai encore un matin.",
+        "Ayela : Mais maintenant… Je me demande si je verrai encore un matin. Si je vais sauvé mon village..vivre..Aldric j'ai peur..",
         font, clock, sprites["Ayela"]
     )
     choix_ayela_intime = [
@@ -11404,7 +11708,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     font, clock
                 ),
                 h.get_relation("Ayela").set_relationship_type("Romance"),
-                h.get_relation("Ayela").adjust_score(+10)
+                h.get_relation("Ayela").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -11432,7 +11736,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     font, clock
                 ),
                 h.get_relation("Ayela").set_relationship_type("Ami"),
-                h.get_relation("Ayela").adjust_score(-5)
+                h.get_relation("Ayela").adjust_score(-5, screen, font, clock)
             ]
         },
         {
@@ -11454,7 +11758,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Aldric tape doucement sur l’épaule d’Ayela, ramenant une atmosphère plus légère entre eux.",
                     font, clock
                 ),
-                h.get_relation("Ayela").adjust_score(+0)
+               
             ]
         }
     ]
@@ -11504,7 +11808,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Ayela sourit malicieusement, clairement satisfaite de la réponse.",
                     font, clock
                 ),
-                h.get_relation("Ayela").adjust_score(+5)
+                h.get_relation("Ayela").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -11520,7 +11824,6 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Ayela (levant un sourcil) : Hmph. J’espère que c’est vrai…",
                     font, clock, sprites["Ayela"]
                 ),
-                h.get_relation("Ayela").adjust_score(+0)
             ]
         }
     ]
@@ -11668,9 +11971,9 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Emphyr : Oh encore... Ça suffit Clotaire... Tes provocations ne riment à rien désormais.",
                     font, clock, sprites["Emphyr"]
                 ),
-                h.get_relation("Yohna").adjust_score(+10),
-                h.get_relation("Ayela").adjust_score(+10),
-                h.get_relation("Garen").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock),
+                h.get_relation("Ayela").adjust_score(+10, screen, font, clock),
+                h.get_relation("Garen").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -11696,10 +11999,10 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Zyn : Oui, entretuez-vous ! Je commençais à m'ennuyer !",
                     font, clock, sprites["Zyn"]
                 ),
-                h.get_relation("Kael").adjust_score(+10),
-                h.get_relation("Gallius").adjust_score(+10),
-                h.get_relation("Clotaire").adjust_score(+10),
-                h.get_relation("Zyn").adjust_score(+10)
+                h.get_relation("Kael").adjust_score(+10, screen, font, clock),
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock),
+                h.get_relation("Clotaire").adjust_score(+10, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -11808,7 +12111,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Aldric et Ayela s’installent dans un coin plus isolé de la salle. La chaleur du feu lointain, mélangée à leur proximité, offre un réconfort rare dans la tour.",
                     font, clock
                 ),
-                h.get_relation("Ayela").adjust_score(+10)
+                h.get_relation("Ayela").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -11845,11 +12148,11 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Dans ce cercle fragile, Aldric trouve une paix inattendue, même si ce n'est que pour quelques heures.",
                     font, clock
                 ),
-                h.get_relation("Garen").adjust_score(+10),
-                h.get_relation("Kael").adjust_score(+10),
-                h.get_relation("Gallius").adjust_score(+10),
-                h.get_relation("Yohna").adjust_score(+10),
-                h.get_relation("Zyn").adjust_score(+10)
+                h.get_relation("Garen").adjust_score(+10, screen, font, clock),
+                h.get_relation("Kael").adjust_score(+10, screen, font, clock),
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -12035,7 +12338,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                 "Garen (faiblement) : Merci… T’es le seul qui croit encore en moi.",
                 font, clock, sprites["Garen"]
             ),
-            h.get_relation("Garen").adjust_score(+10)
+            h.get_relation("Garen").adjust_score(+10, screen, font, clock)
         ]
     },
     {
@@ -12051,7 +12354,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                 "Garen (murmure) : Ouais… Adieu, Aldric. Juste au cas où.",
                 font, clock, sprites["Garen"]
             ),
-            h.get_relation("Garen").adjust_score(-10)
+            h.get_relation("Garen").adjust_score(-10, screen, font, clock)
         ]
     }
     ]
@@ -12259,7 +12562,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Archeon (se tournant légèrement) : Tu comprends vite, mais c'est à toi de t'en rendre compte. D'où l'acquisition d'un Elix, il est impossible de continuer sans..",
                     font, clock, sprites["Archeon"]
                 ),
-                h.get_relation("Archeon").adjust_score(+10)
+                h.get_relation("Archeon").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -12297,7 +12600,7 @@ def chapitre_8(hero, screen, font, clock,sprites):
                     "Archeon (souriant) : À toi de le découvrir.",
                     font, clock, sprites["Archeon"]
                 ),
-                h.get_relation("Archeon").adjust_score(-5)
+                h.get_relation("Archeon").adjust_score(-5, screen, font, clock)
             ]
         },
         {
@@ -12643,14 +12946,14 @@ def chapitre_9(hero, screen, font, clock,sprites):
     fade_in_music("graphics/resources/music/Medusa.mp3", max_volume=0.2, fade_duration=1000)
     clear_screen(screen)
     fade_in_text(screen, 
-             "Chapitre 8 : Pairs ou impair - Etage 8/99", 
+             "Chapitre 9 : Pair ou perdre - Etage 8/99", 
              font, 
              (WIDTH // 2, HEIGHT // 2),  # Centré sur l'écran
              duration=3000)
     fade_out_text(screen, 3000, fade_speed=2)
     pygame.time.wait(1000)
     
-    background = fade_in_background(screen,"graphics/resources/backgrounds/finsalle7.webp", WIDTH, HEIGHT)
+    background = fade_in_background(screen,"graphics/resources/backgrounds/arene1.webp", WIDTH, HEIGHT)
     
     # Introduction de l'étage 8
     display_dialogue_box(
@@ -12719,7 +13022,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Zyn (croisant les bras) : Ça va être intéressant.",
         font, clock, sprites["Zyn"]
     )
-
+    background = fade_in_background(screen,"graphics/resources/backgrounds/doors.webp", WIDTH, HEIGHT)
     # Présence des deux portes
     display_dialogue_box(
         screen,
@@ -12741,7 +13044,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Cette épreuve est simple : un tournoi.",
         font, clock, sprites["Archeon"]
     )
-
+    background = fade_in_background(screen,"graphics/resources/backgrounds/arene1.webp", WIDTH, HEIGHT)
     display_dialogue_with_sprite(
         screen,
         "Archeon : Chacun d'entre vous devra affronter un autre participant. "
@@ -12878,7 +13181,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
             "Garen (soulagé) : Ouais… T’as peut-être raison. Merci Aldric.",
             font, clock, sprites["Garen"]
         )
-        hero.get_relation("Garen").adjust_score(+10)
+        hero.get_relation("Garen").adjust_score(+10, screen, font, clock)
 
     elif choix == 1:  # Honnêteté
         display_dialogue_with_sprite(
@@ -12897,8 +13200,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
             "Garen (baissant la tête) : J’aurais aimé ne pas l’entendre…",
             font, clock, sprites["Garen"]
         )
-        hero.get_relation("Ayela").adjust_score(-5)
-        hero.get_relation("Garen").adjust_score(-5)
+        hero.get_relation("Ayela").adjust_score(-5, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(-5, screen, font, clock)
 
     elif choix == 2:  # Déterminé
         display_dialogue_with_sprite(
@@ -12916,10 +13219,11 @@ def chapitre_9(hero, screen, font, clock,sprites):
             "Garen (timidement) : C’est… rassurant de t’entendre dire ça.",
             font, clock, sprites["Garen"]
         )
-        hero.get_relation("Ayela").adjust_score(+10)
-        hero.get_relation("Garen").adjust_score(+5)
+        hero.get_relation("Ayela").adjust_score(+10, screen, font, clock)
+        hero.get_relation("Garen").adjust_score(+5, screen, font, clock)
 
 # 🎴 Tirage au sort des participants
+    background = fade_in_background(screen,"graphics/resources/backgrounds/pot.webp", WIDTH, HEIGHT)
     display_dialogue_box(
         screen,
         "Archeon claque des doigts. Un vase de cristal orné de runes anciennes apparaît au centre de la salle, "
@@ -13002,7 +13306,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Archeon : Clotaire.",
         font, clock, sprites["Archeon"]
     )
-
+    background = fade_in_background(screen,"graphics/resources/backgrounds/arene1.webp", WIDTH, HEIGHT)
     # 🎴 Réactions de Clotaire et Emphyr
     display_dialogue_box(
         screen,
@@ -13053,10 +13357,10 @@ def chapitre_9(hero, screen, font, clock,sprites):
                 ),
                 display_dialogue_with_sprite(
                     screen,
-                    "Ayela (hochement de tête) : Je sais… mais je peux le battre. Je ne me laisserai pas avoir.",
+                    "Ayela (hochement de tête) : Je sais… mais je peux le battre. Je ne me laisserai pas avoir par sa fourberie.",
                     font, clock, sprites["Ayela"]
                 ),
-                h.get_relation("Ayela").adjust_score(+10)
+                h.get_relation("Ayela").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -13072,7 +13376,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Ayela (fixant Aldric) : Je croyais que tu avais plus de foi en moi…",
                     font, clock, sprites["Ayela"]
                 ),
-                h.get_relation("Ayela").adjust_score(-20)
+                h.get_relation("Ayela").adjust_score(-20, screen, font, clock)
             ]
         },
         {
@@ -13089,7 +13393,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Ayela (souriant tendrement) : Tu pourrais me donner envie de survivre, tu sais…",
                     font, clock, sprites["Ayela"]
                 ),
-                h.get_relation("Ayela").adjust_score(+15)
+                h.get_relation("Ayela").adjust_score(+15, screen, font, clock)
             ]
         },
         {
@@ -13111,7 +13415,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Elle presse doucement la main d’Aldric avant de s’éloigner, sans se retourner.",
                     font, clock
                 ),
-                h.get_relation("Ayela").adjust_score(+20)
+                h.get_relation("Ayela").adjust_score(+20, screen, font, clock)
             ]
         }
     ]
@@ -13138,7 +13442,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Archeon (d’une voix forte, levant le bras) : Le duel commence… maintenant !",
         font, clock, sprites["Archeon"]
     )
-
+    fade_out_music(fade_duration=1000)
+    fade_in_music("graphics/resources/music/tournoi1.mp3", max_volume=0.3, fade_duration=1000)
     display_dialogue_box(
         screen,
         "Les torches s'embrasent une à une autour de l’arène. "
@@ -13146,7 +13451,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
         "Clotaire, de l'autre côté, ajuste son épée à sa ceinture sans se presser, ses yeux rivés sur elle avec une intensité glaciale.",
         font, clock
     )
-
+    background = fade_in_background(screen,"graphics/resources/backgrounds/cvsa.webp", WIDTH, HEIGHT)
     display_dialogue_with_sprite(
         screen,
         "Clotaire (sourire en coin) : On va bien s’amuser, Ayela… Je vais te faire danser comme Brandio et Velm n’ont jamais pu le faire.",
@@ -13300,7 +13605,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Il se transpose rapidement, un pouvoir fourbe mais puissant s'il est bien utilisé.",
                     font, clock, sprites["Durnir"]
                 ),
-                h.get_relation("Durnir").adjust_score(+10)
+                h.get_relation("Durnir").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -13628,8 +13933,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna hoche la tête doucement, lançant un regard respectueux vers Ayela.",
                     font, clock
                 ),
-                h.get_relation("Yohna").adjust_score(+5),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(+5, screen, font, clock),
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -13660,9 +13965,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Garen essuie ses larmes d'un revers de la main, trouvant du réconfort dans ces mots.",
                     font, clock
                 ),
-                h.get_relation("Clotaire").adjust_score(-5),
-                h.get_relation("Emphyr").adjust_score(-5),
-                h.get_relation("Garen").adjust_score(+5)
+                h.get_relation("Clotaire").adjust_score(-5, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(-5, screen, font, clock),
+                h.get_relation("Garen").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -13684,11 +13989,11 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "observe Aldric avec une lueur d'admiration.",
                     font, clock
                 ),
-                h.get_relation("Clotaire").adjust_score(+10),
-                h.get_relation("Emphyr").adjust_score(+10),
-                h.get_relation("Yohna").adjust_score(+5),
-                h.get_relation("Gallius").adjust_score(+5),
-                h.get_relation("Garen").adjust_score(-5)
+                h.get_relation("Clotaire").adjust_score(+10, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(+10, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(+5, screen, font, clock),
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock),
+                h.get_relation("Garen").adjust_score(-5, screen, font, clock)
             ]
         }
     ]
@@ -13966,9 +14271,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Durnir (riant doucement) : Hahaha, ne me sous-estime pas gamin !",
                     font, clock, sprites["Durnir"]
                 ),
-                h.get_relation("Yohna").adjust_score(+10),
-                h.get_relation("Zyn").adjust_score(+10),
-                h.get_relation("Durnir").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock),
+                h.get_relation("Durnir").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -13989,9 +14294,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Emphyr (froidement) : Yohna n’a aucune chance.",
                     font, clock, sprites["Emphyr"]
                 ),
-                h.get_relation("Yohna").adjust_score(-5),
-                h.get_relation("Zyn").adjust_score(-5),
-                h.get_relation("Durnir").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(-5, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(-5, screen, font, clock),
+                h.get_relation("Durnir").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -14186,7 +14491,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Garen (baissant les yeux) : Ouais… Impulsif ou pas, il a plus d’expérience que moi.",
                     font, clock, sprites["Garen"]
                 ),
-                h.get_relation("Zyn").adjust_score(+5)
+                h.get_relation("Zyn").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -14208,7 +14513,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Garen (pâle) : Euh… Je préférerais éviter Gallius.",
                     font, clock, sprites["Garen"]
                 ),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -14230,7 +14535,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Garen (grimace) : Super… Vraiment rassurant.",
                     font, clock, sprites["Garen"]
                 ),
-                h.get_relation("Emphyr").adjust_score(+5)
+                h.get_relation("Emphyr").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -14251,7 +14556,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Garen (déglutit) : C’est bien ce qui me fait peur.",
                     font, clock, sprites["Garen"]
                 ),
-                h.get_relation("Kael").adjust_score(+5)
+                h.get_relation("Kael").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -14272,7 +14577,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Aldric (clin d’œil) : Va savoir…",
                     font, clock, sprites["Aldric"]
                 ),
-                h.get_relation("Garen").adjust_score(+5)
+                h.get_relation("Garen").adjust_score(+5, screen, font, clock)
             ]
         }
     ]
@@ -14448,9 +14753,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn (hochant la tête) : Je suis d’accord. Kael est méthodique. Garen va devoir se surpasser.",
                     font, clock, sprites["Zyn"]
                 ),
-                h.get_relation("Zyn").adjust_score(+10),
-                h.get_relation("Kael").adjust_score(+10),
-                h.get_relation("Garen").adjust_score(-10)
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock),
+                h.get_relation("Kael").adjust_score(+10, screen, font, clock),
+                h.get_relation("Garen").adjust_score(-10, screen, font, clock)
             ]
         },
         {
@@ -14466,8 +14771,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn (sceptique) : Hm… On verra. Mais s’il gagne, ça sera de justesse.",
                     font, clock, sprites["Zyn"]
                 ),
-                h.get_relation("Garen").adjust_score(+10),
-                h.get_relation("Kael").adjust_score(-10)
+                h.get_relation("Garen").adjust_score(+10, screen, font, clock),
+                h.get_relation("Kael").adjust_score(-10, screen, font, clock)
             ]
         }
     ]
@@ -14645,7 +14950,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Kael (à Garen) : Tu aurais dû rester à traire les vaches. Ton frère aurait eu plus de chance ici que toi.",
                     font, clock, sprites["Kael"]
                 ),
-                h.get_relation("Garen").adjust_score(-20)
+                h.get_relation("Garen").adjust_score(-20, screen, font, clock)
             ]
         },
         {
@@ -14671,7 +14976,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Kael s’avance, rapière prête à fondre sur Garen pour finir le combat.",
                     font, clock
                 ),
-                h.get_relation("Kael").adjust_score(+10)
+                h.get_relation("Kael").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -15234,8 +15539,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius esquisse un sourire en coin depuis son coin sombre.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+10),
-                h.get_relation("Emphyr").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -15251,8 +15556,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn croise les bras avec un sourire assuré, défiant Aldric du regard.",
                     font, clock
                 ),
-                h.get_relation("Zyn").adjust_score(+10),
-                h.get_relation("Yohna").adjust_score(+10)
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15268,7 +15573,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Emphyr esquisse un sourire énigmatique mais ne dit rien, laissant planer un mystère.",
                     font, clock
                 ),
-                h.get_relation("Emphyr").adjust_score(+10)
+                h.get_relation("Emphyr").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15284,8 +15589,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius rit doucement en entendant la remarque, amusé par la tension qu’il inspire.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+10),
-                h.get_relation("Yohna").adjust_score(-5)
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(-5, screen, font, clock)
             ]
         },
         {
@@ -15301,9 +15606,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn hausse les épaules avec désinvolture, lançant un regard perçant à Gallius.",
                     font, clock
                 ),
-                h.get_relation("Zyn").adjust_score(+5),
-                h.get_relation("Yohna").adjust_score(-5),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Zyn").adjust_score(+5, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(-5, screen, font, clock),
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -15319,8 +15624,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Emphyr adresse un regard perçant à Yohna mais reste impassible.",
                     font, clock
                 ),
-                h.get_relation("Zyn").adjust_score(+10),
-                h.get_relation("Emphyr").adjust_score(-5)
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(-5, screen, font, clock)
             ]
         }
     ]
@@ -15359,7 +15664,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn : Bonne réponse. Mais cela ne rendra pas la tâche plus facile.",
                     font, clock, sprites["Zyn"]
                 ),
-                h.get_relation("Zyn").adjust_score(+10)
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15375,7 +15680,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Emphyr : Tu veux en savoir plus… Je te laisserai deviner quand l’heure viendra.",
                     font, clock, sprites["Emphyr"]
                 ),
-                h.get_relation("Emphyr").adjust_score(+10)
+                h.get_relation("Emphyr").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15391,7 +15696,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius : T’as du flair, Aldric. (il renifle sa dague en regardant Aldric) J'aime ça...",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(+10)
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -15461,8 +15766,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna (souriante) : Exactement ! Il va lui montrer ce qu’un véritable invokeur peut faire.",
                     font, clock, sprites["Yohna"]
                 ),
-                h.get_relation("Yohna").adjust_score(+10),
-                h.get_relation("Zyn").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock),
+                h.get_relation("Zyn").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15478,9 +15783,9 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna (grommelant) : Hmph. Vous allez voir.",
                     font, clock, sprites["Yohna"]
                 ),
-                h.get_relation("Kael").adjust_score(+10),
-                h.get_relation("Yohna").adjust_score(-5),
-                h.get_relation("Emphyr").adjust_score(+5)
+                h.get_relation("Kael").adjust_score(+10, screen, font, clock),
+                h.get_relation("Yohna").adjust_score(-5, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -15496,8 +15801,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Durnir hoche la tête en silence, observant Emphyr du coin de l’œil.",
                     font, clock
                 ),
-                h.get_relation("Durnir").adjust_score(+5),
-                h.get_relation("Emphyr").adjust_score(+5)
+                h.get_relation("Durnir").adjust_score(+5, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(+5, screen, font, clock)
             ]
         }
     ]
@@ -15537,7 +15842,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
 
     display_dialogue_with_sprite(
         screen,
-        "Emphyr (doucement) : Tu es jeune… et un imbécile. Tu as déjà perdu.",
+        "Emphyr (doucement) : Les invokeurs de Yzunfarl...Oh mais je vous connait très bien..Et tu as déjà perdu.",
         font, clock, sprites["Emphyr"]
     )
 
@@ -15661,7 +15966,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna serre un peu plus la main de son frère, les larmes coulant silencieusement.", 
                     font, clock
                 ),
-                h.get_relation("Yohna").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15678,7 +15983,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn (faiblement) : C’est tout ce que je veux… Qu’elle survive.", 
                     font, clock, sprites["Zyn"]
                 ),
-                h.get_relation("Yohna").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock)
             ]
         },
         {
@@ -15695,7 +16000,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Zyn (murmurant) : Prenez soin d’elle… Je vous en prie.", 
                     font, clock, sprites["Zyn"]
                 ),
-                h.get_relation("Yohna").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(+5, screen, font, clock)
             ]
         }
     ]
@@ -15921,8 +16226,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Durnir (riant doucement) : 'Ce gamin… Il a du potentiel. Trop de potentiel pour son propre bien.'",
                     font, clock, sprites["Durnir"]
                 ),
-                h.get_relation("Gallius").adjust_score(+5),
-                h.get_relation("Durnir").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock),
+                h.get_relation("Durnir").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -15950,7 +16255,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Il faudra juste qu’il apprenne à la contrôler.'",
                     font, clock, sprites["Durnir"]
                 ),
-                h.get_relation("Durnir").adjust_score(+5)
+                h.get_relation("Durnir").adjust_score(+5, screen, font, clock)
             ]
         }
     ]
@@ -16445,7 +16750,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius (léchant le sang) : Pas mal… Ça devient intéressant.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -16582,7 +16887,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius : T’as raison. On verra bien qui fatigue en premier.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -16723,7 +17028,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius (s’essuyant la bouche) : Hah… Peut-être bien.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Durnir").adjust_score(+5)
+                h.get_relation("Durnir").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -16740,7 +17045,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius se redresse, prêt à enchaîner une nouvelle attaque.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         }
     ]
@@ -16916,7 +17221,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius (baissant la tête) : Mais tu as raison… C’est autre chose.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(-5)
+                h.get_relation("Gallius").adjust_score(-5, screen, font, clock)
             ]
         },
         {
@@ -16936,7 +17241,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Il ferme brièvement les yeux, comme s’il cherchait ses mots.",
                     font, clock
                 ),
-                h.get_relation("Gallius").adjust_score(+10)
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -17074,7 +17379,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius (sec, mais reconnaissant) : T’inquiète pas pour moi, Aldric. Même éliminé, je trouverai un moyen.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(+5)
+                h.get_relation("Gallius").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -17090,7 +17395,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius (agacé) : Tu ne comprends pas, Aldric. Ce n’est pas qu’une question de choix.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(-5)
+                h.get_relation("Gallius").adjust_score(-5, screen, font, clock)
             ]
         },
         {
@@ -17112,7 +17417,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Gallius (calme) : T’es un type bien, Aldric. Merci.",
                     font, clock, sprites["Gallius"]
                 ),
-                h.get_relation("Gallius").adjust_score(+10)
+                h.get_relation("Gallius").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -17495,7 +17800,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Mais malgré ses mots, une étincelle de regret brille dans ses yeux.",
                     font, clock
                 ),
-                h.get_relation("Garen").adjust_score(+5)
+                h.get_relation("Garen").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -17516,8 +17821,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Il baisse les yeux, cherchant ses mots, mais finit par lâcher un soupir de résignation.",
                     font, clock
                 ),
-                h.get_relation("Garen").adjust_score(-5),
-                h.get_relation("Kael").adjust_score(+5)
+                h.get_relation("Garen").adjust_score(-5, screen, font, clock),
+                h.get_relation("Kael").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -17538,7 +17843,6 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Son sourire triste en dit long sur ses pensées.",
                     font, clock
                 ),
-                h.get_relation("Garen").adjust_score(+0)
             ]
         }
     ]
@@ -17631,7 +17935,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna (hésitant, baissant les yeux) : …Je suppose que tu as raison.",
                     font, clock, sprites["Yohna"]
                 ),
-                h.get_relation("Yohna").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -17659,8 +17963,8 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna : Toi la ferme...!",
                     font, clock, sprites["Yohna"]
                 ),
-                h.get_relation("Yohna").adjust_score(+5),
-                h.get_relation("Emphyr").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(+5, screen, font, clock),
+                h.get_relation("Emphyr").adjust_score(+5, screen, font, clock)
             ]
         },
         {
@@ -17678,7 +17982,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Yohna (émue, relevant les yeux) : …Merci, Aldric. Vraiment.",
                     font, clock, sprites["Yohna"]
                 ),
-                h.get_relation("Yohna").adjust_score(+10)
+                h.get_relation("Yohna").adjust_score(+10, screen, font, clock)
             ]
         }
     ]
@@ -17827,7 +18131,7 @@ def chapitre_9(hero, screen, font, clock,sprites):
                     "Peut-être que ça nous fera du bien.",
                     font, clock, sprites["Garen"]
                 ),
-                h.get_relation("Yohna").adjust_score(+5)
+                h.get_relation("Yohna").adjust_score(+5, screen, font, clock)
             ]
         }
     ]
