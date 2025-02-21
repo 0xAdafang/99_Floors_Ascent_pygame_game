@@ -1,7 +1,6 @@
 import pygame
 import sys
 from notify import notify_change
-o
 
 
 import pygame
