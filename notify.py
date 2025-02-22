@@ -2,7 +2,7 @@ import pygame
 import sys
 
 active_notifications = []
-dd
+
 
 def wrap_text(text, font, max_width):
     """
