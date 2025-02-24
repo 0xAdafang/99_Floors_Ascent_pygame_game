@@ -3,7 +3,7 @@ import os
 import pygame
 from classes import *
 from classes import Heros, Relation, Character
-k
+
 
 
 SAVE_DIR = "saves"  # Dossier de sauvegarde
