@@ -1,6 +1,6 @@
 import pygame
 import sys
-1
+
 active_notifications = []
 
 
