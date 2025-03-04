@@ -3,7 +3,7 @@ import sys
 from notify import notify_change
 import pygame
 
-
+q
 
 class Entity:
     def __init__(self, name, sprite_path, pos):
